@@ -1,18 +1,14 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>Welcome to DMap</h1>
+    <h2>The Machine-actionable Data Management planning application</h2>
+    <p>DMap assists you in creating Data Management Plans (DMPs) for your research projects.</p>
+    <BaseButton buttonClass="-fill-gradient">Get started</BaseButton>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
-  name: 'home',
-  components: {
-    HelloWorld
-  }
+  name: 'home'
 }
 </script>

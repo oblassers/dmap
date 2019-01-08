@@ -1,0 +1,43 @@
+{
+	"dmps": [
+	  {
+      "id": 1,
+      "projectName" : "Example Project 1",
+      "projectStart" : "May 23 2018",
+      "projectEnd" : "Aug 31 2019",
+      "funder" : "FFG",
+      "fundingStatus" : "funded",
+      "principalInvestigator" : "John Doe",
+      "myRole" : "PI",
+      "created" : "2018-10-25T23:15:30.000Z",
+      "modified" : "2018-11-01T14:32:25.000Z",
+      "dmpGranularity" : "initial"
+    },
+    {
+      "id": 2,
+      "projectName" : "Example Project 2",
+      "projectStart" : "Jan 14 2017",
+      "projectEnd" : "Dec 31 2018",
+      "funder" : "FWF",
+      "fundingStatus" : "funded",
+      "principalInvestigator" : "Herbert Arnold",
+      "myRole" : "Data Manager",
+      "created" : "2017-06-02T22:55:50.000Z",
+      "modified" : "2018-10-14T16:37:56.000Z",
+      "dmpGranularity" : "detailed"
+    },
+    {
+      "id": 3,
+      "projectName" : "Example Project 3",
+      "projectStart" : "Feb 26 2016",
+      "projectEnd" : "Mar 01 2018",
+      "funder" : "FWF",
+      "fundingStatus" : "funded",
+      "principalInvestigator" : "Esther Mcgee",
+      "myRole" : "Co-PI",
+      "created" : "2016-04-13T13:45:50.000Z",
+      "modified" : "2018-03-20T20:14:12.000Z",
+      "dmpGranularity" : "sophisticated"
+    }
+	]
+}
