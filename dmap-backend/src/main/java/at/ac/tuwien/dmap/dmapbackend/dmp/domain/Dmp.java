@@ -1,24 +1,71 @@
 package at.ac.tuwien.dmap.dmapbackend.dmp.domain;
 
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.math.BigInteger;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Document
 public class Dmp {
 
+    @Id
+    private String id;
+
+    @CreatedDate
+    private LocalDateTime created;
+
+    @LastModifiedDate
+    private LocalDateTime lastUpdate;
+
+    private StaffMember contactPerson;
+
+    @DBRef
+    private List<Project> researchProjects;
+
     public Dmp() {
     }
 
-    @Id
-    private BigInteger id;
-
-    public BigInteger getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
+    public LocalDateTime getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(LocalDateTime lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public StaffMember getContactPerson() {
+        return contactPerson;
+    }
+
+    public void setContactPerson(StaffMember contactPerson) {
+        this.contactPerson = contactPerson;
+    }
+
+    public List<Project> getResearchProjects() {
+        return researchProjects;
+    }
+
+    public void setResearchProjects(List<Project> researchProjects) {
+        this.researchProjects = researchProjects;
     }
 }

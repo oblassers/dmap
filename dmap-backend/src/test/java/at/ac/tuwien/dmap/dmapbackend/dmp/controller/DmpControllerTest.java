@@ -1,4 +1,4 @@
-package at.ac.tuwien.dmap.dmapbackend.controller;
+package at.ac.tuwien.dmap.dmapbackend.dmp.controller;
 
 import at.ac.tuwien.dmap.dmapbackend.DmapBackendApplication;
 import io.restassured.RestAssured;
@@ -19,7 +19,7 @@ import static org.hamcrest.Matchers.is;
         classes = DmapBackendApplication.class,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
-public class BackendControllerTest {
+public class DmpControllerTest {
 
     @LocalServerPort
     private int port;
@@ -33,10 +33,10 @@ public class BackendControllerTest {
     @Test
     public void saysHello() {
         when()
-                .get("/api/hello")
+                .get("/dmps/hello")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .assertThat()
-                .body(is(equalTo(BackendController.HELLO_TEXT)));
+                .body(is(equalTo(DmpController.HELLO_TEXT)));
     }
 }

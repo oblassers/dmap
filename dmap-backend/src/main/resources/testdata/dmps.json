@@ -1,0 +1,15 @@
+[
+  {
+    "_id": "456",
+    "_class": "at.ac.tuwien.dmap.dmapbackend.dmp.domain.Dmp",
+    "created": "2018-12-03T10:15:30",
+    "lastUpdate": "2019-01-23T16:05:10",
+    "contactPerson": {
+      "firstName": "Simon",
+      "lastName": "Oblasser",
+      "title": "Mr",
+      "email": "simon.oblasser@tuwien.ac.at",
+      "role": "DATA_MANAGER"
+    }
+  }
+]
