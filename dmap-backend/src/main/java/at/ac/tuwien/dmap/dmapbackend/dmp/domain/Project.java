@@ -1,7 +1,6 @@
 package at.ac.tuwien.dmap.dmapbackend.dmp.domain;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
@@ -21,10 +20,6 @@ public class Project {
 
     private LocalDate projectEnd;
 
-    @DBRef
-    private List<StaffMember> projectStaff;
-
-    @DBRef
     private List<Funding> fundings;
 
     public Project() {
@@ -68,14 +63,6 @@ public class Project {
 
     public void setProjectEnd(LocalDate projectEnd) {
         this.projectEnd = projectEnd;
-    }
-
-    public List<StaffMember> getProjectStaff() {
-        return projectStaff;
-    }
-
-    public void setProjectStaff(List<StaffMember> projectStaff) {
-        this.projectStaff = projectStaff;
     }
 
     public List<Funding> getFundings() {

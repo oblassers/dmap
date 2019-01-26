@@ -1,0 +1,20 @@
+[
+  {
+    "id" : "5c4b45eed4fdfff16cb8ed6b",
+    "title" : "Test Project",
+    "description" : "This is some random abstract..",
+    "projectStart" : "2019-01-17T23:00:00.000Z",
+    "projectEnd" : "2019-01-31T23:00:00.000Z",
+    "fundings" : [
+      {
+        "fundingType" : "Grant funds",
+        "funderName" : "FWF"
+      },
+      {
+        "fundingType" : "Federal state Vienna",
+        "funderName" : "WWTF"
+      }
+    ],
+    "_class" : "at.ac.tuwien.dmap.dmapbackend.dmp.domain.Project"
+  }
+]

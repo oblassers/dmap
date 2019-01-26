@@ -25,6 +25,8 @@ public class DmapBackendApplication {
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		factory.setMapper(objectMapper);
 		factory.setResources(new Resource[] {
+				new ClassPathResource("testdata/staffmembers.json"),
+				new ClassPathResource("testdata/projects.json"),
 				new ClassPathResource("testdata/dmps.json")
 		});
 		return factory;

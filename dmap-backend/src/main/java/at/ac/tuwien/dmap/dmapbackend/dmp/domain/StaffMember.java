@@ -3,8 +3,6 @@ package at.ac.tuwien.dmap.dmapbackend.dmp.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.math.BigInteger;
-
 @Document
 public class StaffMember {
 
@@ -19,9 +17,15 @@ public class StaffMember {
 
     private String email;
 
-    private StaffRole role;
-
     public StaffMember() {
+    }
+
+    public StaffMember(String id, String firstName, String lastName, String title, String email) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.title = title;
+        this.email = email;
     }
 
     public String getId() {
@@ -62,13 +66,5 @@ public class StaffMember {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public StaffRole getRole() {
-        return role;
-    }
-
-    public void setRole(StaffRole role) {
-        this.role = role;
     }
 }

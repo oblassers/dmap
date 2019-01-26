@@ -1,15 +1,28 @@
 [
   {
-    "_id": "456",
-    "_class": "at.ac.tuwien.dmap.dmapbackend.dmp.domain.Dmp",
-    "created": "2018-12-03T10:15:30",
-    "lastUpdate": "2019-01-23T16:05:10",
-    "contactPerson": {
-      "firstName": "Simon",
-      "lastName": "Oblasser",
-      "title": "Mr",
-      "email": "simon.oblasser@tuwien.ac.at",
-      "role": "DATA_MANAGER"
-    }
+    "id" : "5c4b38f5d4fdffed683ed690",
+    "created" : "2019-01-25T15:22:54.562Z",
+    "lastUpdate" : "2019-01-25T17:22:54.564Z",
+    "contactPerson" : {
+      "ref" : "staffMember",
+      "id" : "1"
+    },
+    "dataManagementStaff" : [
+      {
+        "ref" : "staffMember",
+        "id" : "2"
+      },
+      {
+        "ref" : "staffMember",
+        "id" : "3"
+      }
+    ],
+    "researchProjects" : [
+      {
+        "ref" : "project",
+        "id" : "5c4b45eed4fdfff16cb8ed6b"
+      }
+    ],
+    "_class" : "at.ac.tuwien.dmap.dmapbackend.dmp.domain.Dmp"
   }
 ]

@@ -21,7 +21,11 @@ public class Dmp {
     @LastModifiedDate
     private LocalDateTime lastUpdate;
 
+    @DBRef
     private StaffMember contactPerson;
+
+    @DBRef
+    private List<StaffMember> dataManagementStaff;
 
     @DBRef
     private List<Project> researchProjects;
@@ -59,6 +63,14 @@ public class Dmp {
 
     public void setContactPerson(StaffMember contactPerson) {
         this.contactPerson = contactPerson;
+    }
+
+    public List<StaffMember> getDataManagementStaff() {
+        return dataManagementStaff;
+    }
+
+    public void setDataManagementStaff(List<StaffMember> dataManagementStaff) {
+        this.dataManagementStaff = dataManagementStaff;
     }
 
     public List<Project> getResearchProjects() {
