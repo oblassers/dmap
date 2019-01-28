@@ -1,26 +1,26 @@
 [
   {
-    "id" : "1",
-    "firstName" : "Gordon",
-    "lastName" : "Flash",
-    "title" : "Mr",
-    "email" : "gordon@flash.com",
+    "id" : "100",
+    "person" : {
+      "ref" : "person",
+      "id" : "2"
+    },
+    "roles" : [
+      "PI",
+      "OTHER"
+    ],
     "_class" : "at.ac.tuwien.dmap.dmapbackend.dmp.domain.StaffMember"
   },
   {
-    "id" : "2",
-    "firstName" : "Peter",
-    "lastName" : "Parker",
-    "title" : "Mr",
-    "email" : "peter@parker.com",
-    "_class" : "at.ac.tuwien.dmap.dmapbackend.dmp.domain.StaffMember"
-  },
-  {
-    "id" : "3",
-    "firstName" : "Bruce",
-    "lastName" : "Wayne",
-    "title" : "Mr",
-    "email" : "bruce@wayne.com",
+    "id" : "101",
+    "person" : {
+      "ref" : "person",
+      "id" : "3"
+    },
+    "roles" : [
+      "CO_PI",
+      "DATA_MANAGER"
+    ],
     "_class" : "at.ac.tuwien.dmap.dmapbackend.dmp.domain.StaffMember"
   }
 ]

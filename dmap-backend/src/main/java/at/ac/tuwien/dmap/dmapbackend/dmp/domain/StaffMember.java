@@ -1,7 +1,10 @@
 package at.ac.tuwien.dmap.dmapbackend.dmp.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 @Document
 public class StaffMember {
@@ -9,23 +12,17 @@ public class StaffMember {
     @Id
     private String id;
 
-    private String firstName;
+    @DBRef
+    private Person person;
 
-    private String lastName;
-
-    private String title;
-
-    private String email;
+    private List<StaffRole> roles;
 
     public StaffMember() {
     }
 
-    public StaffMember(String id, String firstName, String lastName, String title, String email) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.title = title;
-        this.email = email;
+    public StaffMember(Person person, List<StaffRole> roles) {
+        this.person = person;
+        this.roles = roles;
     }
 
     public String getId() {
@@ -36,35 +33,19 @@ public class StaffMember {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
-    public String getLastName() {
-        return lastName;
+    public List<StaffRole> getRoles() {
+        return roles;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setRoles(List<StaffRole> roles) {
+        this.roles = roles;
     }
 }

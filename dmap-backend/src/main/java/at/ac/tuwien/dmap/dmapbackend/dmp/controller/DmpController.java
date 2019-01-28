@@ -27,7 +27,7 @@ public class DmpController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Dmp>> getDmps() {
-        return new ResponseEntity<List<Dmp>>(dmpService.getAllDmps(), HttpStatus.OK);
+        return new ResponseEntity<>(dmpService.getAllDmps(), HttpStatus.OK);
     }
 
     public static final String HELLO_TEXT = "Hello from Spring Boot Backend!";

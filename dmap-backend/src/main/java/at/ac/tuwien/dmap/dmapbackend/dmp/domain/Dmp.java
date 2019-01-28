@@ -22,7 +22,7 @@ public class Dmp {
     private LocalDateTime lastUpdate;
 
     @DBRef
-    private StaffMember contactPerson;
+    private Person contactPerson;
 
     @DBRef
     private List<StaffMember> dataManagementStaff;
@@ -57,11 +57,11 @@ public class Dmp {
         this.lastUpdate = lastUpdate;
     }
 
-    public StaffMember getContactPerson() {
+    public Person getContactPerson() {
         return contactPerson;
     }
 
-    public void setContactPerson(StaffMember contactPerson) {
+    public void setContactPerson(Person contactPerson) {
         this.contactPerson = contactPerson;
     }
 

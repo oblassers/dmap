@@ -1,0 +1,26 @@
+[
+  {
+    "id" : "1",
+    "firstName" : "Gordon",
+    "lastName" : "Flash",
+    "title" : "Mr",
+    "email" : "gordon@flash.com",
+    "_class" : "at.ac.tuwien.dmap.dmapbackend.dmp.domain.Person"
+  },
+  {
+    "id" : "2",
+    "firstName" : "Peter",
+    "lastName" : "Parker",
+    "title" : "Mr",
+    "email" : "peter@parker.com",
+    "_class" : "at.ac.tuwien.dmap.dmapbackend.dmp.domain.Person"
+  },
+  {
+    "id" : "3",
+    "firstName" : "Bruce",
+    "lastName" : "Wayne",
+    "title" : "Mr",
+    "email" : "bruce@wayne.com",
+    "_class" : "at.ac.tuwien.dmap.dmapbackend.dmp.domain.Person"
+  }
+]

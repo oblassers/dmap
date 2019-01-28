@@ -2,6 +2,7 @@ package at.ac.tuwien.dmap.dmapbackend.init;
 
 import at.ac.tuwien.dmap.dmapbackend.dmp.domain.*;
 import at.ac.tuwien.dmap.dmapbackend.dmp.repository.DmpRepository;
+import at.ac.tuwien.dmap.dmapbackend.dmp.repository.PersonRepository;
 import at.ac.tuwien.dmap.dmapbackend.dmp.repository.ProjectRepository;
 import at.ac.tuwien.dmap.dmapbackend.dmp.repository.StaffMemberRepository;
 import org.slf4j.Logger;
@@ -15,9 +16,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 
 /**
  * Helper class to populate the database with test data from constructed objects.
@@ -29,13 +28,15 @@ public class DataInitializer {
     private DmpRepository dmpRepository;
     private ProjectRepository projectRepository;
     private StaffMemberRepository staffRepository;
+    private PersonRepository personRepository;
 
     @Autowired
     public DataInitializer(DmpRepository dmpRepository, ProjectRepository projectRepository,
-                           StaffMemberRepository staffRepository) {
+                           StaffMemberRepository staffRepository, PersonRepository personRepository) {
         this.dmpRepository = dmpRepository;
         this.projectRepository = projectRepository;
         this.staffRepository = staffRepository;
+        this.personRepository = personRepository;
     }
 
     @EventListener({RepositoriesPopulatedEvent.class})
@@ -51,12 +52,14 @@ public class DataInitializer {
         dmp.setCreated(LocalDateTime.now().minusHours(2));
         dmp.setLastUpdate(LocalDateTime.now());
 
-        StaffMember contactPerson = new StaffMember("1", "Gordon", "Flash", "Mr", "gordon@flash.com");
+        Person contactPerson = new Person("1", "Gordon", "Flash", "Mr", "gordon@flash.com");
         dmp.setContactPerson(contactPerson);
 
-        StaffMember member1 = new StaffMember("2", "Peter", "Parker", "Mr", "peter@parker.com");
-        StaffMember member2 = new StaffMember("3", "Bruce", "Wayne", "Mr", "bruce@wayne.com");
-        LinkedList<StaffMember> dataManagementMembers = new LinkedList<>(Arrays.asList(member1, member2));
+        Person member1 = new Person("2", "Peter", "Parker", "Mr", "peter@parker.com");
+        Person member2 = new Person("3", "Bruce", "Wayne", "Mr", "bruce@wayne.com");
+        LinkedList<StaffMember> dataManagementMembers = new LinkedList<>(Arrays.asList(
+                new StaffMember(member1, Arrays.asList(StaffRole.PI, StaffRole.OTHER)),
+                new StaffMember(member2, Arrays.asList(StaffRole.CO_PI, StaffRole.DATA_MANAGER))));
         dmp.setDataManagementStaff(dataManagementMembers);
 
         Project project = new Project();
@@ -75,7 +78,7 @@ public class DataInitializer {
 
         dmp.setResearchProjects(new LinkedList<>(Arrays.asList(project)));
 
-        staffRepository.save(contactPerson);
+        personRepository.saveAll(Arrays.asList(contactPerson, member1, member2));
         staffRepository.saveAll(dataManagementMembers);
         projectRepository.save(project);
         dmpRepository.save(dmp);
