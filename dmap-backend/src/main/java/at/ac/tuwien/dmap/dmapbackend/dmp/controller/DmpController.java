@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/dmps")
+@RequestMapping(path = "api/dmps")
 public class DmpController {
     private static final Logger log = LoggerFactory.getLogger(DmpController.class);
     private DmpService dmpService;
@@ -27,6 +27,7 @@ public class DmpController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Dmp>> getDmps() {
+        log.info("Return all DMPs");
         return new ResponseEntity<>(dmpService.getAllDmps(), HttpStatus.OK);
     }
 

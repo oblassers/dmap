@@ -6,8 +6,13 @@ import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import filters from './filters/filters'
 
 Vue.use(Vuetify)
+
+for (let name in filters) {
+  Vue.filter(name, filters[name])
+}
 
 const requireComponent = require.context(
   './components',

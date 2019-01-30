@@ -18,19 +18,22 @@
       <v-data-table
         :headers="headers"
         :items="dmp.dmps"
+        :expand="expand"
         :search="search"
         >
         <template slot="items" slot-scope="props">
-          <td><a href="">{{ props.item.projectName }}</a></td>
-          <td>{{ props.item.projectStart }}</td>
-          <td>{{ props.item.projectEnd }}</td>
-          <td>{{ props.item.funder }}</td>
-          <td>{{ props.item.fundingStatus }}</td>
-          <td>{{ props.item.principalInvestigator }}</td>
-          <td>{{ props.item.myRole }}</td>
-          <td>{{ props.item.created }}</td>
-          <td>{{ props.item.modified }}</td>
-          <td>{{ props.item.dmpGranularity }}</td>
+          <tr @click="props.expanded = !props.expanded" class="text-xs-left">
+            <td><a href="">{{ props.item.id }}</a></td>
+            <td>{{ props.item.researchProjects.length }}</td>
+            <td><a :href="'mailto:' + props.item.contactPerson.email">
+              {{ props.item.contactPerson.firstName }}  {{ props.item.contactPerson.lastName }}</a>
+            </td>
+            <td>{{ props.item.created | formatDateTime }}</td>
+            <td>{{ props.item.lastUpdate | formatDateTime }}</td>
+          </tr>
+        </template>
+        <template slot="expand" slot-scope="props">
+          <ProjectPreview v-for="project in props.item.researchProjects" :key="project.id" :project="project"/>
         </template>
       </v-data-table>
     </v-card>
@@ -40,6 +43,7 @@
 <script>
 import store from '@/store/store'
 import { mapState } from 'vuex'
+import ProjectPreview from '@/components/ProjectPreview.vue'
 
 function getDmps (routeTo, next) {
   store.dispatch('dmp/fetchDmps')
@@ -50,20 +54,17 @@ function getDmps (routeTo, next) {
 
 export default {
   name: 'MyDmps',
+  components: { ProjectPreview },
   data () {
     return {
       search: '',
+      expand: true,
       headers: [
-        { text: 'Project title', value: 'projectName' },
-        { text: 'Project start', value: 'projectStart' },
-        { text: 'Project end', value: 'projectEnd' },
-        { text: 'Funder', value: 'funder' },
-        { text: 'Funding Status', value: 'fundingStatus' },
-        { text: 'PI', value: 'principalInvestigator' },
-        { text: 'My Role', value: 'myRole' },
+        { text: 'ID', value: 'id' },
+        { text: 'Projects', value: '' },
+        { text: 'Contact', value: 'contactPerson.lastName' },
         { text: 'Created', value: 'created' },
-        { text: 'Modified', value: 'modified' },
-        { text: 'DMP Granularity', value: 'dmpGranularity' }
+        { text: 'Last Update', value: 'lastUpdate' }
       ]
     }
   },

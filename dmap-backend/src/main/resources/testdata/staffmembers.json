@@ -22,5 +22,50 @@
       "DATA_MANAGER"
     ],
     "_class" : "at.ac.tuwien.dmap.dmapbackend.dmp.domain.StaffMember"
+  },
+  {
+    "id" : "102",
+    "person" : {
+      "ref" : "person",
+      "id" : "4"
+    },
+    "roles" : [
+      "DATA_MANAGER"
+    ],
+    "_class" : "at.ac.tuwien.dmap.dmapbackend.dmp.domain.StaffMember"
+  },
+  {
+    "id" : "103",
+    "person" : {
+      "ref" : "person",
+      "id" : "6"
+    },
+    "roles" : [
+      "PI"
+    ],
+    "_class" : "at.ac.tuwien.dmap.dmapbackend.dmp.domain.StaffMember"
+  },
+  {
+    "id" : "104",
+    "person" : {
+      "ref" : "person",
+      "id" : "5"
+    },
+    "roles" : [
+      "CO_PI",
+      "OTHER"
+    ],
+    "_class" : "at.ac.tuwien.dmap.dmapbackend.dmp.domain.StaffMember"
+  },
+  {
+    "id" : "105",
+    "person" : {
+      "ref" : "person",
+      "id" : "6"
+    },
+    "roles" : [
+      "OTHER"
+    ],
+    "_class" : "at.ac.tuwien.dmap.dmapbackend.dmp.domain.StaffMember"
   }
 ]

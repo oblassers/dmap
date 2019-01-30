@@ -22,5 +22,29 @@
     "title" : "Mr",
     "email" : "bruce@wayne.com",
     "_class" : "at.ac.tuwien.dmap.dmapbackend.dmp.domain.Person"
+  },
+  {
+    "id" : "4",
+    "firstName" : "Diana",
+    "lastName" : "Prince",
+    "title" : "Ms",
+    "email" : "diana@prince.com",
+    "_class" : "at.ac.tuwien.dmap.dmapbackend.dmp.domain.Person"
+  },
+  {
+    "id" : "5",
+    "firstName" : "Patience",
+    "lastName" : "Phillips",
+    "title" : "Mrs",
+    "email" : "patience@phillips.com",
+    "_class" : "at.ac.tuwien.dmap.dmapbackend.dmp.domain.Person"
+  },
+  {
+    "id" : "6",
+    "firstName" : "Hal",
+    "lastName" : "Jordan",
+    "title" : "Mr",
+    "email" : "hal@jordan.com",
+    "_class" : "at.ac.tuwien.dmap.dmapbackend.dmp.domain.Person"
   }
 ]
