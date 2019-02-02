@@ -1,7 +1,8 @@
 <template>
   <div style="position: relative; overflow: hidden;">
     <div class="project-overview">
-      <h4>Project Title: {{ project.title }}</h4>
+      <span>Project ID: {{ project.id }}</span>
+      <h4>{{ project.title }}</h4>
       <p>Project Duration: {{ project.projectStart | formatDate }} - {{ project.projectEnd | formatDate }}</p>
       <span>Fundings:</span>
       <ul>

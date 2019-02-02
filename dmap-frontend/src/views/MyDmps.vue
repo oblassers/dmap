@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="nice-padding">
     <p>
-      <v-btn color="primary">Create new DMP</v-btn>
+      <v-btn color="primary" :to="{ name: 'dmp-create'}">Create new DMP</v-btn>
     </p>
     <v-card>
       <v-card-title>
@@ -23,7 +23,7 @@
         >
         <template slot="items" slot-scope="props">
           <tr @click="props.expanded = !props.expanded" class="text-xs-left">
-            <td><a href="">{{ props.item.id }}</a></td>
+            <td><router-link :to="{ name: 'dmp-show', params: { id: props.item.id }}">{{ props.item.id }}</router-link></td>
             <td>{{ props.item.researchProjects.length }}</td>
             <td><a :href="'mailto:' + props.item.contactPerson.email">
               {{ props.item.contactPerson.firstName }}  {{ props.item.contactPerson.lastName }}</a>
@@ -81,5 +81,7 @@ export default {
 </script>
 
 <style scoped>
-
+.nice-padding{
+  padding: 20px;
+}
 </style>

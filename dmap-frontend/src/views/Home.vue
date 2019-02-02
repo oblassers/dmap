@@ -1,14 +1,21 @@
 <template>
   <div>
-      <h1>Welcome to DMap</h1>
-      <h2>The Machine-actionable Data Management planning application</h2>
-      <p>DMap assists you in creating Data Management Plans (DMPs) for your research projects.</p>
-      <v-btn color="primary" large>Get started</v-btn>
+      <h1>{{ welcomeTitle }}</h1>
+      <h2>{{ welcomeSubtitle }}</h2>
+      <p>{{ description }}</p>
+      <v-btn color="primary" large :to="{ name: 'mydmps' }">Get started</v-btn>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'home'
+  name: 'home',
+  data () {
+    return {
+      welcomeTitle: 'Welcome to DMap',
+      welcomeSubtitle: 'The Machine-actionable Data Management planning application',
+      description: 'DMap assists you in creating Data Management Plans (DMPs) for your research projects.'
+    }
+  }
 }
 </script>
