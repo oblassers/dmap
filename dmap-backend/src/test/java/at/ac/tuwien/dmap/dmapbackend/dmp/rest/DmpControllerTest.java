@@ -1,4 +1,4 @@
-package at.ac.tuwien.dmap.dmapbackend.dmp.controller;
+package at.ac.tuwien.dmap.dmapbackend.dmp.rest;
 
 import at.ac.tuwien.dmap.dmapbackend.DmapBackendApplication;
 import io.restassured.RestAssured;

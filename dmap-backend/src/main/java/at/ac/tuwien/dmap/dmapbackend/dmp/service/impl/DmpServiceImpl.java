@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DmpServiceImpl implements DmpService {
@@ -20,5 +21,11 @@ public class DmpServiceImpl implements DmpService {
     @Override
     public List<Dmp> getAllDmps() {
         return this.dmpRepository.findAll();
+    }
+
+    @Override
+    public Dmp getDmpById(String id) {
+        Optional<Dmp> dmp = this.dmpRepository.findById(id);
+        return dmp.isPresent() ? dmp.get() : null;
     }
 }
