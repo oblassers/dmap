@@ -1,6 +1,6 @@
 package at.ac.tuwien.dmap.dmapbackend.tiss.rest;
 
-import at.ac.tuwien.dmap.dmapbackend.tiss.domain.ProjectOverview;
+import at.ac.tuwien.dmap.dmapbackend.tiss.dto.ProjectOverview;
 import at.ac.tuwien.dmap.dmapbackend.tiss.service.ProjectDatabaseService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +25,12 @@ public class ProjectDatabaseController {
         this.projectDatabaseService = projectDatabaseService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value="/projectsearch", method = RequestMethod.GET)
     public ResponseEntity<List<ProjectOverview>> getProjectsByOrgCriteria(
-            @RequestParam(value = "projectLeadOid", required = false) String projectLeadOid,
-            @RequestParam(value = "instituteOid", required = false) String instituteOid
+            @RequestParam(value = "instituteOid") String instituteOid,
+            @RequestParam(value = "projectleaderOid", required = false) String projectLeadOid
     ) {
-        // TODO: Call TISS PDB API with rest template
-        return null;
+        log.info(String.format("Get Projects for InstituteOid=%s and ProjectLeaderOid=%s", instituteOid, projectLeadOid));
+        return ResponseEntity.ok(projectDatabaseService.getProjectsByOrgCriteria(instituteOid, projectLeadOid));
     }
 }

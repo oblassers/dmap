@@ -1,6 +1,6 @@
 package at.ac.tuwien.dmap.dmapbackend.tiss.rest;
 
-import at.ac.tuwien.dmap.dmapbackend.tiss.domain.PersonDetails;
+import at.ac.tuwien.dmap.dmapbackend.tiss.dto.PersonDetails;
 import at.ac.tuwien.dmap.dmapbackend.tiss.service.AddressBookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ public class AddressBookController {
 
     @RequestMapping(value="/person/{oid}", method = RequestMethod.GET)
     public ResponseEntity<PersonDetails> getPersonDetailsByOid(
-            @PathVariable(value = "oid") Long oid
+            @PathVariable(value = "oid") String oid
     ) {
         log.info("Return Person Details");
         return ResponseEntity.ok(addressBookService.getPersonDetailsById(oid));

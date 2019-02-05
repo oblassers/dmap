@@ -1,6 +1,6 @@
 package at.ac.tuwien.dmap.dmapbackend.tiss.service.impl;
 
-import at.ac.tuwien.dmap.dmapbackend.tiss.domain.PersonDetails;
+import at.ac.tuwien.dmap.dmapbackend.tiss.dto.PersonDetails;
 import at.ac.tuwien.dmap.dmapbackend.tiss.service.AddressBookService;
 import at.ac.tuwien.dmap.dmapbackend.tiss.service.error.TissResponseErrorHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class AddressBookServiceImpl implements AddressBookService {
     }
 
     @Override
-    public PersonDetails getPersonDetailsById(Long oid) {
+    public PersonDetails getPersonDetailsById(String oid) {
         return this.restTemplate.getForObject("/person/v22/oid/{oid}", PersonDetails.class, oid);
     }
 }

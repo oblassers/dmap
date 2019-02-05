@@ -1,12 +1,27 @@
-package at.ac.tuwien.dmap.dmapbackend.tiss.domain;
+package at.ac.tuwien.dmap.dmapbackend.tiss.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+
+/**
+ * This class is used as a target for unmarshalling the XML response from the TISS API.
+ */
+@JacksonXmlRootElement(localName="project", namespace="http://tiss.tuwien.ac.at/api/schemas/projectSearchResult/v2_0")
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class ProjectOverview {
 
     private String projectId;
+
     private String shortDescription;
+
+    @JsonProperty("titleEn")
     private String title;
+
     private String begin;
+
     private String end;
+
     private String orgunit;
 
     public ProjectOverview() {
