@@ -3,6 +3,8 @@ package at.ac.tuwien.dmap.dmapbackend.tiss.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 /**
  * This class is used as a target for unmarshalling the JSON response from the TISS API.
  */
@@ -20,6 +22,8 @@ public class PersonDetails {
     @JsonProperty("last_name")
     private String lastName;
 
+    private String gender;
+
     @JsonProperty("preceding_titles")
     private String precedingTitles;
 
@@ -27,10 +31,16 @@ public class PersonDetails {
     private String postpositionedTitles;
 
     @JsonProperty("main_email")
-    private String email;
+    private String mainEmailAddress;
+
+    @JsonProperty("other_emails")
+    private List<String> otherEmailAddresses;
 
     @JsonProperty("main_phone_number")
     private String phoneNumber;
+
+    @JsonProperty("employee")
+    private List<Employment> employments;
 
     public PersonDetails() {
     }
@@ -67,6 +77,14 @@ public class PersonDetails {
         this.lastName = lastName;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     public String getPrecedingTitles() {
         return precedingTitles;
     }
@@ -83,12 +101,20 @@ public class PersonDetails {
         this.postpositionedTitles = postpositionedTitles;
     }
 
-    public String getEmail() {
-        return email;
+    public String getMainEmailAddress() {
+        return mainEmailAddress;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setMainEmailAddress(String mainEmailAddress) {
+        this.mainEmailAddress = mainEmailAddress;
+    }
+
+    public List<String> getOtherEmailAddresses() {
+        return otherEmailAddresses;
+    }
+
+    public void setOtherEmailAddresses(List<String> otherEmailAddresses) {
+        this.otherEmailAddresses = otherEmailAddresses;
     }
 
     public String getPhoneNumber() {
@@ -97,5 +123,13 @@ public class PersonDetails {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public List<Employment> getEmployments() {
+        return employments;
+    }
+
+    public void setEmployments(List<Employment> employments) {
+        this.employments = employments;
     }
 }

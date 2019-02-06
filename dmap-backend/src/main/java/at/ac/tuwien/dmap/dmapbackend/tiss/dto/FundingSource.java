@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
 
+/**
+ * This class is used as a target for unmarshalling the XML response from the TISS API.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FundingSource {
 

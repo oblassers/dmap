@@ -25,7 +25,7 @@
           <tr @click="props.expanded = !props.expanded" class="text-xs-left">
             <td><router-link :to="{ name: 'dmp-show', params: { id: props.item.id }}">{{ props.item.id }}</router-link></td>
             <td>{{ props.item.researchProjects.length }}</td>
-            <td><a :href="'mailto:' + props.item.contactPerson.email">
+            <td><a :href="'mailto:' + props.item.contactPerson.mainEmailAddress">
               {{ props.item.contactPerson.firstName }}  {{ props.item.contactPerson.lastName }}</a>
             </td>
             <td>{{ props.item.created | formatDateTime }}</td>
