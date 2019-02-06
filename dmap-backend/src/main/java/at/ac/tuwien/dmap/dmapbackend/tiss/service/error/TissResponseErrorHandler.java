@@ -20,11 +20,18 @@ public class TissResponseErrorHandler implements ResponseErrorHandler {
                 httpResponse.getStatusCode().series() == HttpStatus.Series.SERVER_ERROR);
     }
 
+    /**
+     * In case TISS returns client (4xx) or server errors (5xx) throw a TISS error response exception.
+     * @param httpResponse
+     * @throws IOException
+     */
     @Override
     public void handleError(ClientHttpResponse httpResponse) throws IOException {
-        log.info(String.format("Error response from TISS: %s - %s",
-                httpResponse.getStatusCode(), httpResponse.getStatusText()));
 
-        throw new TissErrorResponseException();
+        String message = String.format("Error response from TISS: %s, %s",
+                httpResponse.getRawStatusCode(), httpResponse.getStatusText());
+
+        log.info(message);
+        throw new TissErrorResponseException(message);
     }
 }

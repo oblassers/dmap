@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * This class is used as a target for unmarshalling the JSON response from the TISS API.
  */
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PersonDetails {
 
     @JsonProperty("tiss_id")

@@ -1,14 +1,12 @@
 package at.ac.tuwien.dmap.dmapbackend.tiss.rest;
 
+import at.ac.tuwien.dmap.dmapbackend.tiss.dto.ProjectDetails;
 import at.ac.tuwien.dmap.dmapbackend.tiss.dto.ProjectOverview;
 import at.ac.tuwien.dmap.dmapbackend.tiss.service.ProjectDatabaseService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import org.slf4j.Logger;
 
@@ -32,5 +30,11 @@ public class ProjectDatabaseController {
     ) {
         log.info(String.format("Get Projects for InstituteOid=%s and ProjectLeaderOid=%s", instituteOid, projectLeadOid));
         return ResponseEntity.ok(projectDatabaseService.getProjectsByOrgCriteria(instituteOid, projectLeadOid));
+    }
+
+    @RequestMapping(value="/project/{id}", method = RequestMethod.GET)
+    public ResponseEntity<ProjectDetails> getProjectDetails(@PathVariable("id") String projectId) {
+        log.info(String.format("Get Project Details for Project ID=%s", projectId));
+        return ResponseEntity.ok(projectDatabaseService.getProjectDetails(projectId));
     }
 }
