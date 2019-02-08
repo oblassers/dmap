@@ -1,7 +1,8 @@
 package at.ac.tuwien.dmap.dmapbackend.tiss.addressbook.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.List;
 
@@ -9,6 +10,8 @@ import java.util.List;
  * This class is used as a target for unmarshalling a client request.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonTypeName("user")
+@JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
 public class Person {
 
     private String oid;
@@ -53,5 +56,10 @@ public class Person {
 
     public void setOrganisationalUnits(List<OrganisationalUnit> organisationalUnits) {
         this.organisationalUnits = organisationalUnits;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
     }
 }

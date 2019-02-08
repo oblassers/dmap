@@ -19,7 +19,7 @@ export const actions = {
         commit('SET_DMPS', response.data)
       })
       .catch(error => {
-        console.log(error.message)
+        console.log('There was a problem fetching DMPs: ' + error.message)
       })
   }
 }

@@ -10,7 +10,7 @@
         <v-text-field
           v-model="search"
           append-icon="search"
-          label="Search DMPs"
+          label="Search DMPs..."
           single-line
           hide-details
         ></v-text-field>
@@ -84,4 +84,5 @@ export default {
 .nice-padding{
   padding: 20px;
 }
+
 </style>

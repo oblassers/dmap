@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import org.slf4j.Logger;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController

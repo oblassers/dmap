@@ -13,5 +13,8 @@ const apiClient = axios.create({
 export default {
   getDmps () {
     return apiClient.get('/dmps/')
+  },
+  getProjectSuggestions (user) {
+    return apiClient.post('/pdb/suggest_projects', user)
   }
 }
