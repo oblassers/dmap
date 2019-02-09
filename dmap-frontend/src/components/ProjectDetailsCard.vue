@@ -1,8 +1,12 @@
 <template>
-  <div>TODO: Load project details from API when expanded</div>
+  <div>
+    <p>{{ projectDetails }}</p>
+  </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'ProjectDetailsCard',
   props: {
@@ -11,8 +15,11 @@ export default {
       required: true
     }
   },
-  created () {
-    console.log('I AM HERE ' + this.projectId)
+  computed: {
+    ...mapGetters('project', ['getProjectDetailsById']),
+    projectDetails () {
+      return this.getProjectDetailsById(this.projectId)
+    }
   }
 }
 </script>

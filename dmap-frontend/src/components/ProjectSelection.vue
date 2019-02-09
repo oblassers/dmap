@@ -3,7 +3,7 @@
     <p>Please select the project(s) you want to create a DMP for.</p>
     <v-expansion-panel expand>
       <v-expansion-panel-content v-for="(project, i) in project.projects" :key="i">
-        <div slot="header">
+        <div slot="header" @click="getProjectDetails(project.projectId)">
           <ProjectOverviewCard :project="project"></ProjectOverviewCard>
         </div>
         <ProjectDetailsCard :project-id="project.projectId"></ProjectDetailsCard>
@@ -47,6 +47,11 @@ export default {
     return {
       projectSearchTerm: '',
       page: 1
+    }
+  },
+  methods: {
+    getProjectDetails (projectId) {
+      store.dispatch('project/fetchProjectDetails', projectId)
     }
   },
   created () {

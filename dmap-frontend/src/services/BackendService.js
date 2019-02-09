@@ -16,5 +16,8 @@ export default {
   },
   getProjectSuggestions (user) {
     return apiClient.post('/pdb/suggest_projects', user)
+  },
+  getProjectDetails (projectId) {
+    return apiClient.get('/pdb/project/' + projectId)
   }
 }

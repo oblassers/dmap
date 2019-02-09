@@ -4,12 +4,16 @@ export const namespaced = true
 
 export const state = {
   projects: [],
+  projectsDetails: [],
   selectedProjects: []
 }
 
 export const mutations = {
   SET_PROJECTS (state, projects) {
     state.projects = projects
+  },
+  ADD_PROJECT_DETAILS (state, projectDetails) {
+    state.projectsDetails.push(projectDetails)
   }
 }
 
@@ -22,5 +26,22 @@ export const actions = {
       .catch(error => {
         console.log('There was a problem fetching projects: ' + error.message)
       })
+  },
+  fetchProjectDetails ({ commit, getters }, projectId) {
+    var projectDetails = getters.getProjectDetailsById(projectId)
+    if (projectDetails) {
+      return projectDetails
+    } else {
+      return BackendService.getProjectDetails(projectId).then(response => {
+        commit('ADD_PROJECT_DETAILS', response.data)
+        return response.data
+      })
+    }
+  }
+}
+
+export const getters = {
+  getProjectDetailsById: state => projectId => {
+    return state.projectsDetails.find(projectDetails => projectDetails.id === projectId)
   }
 }
