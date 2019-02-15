@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <div v-if="projectDetails">
-      Project ID: {{ projectDetails.id }}
-    </div>
-  </div>
+  <v-card v-if="projectDetails">
+    <v-card-text>Project ID: {{ projectDetails.id }}</v-card-text>
+  </v-card>
 </template>
 
 <script>

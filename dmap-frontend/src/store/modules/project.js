@@ -43,5 +43,12 @@ export const actions = {
 export const getters = {
   getProjectDetailsById: state => projectId => {
     return state.projectsDetails.find(projectDetails => projectDetails.id === projectId)
+  },
+  getProjectSuggestionsTotal: state => {
+    return state.projects.length
+  },
+  getProjectSuggestionsPerPage: state => (page, perPage) => {
+    var index = (page - 1) * perPage
+    return state.projects.slice(index, index + perPage)
   }
 }

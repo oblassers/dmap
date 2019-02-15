@@ -3,7 +3,6 @@
     <div class="project-overview">
       <h4>{{ project.titleEn }} ({{ project.shortDescription }})</h4>
       <span>Project duration: {{ project.begin | formatDate }} - {{ project.end | formatDate}}</span>
-
     </div>
     <div class="select-btn" @click.stop="selectProject">
       <v-btn small>Select</v-btn>
@@ -14,7 +13,7 @@
 <script>
 
 export default {
-  name: 'ProjectOverviewCard',
+  name: 'ProjectHeaderCard',
   props: {
     project: {
       type: Object,

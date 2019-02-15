@@ -2,15 +2,13 @@
   <div>
     <p>Please select the project(s) you want to create a DMP for.</p>
     <v-expansion-panel expand>
-      <v-expansion-panel-content v-for="(project, i) in project.projects" :key="i">
-        <div slot="header">
-          <ProjectOverviewCard :project="project"></ProjectOverviewCard>
-        </div>
+      <v-expansion-panel-content v-for="(project, i) in projectSuggestions" :key="i">
+        <ProjectHeaderCard slot="header" :project="project"></ProjectHeaderCard>
         <ProjectDetailsCard :project-id="project.projectId"></ProjectDetailsCard>
       </v-expansion-panel-content>
     </v-expansion-panel>
     <div class="text-xs-center">
-      <v-pagination v-model="page" :length="5">
+      <v-pagination v-model="page" :length="paginationLength">
       </v-pagination>
     </div>
     <div class="search-div">
@@ -28,10 +26,10 @@
 </template>
 
 <script>
-import ProjectOverviewCard from './ProjectOverviewCard'
+import ProjectHeaderCard from './ProjectHeaderCard'
 import ProjectDetailsCard from './ProjectDetailsCard'
 import store from '@/store/store'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 function getProjectSuggestions () {
   store.dispatch('project/fetchProjectSuggestions')
@@ -39,14 +37,22 @@ function getProjectSuggestions () {
 
 export default {
   name: 'ProjectSelection',
-  components: { ProjectOverviewCard, ProjectDetailsCard },
+  components: { ProjectHeaderCard, ProjectDetailsCard },
   computed: {
-    ...mapState(['project'])
+    ...mapState(['project']),
+    ...mapGetters('project', ['getProjectSuggestionsPerPage', 'getProjectSuggestionsTotal']),
+    projectSuggestions () {
+      return this.getProjectSuggestionsPerPage(this.page, this.perPage)
+    },
+    paginationLength () {
+      return Math.ceil(this.getProjectSuggestionsTotal / this.perPage) || 1
+    }
   },
   data () {
     return {
       projectSearchTerm: '',
-      page: 1
+      page: 1,
+      perPage: 5
     }
   },
   created () {
