@@ -6,6 +6,7 @@ import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import 'nprogress/nprogress.css'
 import filters from './filters/filters'
 
 Vue.use(Vuetify)
