@@ -7,7 +7,7 @@
       <ProjectSelected v-for="(selectedProject, index) in project.selectedProjects" :key="index"
                        :project="selectedProject"></ProjectSelected>
     </div>
-    <v-expansion-panel expand>
+    <v-expansion-panel v-model="panels" expand>
       <v-expansion-panel-content v-for="(project, index) in projectSuggestions" :key="index">
         <ProjectHeaderCard slot="header" :project="project"></ProjectHeaderCard>
         <ProjectDetailsCard :project-id="project.projectId"></ProjectDetailsCard>
@@ -59,7 +59,14 @@ export default {
     return {
       projectSearchTerm: '',
       page: 1,
-      perPage: 5
+      perPage: 5,
+      panels: []
+    }
+  },
+  watch: {
+    page: function () {
+      // when page changes, reset the expand states of the panels
+      this.panels = []
     }
   },
   created () {
