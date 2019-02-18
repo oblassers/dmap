@@ -14,6 +14,14 @@ export const mutations = {
   },
   ADD_PROJECT_DETAILS (state, projectDetails) {
     state.projectsDetails.push(projectDetails)
+  },
+  ADD_PROJECT_TO_SELECTION (state, project) {
+    state.selectedProjects.indexOf(project) === -1
+      ? state.selectedProjects.push(project) : console.log('Project already selected')
+  },
+  REMOVE_PROJECT_FROM_SELECTION (state, project) {
+    var index = state.selectedProjects.indexOf(project)
+    index !== -1 ? state.selectedProjects.splice(index, 1) : console.log('Project not contained in selected projects')
   }
 }
 
@@ -37,6 +45,16 @@ export const actions = {
         return response.data
       })
     }
+  },
+  selectProject ({ commit }, project) {
+    if (project) {
+      commit('ADD_PROJECT_TO_SELECTION', project)
+    }
+  },
+  removeProjectFromSelection ({ commit }, project) {
+    if (project) {
+      commit('REMOVE_PROJECT_FROM_SELECTION', project)
+    }
   }
 }
 
@@ -50,5 +68,8 @@ export const getters = {
   getProjectSuggestionsPerPage: state => (page, perPage) => {
     var index = (page - 1) * perPage
     return state.projects.slice(index, index + perPage)
+  },
+  getSelectedProjectsCount: state => {
+    return state.selectedProjects.length
   }
 }

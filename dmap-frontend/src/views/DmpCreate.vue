@@ -33,16 +33,19 @@ import ProjectSelection from '../components/ProjectSelection'
 export default {
   name: 'DmpCreate',
   components: { ProjectSelection },
-  data () {
-    return {
-      projectSelected: false,
-      dataManagementStaffDefined: false,
-      researchDataSpecified: true
-    }
-  },
   computed: {
     ...mapState(['dmp', 'user']),
-    ...mapGetters(['user/getFullName'])
+    ...mapGetters('user', ['getFullName']),
+    ...mapGetters('project', ['getSelectedProjectsCount']),
+    projectSelected () {
+      return this.getSelectedProjectsCount > 0
+    },
+    dataManagementStaffDefined () {
+      return false
+    },
+    researchDataSpecified () {
+      return false
+    }
   }
 }
 </script>

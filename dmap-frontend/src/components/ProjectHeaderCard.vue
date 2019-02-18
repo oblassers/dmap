@@ -4,13 +4,14 @@
       <h4>{{ project.titleEn }} ({{ project.shortDescription }})</h4>
       <span>Project duration: {{ project.begin | formatDate }} - {{ project.end | formatDate}}</span>
     </div>
-    <div class="select-btn" @click.stop="selectProject">
+    <div class="select-btn" @click.stop="selectProject(project)">
       <v-btn small>Select</v-btn>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 
 export default {
   name: 'ProjectHeaderCard',
@@ -21,9 +22,7 @@ export default {
     }
   },
   methods: {
-    selectProject () {
-      console.log('Project selected')
-    }
+    ...mapActions('project', ['selectProject'])
   }
 }
 </script>

@@ -1,8 +1,14 @@
 <template>
   <div>
     <p>Please select the project(s) you want to create a DMP for.</p>
+    <div>
+      <p v-if="getSelectedProjectsCount === 0">Currently you have no projects selected.</p>
+      <p v-else>You selected {{ getSelectedProjectsCount }} project(s):</p>
+      <ProjectSelected v-for="(selectedProject, index) in project.selectedProjects" :key="index"
+                       :project="selectedProject"></ProjectSelected>
+    </div>
     <v-expansion-panel expand>
-      <v-expansion-panel-content v-for="(project, i) in projectSuggestions" :key="i">
+      <v-expansion-panel-content v-for="(project, index) in projectSuggestions" :key="index">
         <ProjectHeaderCard slot="header" :project="project"></ProjectHeaderCard>
         <ProjectDetailsCard :project-id="project.projectId"></ProjectDetailsCard>
       </v-expansion-panel-content>
@@ -30,6 +36,7 @@ import ProjectHeaderCard from './ProjectHeaderCard'
 import ProjectDetailsCard from './ProjectDetailsCard'
 import store from '@/store/store'
 import { mapState, mapGetters } from 'vuex'
+import ProjectSelected from './ProjectSelected'
 
 function getProjectSuggestions () {
   store.dispatch('project/fetchProjectSuggestions')
@@ -37,10 +44,10 @@ function getProjectSuggestions () {
 
 export default {
   name: 'ProjectSelection',
-  components: { ProjectHeaderCard, ProjectDetailsCard },
+  components: { ProjectSelected, ProjectHeaderCard, ProjectDetailsCard },
   computed: {
     ...mapState(['project']),
-    ...mapGetters('project', ['getProjectSuggestionsPerPage', 'getProjectSuggestionsTotal']),
+    ...mapGetters('project', ['getProjectSuggestionsPerPage', 'getProjectSuggestionsTotal', 'getSelectedProjectsCount']),
     projectSuggestions () {
       return this.getProjectSuggestionsPerPage(this.page, this.perPage)
     },
