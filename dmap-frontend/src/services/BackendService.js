@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from '@/store/store'
 
 const apiClient = axios.create({
   baseURL: 'http://localhost:3000/api/',
@@ -8,6 +9,16 @@ const apiClient = axios.create({
     'Content-Type': 'application/json'
   },
   timeout: 10000
+})
+
+apiClient.interceptors.request.use(config => {
+  store.dispatch('loading/startLoading')
+  return config
+})
+
+apiClient.interceptors.response.use(response => {
+  store.dispatch('loading/finishLoading')
+  return response
 })
 
 export default {

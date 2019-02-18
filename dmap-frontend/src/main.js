@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store/store'
+import loader from './loader'
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
 import Vuetify from 'vuetify'
@@ -36,5 +37,6 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
+  loader,
   render: h => h(App)
 }).$mount('#app')
