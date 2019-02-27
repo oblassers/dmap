@@ -5,13 +5,13 @@
       <span>Project duration: {{ project.begin | formatDate }} - {{ project.end | formatDate}}</span>
     </div>
     <div class="select-btn" @click.stop="selectProject(project)">
-      <v-btn small>Select</v-btn>
+      <v-btn :disabled="isSelectedProject(project.projectId)" small>Select</v-btn>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'ProjectHeaderCard',
@@ -23,6 +23,9 @@ export default {
   },
   methods: {
     ...mapActions('project', ['selectProject'])
+  },
+  computed: {
+    ...mapGetters('project', ['isSelectedProject'])
   }
 }
 </script>

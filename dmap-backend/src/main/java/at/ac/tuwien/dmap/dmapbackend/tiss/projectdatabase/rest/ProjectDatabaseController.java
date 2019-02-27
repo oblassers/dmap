@@ -2,6 +2,7 @@ package at.ac.tuwien.dmap.dmapbackend.tiss.projectdatabase.rest;
 
 import at.ac.tuwien.dmap.dmapbackend.tiss.addressbook.dto.Person;
 import at.ac.tuwien.dmap.dmapbackend.tiss.projectdatabase.dto.ProjectDetails;
+import at.ac.tuwien.dmap.dmapbackend.tiss.projectdatabase.dto.ProjectMemberDetails;
 import at.ac.tuwien.dmap.dmapbackend.tiss.projectdatabase.dto.ProjectOverview;
 import at.ac.tuwien.dmap.dmapbackend.tiss.projectdatabase.service.ProjectDatabaseService;
 import org.slf4j.LoggerFactory;
@@ -43,5 +44,11 @@ public class ProjectDatabaseController {
     public ResponseEntity<ProjectDetails> getProjectDetails(@PathVariable("id") String projectId) {
         log.info(String.format("Get Project Details for Project ID=%s", projectId));
         return ResponseEntity.ok(projectDatabaseService.getProjectDetails(projectId));
+    }
+
+    @RequestMapping(value = "/project/{id}/staff", method = RequestMethod.GET)
+    public ResponseEntity<List<ProjectMemberDetails>> getProjectMembers(@PathVariable("id") String projectId) {
+        log.info(String.format("Get Project Staff for Project ID=%s", projectId));
+        return ResponseEntity.ok(projectDatabaseService.getProjectStaff(projectId));
     }
 }

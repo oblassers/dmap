@@ -3,21 +3,21 @@
     <h2>Create a new DMP</h2>
     <v-stepper vertical>
       <v-stepper-step :complete="projectSelected" editable step="1">
-        Select Project(s)
+        Select project(s)
       </v-stepper-step>
       <v-stepper-content step="1">
-        <ProjectSelection></ProjectSelection>
+        <ProjectSelection step="1"></ProjectSelection>
       </v-stepper-content>
 
       <v-stepper-step :complete="dataManagementStaffDefined" editable step="2">
-        Data Management Staff
+        People involved in data management
       </v-stepper-step>
       <v-stepper-content step="2">
-        TODO
+        <DMStaffSelection step="2"></DMStaffSelection>
       </v-stepper-content>
 
       <v-stepper-step :complete="researchDataSpecified" editable step="3">
-        Specify Research Data
+        Specify your research data
       </v-stepper-step>
       <v-stepper-content step="3">
         TODO
@@ -29,10 +29,11 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import ProjectSelection from '../components/ProjectSelection'
+import DMStaffSelection from '../components/DMStaffSelection'
 
 export default {
   name: 'DmpCreate',
-  components: { ProjectSelection },
+  components: { DMStaffSelection, ProjectSelection },
   computed: {
     ...mapState(['dmp', 'user']),
     ...mapGetters('user', ['getFullName']),

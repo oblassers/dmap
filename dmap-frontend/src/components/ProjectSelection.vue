@@ -18,7 +18,7 @@
       </v-pagination>
     </div>
     <div class="search-div">
-      <p>Not in the list? Try to find it with the search function.
+      <p>Project not in the list? Try to find it with the search function.
       <span><v-text-field
         v-model="projectSearchTerm"
         append-icon="search"
@@ -32,11 +32,11 @@
 </template>
 
 <script>
-import ProjectHeaderCard from './ProjectHeaderCard'
-import ProjectDetailsCard from './ProjectDetailsCard'
+import ProjectHeaderCard from '@/components/ProjectHeaderCard'
+import ProjectDetailsCard from '@/components/ProjectDetailsCard'
 import store from '@/store/store'
 import { mapState, mapGetters } from 'vuex'
-import ProjectSelected from './ProjectSelected'
+import ProjectSelected from '@/components/ProjectSelected'
 
 function getProjectSuggestions () {
   store.dispatch('project/fetchProjectSuggestions')
@@ -45,6 +45,12 @@ function getProjectSuggestions () {
 export default {
   name: 'ProjectSelection',
   components: { ProjectSelected, ProjectHeaderCard, ProjectDetailsCard },
+  props: {
+    step: {
+      type: String,
+      required: true
+    }
+  },
   computed: {
     ...mapState(['project']),
     ...mapGetters('project', ['getProjectSuggestionsPerPage', 'getProjectSuggestionsTotal', 'getSelectedProjectsCount']),
@@ -69,8 +75,13 @@ export default {
       this.panels = []
     }
   },
-  created () {
-    getProjectSuggestions()
+  created: function () {
+    // called when step is opened
+    this.$parent.$parent.$on('input', step => {
+      if (step === this.step) {
+        getProjectSuggestions()
+      }
+    })
   }
 }
 

@@ -30,5 +30,8 @@ export default {
   },
   getProjectDetails (projectId) {
     return apiClient.get('/pdb/project/' + projectId)
+  },
+  getProjectStaff (projectId) {
+    return apiClient.get('pdb/project/' + projectId + '/staff')
   }
 }

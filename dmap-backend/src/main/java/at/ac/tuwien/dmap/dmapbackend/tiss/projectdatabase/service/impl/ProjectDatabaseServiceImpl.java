@@ -2,11 +2,9 @@ package at.ac.tuwien.dmap.dmapbackend.tiss.projectdatabase.service.impl;
 
 import at.ac.tuwien.dmap.dmapbackend.tiss.addressbook.dto.OrganisationalUnitDetails;
 import at.ac.tuwien.dmap.dmapbackend.tiss.addressbook.dto.Person;
+import at.ac.tuwien.dmap.dmapbackend.tiss.addressbook.dto.PersonDetails;
 import at.ac.tuwien.dmap.dmapbackend.tiss.addressbook.service.AddressBookService;
-import at.ac.tuwien.dmap.dmapbackend.tiss.projectdatabase.dto.ProjectDetails;
-import at.ac.tuwien.dmap.dmapbackend.tiss.projectdatabase.dto.ProjectOverview;
-import at.ac.tuwien.dmap.dmapbackend.tiss.projectdatabase.dto.ProjectDetailsWrapper;
-import at.ac.tuwien.dmap.dmapbackend.tiss.projectdatabase.dto.ProjectOverviewList;
+import at.ac.tuwien.dmap.dmapbackend.tiss.projectdatabase.dto.*;
 import at.ac.tuwien.dmap.dmapbackend.tiss.projectdatabase.service.ProjectDatabaseService;
 import at.ac.tuwien.dmap.dmapbackend.tiss.common.TissResponseErrorHandler;
 import at.ac.tuwien.dmap.dmapbackend.tiss.projectdatabase.rest.exceptions.ProjectDetailsNotFoundException;
@@ -133,5 +131,17 @@ public class ProjectDatabaseServiceImpl implements ProjectDatabaseService {
         return suggestedProjects.stream().sorted(
                 sortByProjectLeader.thenComparing(sortByProjectBeginDescending)
         ).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProjectMemberDetails> getProjectStaff(String projectId) {
+        ProjectDetails projectDetails = getProjectDetails(projectId);
+        List<ProjectMemberDetails> projectMemberDetailsList = new ArrayList<>();
+
+        projectDetails.getInstitutes().forEach(institute -> institute.getProjectMembers().forEach(projectMember -> {
+            PersonDetails personDetails = addressBookService.getPersonDetailsById(projectMember.getOid());
+            projectMemberDetailsList.add(ProjectMemberDetails.fromProjectMemberAndPersonDetails(projectMember, personDetails));
+        }));
+        return projectMemberDetailsList;
     }
 }

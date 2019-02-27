@@ -5,7 +5,8 @@ export const namespaced = true
 export const state = {
   projects: [],
   projectsDetails: [],
-  selectedProjects: []
+  selectedProjects: [],
+  projectsStaff: []
 }
 
 export const mutations = {
@@ -16,12 +17,18 @@ export const mutations = {
     state.projectsDetails.push(projectDetails)
   },
   ADD_PROJECT_TO_SELECTION (state, project) {
-    state.selectedProjects.indexOf(project) === -1
+    state.selectedProjects.findIndex(p => p.projectId === project.projectId) === -1
       ? state.selectedProjects.push(project) : console.log('Project already selected')
   },
   REMOVE_PROJECT_FROM_SELECTION (state, project) {
-    var index = state.selectedProjects.indexOf(project)
+    var index = state.selectedProjects.findIndex(p => p.projectId === project.projectId)
     index !== -1 ? state.selectedProjects.splice(index, 1) : console.log('Project not contained in selected projects')
+  },
+  ADD_PROJECTS_STAFF (state, projectStaff) {
+    projectStaff.forEach(projectMember => {
+      state.projectsStaff.findIndex(pm => pm.personDetails.oid === projectMember.personDetails.oid) === -1
+        ? state.projectsStaff.push(projectMember) : console.log('Project member already added')
+    })
   }
 }
 
@@ -55,6 +62,18 @@ export const actions = {
     if (project) {
       commit('REMOVE_PROJECT_FROM_SELECTION', project)
     }
+  },
+  fetchProjectStaff ({ commit }, projectId) {
+    return BackendService.getProjectStaff(projectId)
+      .then(response => {
+        commit('ADD_PROJECTS_STAFF', response.data)
+      })
+      .catch(error => {
+        console.log('There was a problem fetching the project staff for projectid=' + projectId + ': ' + error.message)
+      })
+  },
+  fetchProjectStaffForAllSelectedProjects ({ getters, dispatch }) {
+    getters.getSelectedProjects.forEach(p => dispatch('fetchProjectStaff', p.projectId))
   }
 }
 
@@ -71,5 +90,17 @@ export const getters = {
   },
   getSelectedProjectsCount: state => {
     return state.selectedProjects.length
+  },
+  getSelectedProjects: state => {
+    return state.selectedProjects
+  },
+  isSelectedProject: state => projectId => {
+    return state.selectedProjects.findIndex(p => p.projectId === projectId) !== -1
+  },
+  getProjectsStaffCount: state => {
+    return state.projectsStaff.length
+  },
+  getProjectsStaff: state => {
+    return state.projectsStaff
   }
 }
