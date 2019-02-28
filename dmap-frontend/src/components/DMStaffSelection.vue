@@ -2,18 +2,21 @@
   <div>
     <p>Please select the people involved in data management and assign roles.</p>
     <div>
-      <p v-if="getDataManagementStaff === 0">Currently you have no people selected.</p>
+      <p v-if="getDataManagementStaffMembersCount === 0">Currently you have no people selected.</p>
       <p v-else>You selected {{ getDataManagementStaffMembersCount }} person(s):</p>
       <PersonSelected v-for="(person, index) in getDataManagementStaff" :key="index"
                        :person="person"></PersonSelected>
     </div>
     <v-expansion-panel v-model="panels" expand>
-      <v-expansion-panel-content v-for="(person, index) in getProjectsStaff" :key="index">
+      <v-expansion-panel-content v-for="(person, index) in projectsStaff" :key="index">
         <DMStaffHeaderCard slot="header" :person="person"></DMStaffHeaderCard>
         <DMStaffDetailsCard :person="person"></DMStaffDetailsCard>
       </v-expansion-panel-content>
     </v-expansion-panel>
     <div class="text-xs-center">
+      <v-alert :value="getProjectsStaffCount === 0" icon="info" color="info" outline>
+        No people could be suggested. Try to select project(s) first or use the search function.
+      </v-alert>
       <v-pagination v-model="page" :length="paginationLength">
       </v-pagination>
     </div>
@@ -56,13 +59,24 @@ export default {
       personSearchTerm: '',
       page: 1,
       perPage: 5,
-      panels: [],
-      paginationLength: 3
+      panels: []
+    }
+  },
+  watch: {
+    page: function () {
+      // when page changes, reset the expand states of the panels
+      this.panels = []
     }
   },
   computed: {
-    ...mapGetters('project', ['getProjectsStaffCount', 'getProjectsStaff']),
-    ...mapGetters('people', ['getDataManagementStaffMembersCount', 'getDataManagementStaff'])
+    ...mapGetters('project', ['getProjectsStaffCount', 'getProjectsStaffPerPage']),
+    ...mapGetters('people', ['getDataManagementStaffMembersCount', 'getDataManagementStaff']),
+    projectsStaff () {
+      return this.getProjectsStaffPerPage(this.page, this.perPage)
+    },
+    paginationLength () {
+      return Math.ceil(this.getProjectsStaffCount / this.perPage) || 1
+    }
   },
   created: function () {
     // called when step is opened

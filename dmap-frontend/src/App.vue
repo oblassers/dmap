@@ -2,7 +2,11 @@
   <div id="app">
     <v-app>
       <NavBar></NavBar>
-      <router-view :key="$route.fullPath"/>
+      <v-content>
+        <v-container fluid>
+          <router-view :key="$route.fullPath"/>
+        </v-container>
+      </v-content>
     </v-app>
   </div>
 </template>

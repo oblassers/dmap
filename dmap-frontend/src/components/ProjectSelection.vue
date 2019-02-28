@@ -14,6 +14,9 @@
       </v-expansion-panel-content>
     </v-expansion-panel>
     <div class="text-xs-center">
+      <v-alert :value="getProjectSuggestionsTotal === 0" icon="info" color="info" outline>
+        No projects could be suggested. Try to use the search function.
+      </v-alert>
       <v-pagination v-model="page" :length="paginationLength">
       </v-pagination>
     </div>

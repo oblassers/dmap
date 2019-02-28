@@ -102,5 +102,9 @@ export const getters = {
   },
   getProjectsStaff: state => {
     return state.projectsStaff
+  },
+  getProjectsStaffPerPage: state => (page, perPage) => {
+    var index = (page - 1) * perPage
+    return state.projectsStaff.slice(index, index + perPage)
   }
 }

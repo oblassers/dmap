@@ -1,14 +1,21 @@
 <template>
-  <div>
-    <div class="selected-project">
-      <h4>{{ project.titleEn }} ({{ project.shortDescription }})</h4>
-    </div>
-    <div class="remove-btn">
-      <v-btn flat icon large @click="removeProjectFromSelection(project)">
-        <v-icon dark>cancel</v-icon>
+  <v-card
+    class="mx-auto"
+    color="#f5f5f5"
+  >
+    <v-card-title>
+      <div class="project-title">
+        <span><h4>{{ project.titleEn }} ({{ project.shortDescription }})</h4></span>
+        <div class="d-inline-block">
+          <v-icon small>date_range</v-icon><span> {{ project.begin | formatDate }} - {{ project.end | formatDate}}</span>
+        </div>
+      </div>
+      <v-spacer></v-spacer>
+      <v-btn flat icon @click="removeProjectFromSelection(project)">
+        <v-icon>cancel</v-icon>
       </v-btn>
-    </div>
-  </div>
+    </v-card-title>
+  </v-card>
 </template>
 
 <script>
@@ -29,15 +36,7 @@ export default {
 </script>
 
 <style scoped>
-.selected-project{
-  text-align: left;
-  float: left;
-  width: 90%;
-}
-
-.remove-btn{
-  text-align: right;
-  padding-right: 8px;
-  background-color: lightgrey;
+.project-title{
+  width: 80%;
 }
 </style>
