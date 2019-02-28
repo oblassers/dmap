@@ -29,15 +29,15 @@ export default {
 </script>
 
 <style scoped>
-  .selected-project{
-    text-align: left;
-    float: left;
-    width: 90%;
-  }
+.selected-project{
+  text-align: left;
+  float: left;
+  width: 90%;
+}
 
-  .remove-btn{
-    text-align: right;
-    padding-right: 8px;
-    background-color: lightgrey;
-  }
+.remove-btn{
+  text-align: right;
+  padding-right: 8px;
+  background-color: lightgrey;
+}
 </style>

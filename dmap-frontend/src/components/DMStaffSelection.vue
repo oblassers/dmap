@@ -10,6 +10,7 @@
     <v-expansion-panel v-model="panels" expand>
       <v-expansion-panel-content v-for="(person, index) in getProjectsStaff" :key="index">
         <DMStaffHeaderCard slot="header" :person="person"></DMStaffHeaderCard>
+        <DMStaffDetailsCard :person="person"></DMStaffDetailsCard>
       </v-expansion-panel-content>
     </v-expansion-panel>
     <div class="text-xs-center">
@@ -35,6 +36,7 @@ import store from '@/store/store'
 import { mapGetters } from 'vuex'
 import DMStaffHeaderCard from '@/components/DMStaffHeaderCard'
 import PersonSelected from '@/components/PersonSelected'
+import DMStaffDetailsCard from '@/components/DMStaffDetailsCard'
 
 function getProjectStaffForAllSelectedProjects () {
   store.dispatch('project/fetchProjectStaffForAllSelectedProjects')
@@ -42,7 +44,7 @@ function getProjectStaffForAllSelectedProjects () {
 
 export default {
   name: 'DMStaffSelection',
-  components: { DMStaffHeaderCard, PersonSelected },
+  components: { DMStaffDetailsCard, DMStaffHeaderCard, PersonSelected },
   props: {
     step: {
       type: String,
@@ -74,8 +76,8 @@ export default {
 </script>
 
 <style scoped>
-  .search-div{
-    padding-top: 20px;
-    float: left;
-  }
+.search-div{
+  padding-top: 20px;
+  float: left;
+}
 </style>

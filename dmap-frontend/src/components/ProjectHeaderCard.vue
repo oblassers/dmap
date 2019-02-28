@@ -2,7 +2,7 @@
   <div>
     <div class="project-overview">
       <h4>{{ project.titleEn }} ({{ project.shortDescription }})</h4>
-      <span>Project duration: {{ project.begin | formatDate }} - {{ project.end | formatDate}}</span>
+      <v-icon small>date_range</v-icon><span> {{ project.begin | formatDate }} - {{ project.end | formatDate}}</span>
     </div>
     <div class="select-btn" @click.stop="selectProject(project)">
       <v-btn :disabled="isSelectedProject(project.projectId)" small>Select</v-btn>
@@ -31,14 +31,13 @@ export default {
 </script>
 
 <style scoped>
-  .project-overview{
-    text-align: left;
-    float: left;
-    width: 80%;
-  }
-
-  .select-btn{
-    text-align: left;
-    float: right;
-  }
+.project-overview{
+  text-align: left;
+  float: left;
+  width: 80%;
+}
+.select-btn{
+  text-align: left;
+  float: right;
+}
 </style>

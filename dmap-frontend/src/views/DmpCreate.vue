@@ -38,11 +38,12 @@ export default {
     ...mapState(['dmp', 'user']),
     ...mapGetters('user', ['getFullName']),
     ...mapGetters('project', ['getSelectedProjectsCount']),
+    ...mapGetters('people', ['getDataManagementStaffMembersCount']),
     projectSelected () {
       return this.getSelectedProjectsCount > 0
     },
     dataManagementStaffDefined () {
-      return false
+      return this.getDataManagementStaffMembersCount > 0
     },
     researchDataSpecified () {
       return false
