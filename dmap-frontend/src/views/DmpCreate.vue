@@ -20,7 +20,21 @@
         Specify your research data
       </v-stepper-step>
       <v-stepper-content step="3">
-        TODO
+        <SpecifyResearchData></SpecifyResearchData>
+      </v-stepper-content>
+
+      <v-stepper-step :complete="researchDataFurtherDescribed" editable step="4">
+        Further describe your research data
+      </v-stepper-step>
+      <v-stepper-content step="4">
+        <DescribeResearchData></DescribeResearchData>
+      </v-stepper-content>
+
+      <v-stepper-step :complete="researchDataSpecified" editable step="5">
+        Legal and ethical aspects
+      </v-stepper-step>
+      <v-stepper-content step="5">
+        <LegalAndEthicalAspects></LegalAndEthicalAspects>
       </v-stepper-content>
     </v-stepper>
   </div>
@@ -28,17 +42,21 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
-import ProjectSelection from '../components/ProjectSelection'
-import DMStaffSelection from '../components/DMStaffSelection'
+import ProjectSelection from '@/components/ProjectSelection'
+import DMStaffSelection from '@/components/DMStaffSelection'
+import SpecifyResearchData from '@/components/SpecifyResearchData'
+import DescribeResearchData from '@/components/DescribeResearchData'
+import LegalAndEthicalAspects from '@/components/LegalAndEthicalAspects'
 
 export default {
   name: 'DmpCreate',
-  components: { DMStaffSelection, ProjectSelection },
+  components: { LegalAndEthicalAspects, DescribeResearchData, SpecifyResearchData, DMStaffSelection, ProjectSelection },
   computed: {
     ...mapState(['dmp', 'user']),
     ...mapGetters('user', ['getFullName']),
     ...mapGetters('project', ['getSelectedProjectsCount']),
     ...mapGetters('people', ['getDataManagementStaffMembersCount']),
+    ...mapGetters('data', ['getFurtherDataDescription']),
     projectSelected () {
       return this.getSelectedProjectsCount > 0
     },
@@ -47,6 +65,9 @@ export default {
     },
     researchDataSpecified () {
       return false
+    },
+    researchDataFurtherDescribed () {
+      return this.getFurtherDataDescription !== ''
     }
   }
 }

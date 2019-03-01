@@ -1,6 +1,7 @@
 <template>
   <v-card v-if="projectDetails">
     <v-card-text>Project ID: {{ projectDetails.id }}</v-card-text>
+    <!-- TODO: parse project details and display it nicely -->
     <v-card-text>{{ projectDetails }}</v-card-text>
   </v-card>
 </template>

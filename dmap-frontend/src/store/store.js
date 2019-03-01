@@ -4,6 +4,8 @@ import * as dmp from '@/store/modules/dmp.js'
 import * as loading from '@/store/modules/loading.js'
 import * as project from '@/store/modules/project.js'
 import * as people from '@/store/modules/people.js'
+import * as data from '@/store/modules/data.js'
+import * as legal from '@/store/modules/legal.js'
 import * as user from '@/store/modules/user.js'
 
 Vue.use(Vuex)
@@ -14,6 +16,8 @@ export default new Vuex.Store({
     loading,
     project,
     people,
+    data,
+    legal,
     user
   }
 })
