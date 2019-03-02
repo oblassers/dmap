@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import MyDmps from './views/MyDmps.vue'
 import Login from './views/Login.vue'
+import Logout from './views/Logout.vue'
 import DmpCreate from './views/DmpCreate'
 import DmpShow from './views/DmpShow'
 
@@ -35,6 +36,11 @@ const router = new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      component: Logout
     }
   ]
 })

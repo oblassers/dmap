@@ -1,10 +1,10 @@
 <template>
-  <div>Login not implemented yet.</div>
+  <div>Logout not implemented yet.</div>
 </template>
 
 <script>
 export default {
-  name: 'Login'
+  name: 'Logout'
 }
 </script>
 

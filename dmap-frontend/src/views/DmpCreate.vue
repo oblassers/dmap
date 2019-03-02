@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 import ProjectSelection from '@/components/ProjectSelection'
 import DMStaffSelection from '@/components/DMStaffSelection'
 import SpecifyResearchData from '@/components/SpecifyResearchData'
@@ -52,8 +52,6 @@ export default {
   name: 'DmpCreate',
   components: { LegalAndEthicalAspects, DescribeResearchData, SpecifyResearchData, DMStaffSelection, ProjectSelection },
   computed: {
-    ...mapState(['dmp', 'user']),
-    ...mapGetters('user', ['getFullName']),
     ...mapGetters('project', ['getSelectedProjectsCount']),
     ...mapGetters('people', ['getDataManagementStaffMembersCount']),
     ...mapGetters('data', ['getFurtherDataDescription']),
