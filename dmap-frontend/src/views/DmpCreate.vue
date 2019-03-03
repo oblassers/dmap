@@ -30,7 +30,7 @@
         <DescribeResearchData></DescribeResearchData>
       </v-stepper-content>
 
-      <v-stepper-step :complete="researchDataSpecified" editable step="5">
+      <v-stepper-step :complete="getLegalAndEthicalInfoProvided" editable step="5">
         Legal and ethical aspects
       </v-stepper-step>
       <v-stepper-content step="5">
@@ -55,6 +55,7 @@ export default {
     ...mapGetters('project', ['getSelectedProjectsCount']),
     ...mapGetters('people', ['getDataManagementStaffMembersCount']),
     ...mapGetters('data', ['getFurtherDataDescription']),
+    ...mapGetters('legal', ['getLegalAndEthicalInfoProvided']),
     projectSelected () {
       return this.getSelectedProjectsCount > 0
     },

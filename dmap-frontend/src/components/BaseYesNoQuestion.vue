@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>{{ question }}</p>
-    <v-radio-group v-model="radios" :mandatory="false">
+    <v-radio-group v-model="radios" @change="answerSelected" :mandatory="false">
       <v-radio label="Yes" :value="true"></v-radio>
       <v-radio label="No" :value="false"></v-radio>
     </v-radio-group>
@@ -12,6 +12,7 @@
       label="Please describe"
       auto-grow
       v-model="description"
+      @change="textChanged"
     ></v-textarea>
   </div>
 </template>
@@ -31,6 +32,14 @@ export default {
     return {
       radios: undefined,
       description: ''
+    }
+  },
+  methods: {
+    answerSelected (answer) {
+      this.$emit('selection', answer)
+    },
+    textChanged (text) {
+      this.$emit('textchange', text)
     }
   },
   computed: {
