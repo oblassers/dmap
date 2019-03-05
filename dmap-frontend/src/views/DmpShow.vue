@@ -1,6 +1,5 @@
 <template>
-  <div>
-  </div>
+  <div>Not implemented yet.</div>
 </template>
 
 <script>

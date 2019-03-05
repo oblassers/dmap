@@ -13,7 +13,7 @@
         </div>
       </div>
       <v-spacer></v-spacer>
-      <v-combobox v-model="selectedDataManagementRoles" :items="items" label="Assign data management roles" multiple chips></v-combobox>
+      <v-select v-model="selectedDataManagementRoles" :items="items" label="Assign data management roles" multiple chips></v-select>
       <v-btn flat icon @click="removePersonFromDataManagementStaff(person)">
         <v-icon>cancel</v-icon>
       </v-btn>
