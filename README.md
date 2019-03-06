@@ -4,7 +4,7 @@ The Machine-actionable Data Management planning application (DMap) is being deve
 ## Development
 
 ### Technology stack
-DMap has a Spring Boot backend connected to a MongoDB. The frontend is developed with Vue.js using the Vue CLI, Vuex for application state handling, Vue Router for client-side routing and other handy libraries for building a scalable and modern web application.
+DMap has a Spring Boot backend connected to a MongoDB. The frontend is developed with Vue.js using the Vue CLI, Vuex for application state handling, Vue Router for client-side routing, Vuetify and other handy libraries for building a scalable and modern web application.
 
 ### Prerequisites
 Please install manually or by using your favourite package manager:
@@ -14,16 +14,16 @@ Please install manually or by using your favourite package manager:
 * [Vue CLI](https://cli.vuejs.org/guide/installation.html)
 
 ### How to run
-Build frontend and backend (inside root directory):
-
-```
-mvn clean install
-```
-
 Run MongoDB (e.g. on macOS):
 
 ```
 mongod
+```
+
+Build frontend and backend (inside root directory):
+
+```
+mvn clean install
 ```
 
 Run the backend:
