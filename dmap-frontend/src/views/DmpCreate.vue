@@ -54,7 +54,7 @@ export default {
   computed: {
     ...mapGetters('project', ['getSelectedProjectsCount']),
     ...mapGetters('people', ['getDataManagementStaffMembersCount']),
-    ...mapGetters('data', ['getFurtherDataDescription']),
+    ...mapGetters('data', ['getFurtherDataDescription', 'getDataEstimationsCount']),
     ...mapGetters('legal', ['getLegalAndEthicalInfoProvided']),
     projectSelected () {
       return this.getSelectedProjectsCount > 0
@@ -63,7 +63,7 @@ export default {
       return this.getDataManagementStaffMembersCount > 0
     },
     researchDataSpecified () {
-      return false
+      return this.getDataEstimationsCount > 0
     },
     researchDataFurtherDescribed () {
       return this.getFurtherDataDescription !== ''

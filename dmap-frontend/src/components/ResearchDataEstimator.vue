@@ -43,6 +43,7 @@
     <v-data-table
       :headers="headers"
       :items="getDataEstimations"
+      v-if="getDataEstimations.length > 0"
     >
       <template v-slot:items="props">
         <td>{{ props.item.estimatedType }}</td>
@@ -127,7 +128,7 @@ export default {
       this.clearItem(estimationItem)
     },
     editItem (estimationItem) {
-      console.log('edit')
+      // TODO
     },
     deleteItem (estimationItem) {
       this.removeDataEstimation(estimationItem)

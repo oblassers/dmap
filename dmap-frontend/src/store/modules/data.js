@@ -33,6 +33,9 @@ export const getters = {
   getDataEstimations: state => {
     return state.dataEstimations
   },
+  getDataEstimationsCount: state => {
+    return state.dataEstimations.length
+  },
   getFurtherDataDescription: state => {
     return state.furtherDataDescription
   }

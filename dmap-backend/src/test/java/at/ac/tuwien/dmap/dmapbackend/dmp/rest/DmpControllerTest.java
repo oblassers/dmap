@@ -26,7 +26,7 @@ public class DmpControllerTest {
 
     @Before
     public void init() {
-        RestAssured.baseURI = "http://localhost";
+        RestAssured.baseURI = "http://localhost/api";
         RestAssured.port = port;
     }
 

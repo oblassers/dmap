@@ -23,12 +23,12 @@ const router = new Router({
       component: MyDmps
     },
     {
-      path: '/dmp/:id',
+      path: '/dmps/:id',
       name: 'dmp-show',
       component: DmpShow
     },
     {
-      path: '/dmp/create',
+      path: '/dmps/create',
       name: 'dmp-create',
       component: DmpCreate
     },

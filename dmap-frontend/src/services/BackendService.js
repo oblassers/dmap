@@ -23,7 +23,13 @@ apiClient.interceptors.response.use(response => {
 
 export default {
   getDmps () {
-    return apiClient.get('/dmps/')
+    return apiClient.get('/dmps')
+  },
+  getDmp (id) {
+    return apiClient.get('/dmps/' + id)
+  },
+  createNewDmp (dmp) {
+    return apiClient.post('/dmps', dmp)
   },
   getProjectSuggestions (user) {
     return apiClient.post('/pdb/suggest_projects', user)
