@@ -80,7 +80,7 @@ export default {
   },
   created: function () {
     // called when step is opened
-    this.$parent.$parent.$on('input', step => {
+    this.$parent.$parent.$parent.$on('input', step => {
       if (step === this.step) {
         getProjectStaffForAllSelectedProjects()
       }
