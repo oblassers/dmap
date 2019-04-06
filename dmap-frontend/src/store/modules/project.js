@@ -13,6 +13,9 @@ export const mutations = {
   SET_PROJECTS (state, projects) {
     state.projects = projects
   },
+  SET_PROJECTS_DETAILS (state, projectsDetails) {
+    state.projectsDetails = projectsDetails
+  },
   ADD_PROJECT_DETAILS (state, projectDetails) {
     state.projectsDetails.push(projectDetails)
   },
@@ -23,6 +26,9 @@ export const mutations = {
   REMOVE_PROJECT_FROM_SELECTION (state, project) {
     var index = state.selectedProjects.findIndex(p => p.projectId === project.projectId)
     index !== -1 ? state.selectedProjects.splice(index, 1) : console.log('Project not contained in selected projects')
+  },
+  SET_PROJECTS_STAFF (state, projectsStaff) {
+    state.projectsStaff = projectsStaff
   },
   ADD_PROJECTS_STAFF (state, projectStaff) {
     projectStaff.forEach(projectMember => {
@@ -63,6 +69,10 @@ export const actions = {
       commit('REMOVE_PROJECT_FROM_SELECTION', project)
     }
   },
+  clearProjects ({ commit }) {
+    commit('SET_PROJECTS', [])
+    commit('SET_PROJECTS_DETAILS', [])
+  },
   fetchProjectStaff ({ commit }, projectId) {
     return BackendService.getProjectStaff(projectId)
       .then(response => {
@@ -74,6 +84,9 @@ export const actions = {
   },
   fetchProjectStaffForAllSelectedProjects ({ getters, dispatch }) {
     getters.getSelectedProjects.forEach(p => dispatch('fetchProjectStaff', p.projectId))
+  },
+  clearProjectsStaff ({ commit }) {
+    commit('SET_PROJECTS_STAFF', [])
   }
 }
 

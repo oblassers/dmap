@@ -13,11 +13,17 @@
         <DMStaffDetailsCard :person="person"></DMStaffDetailsCard>
       </v-expansion-panel-content>
     </v-expansion-panel>
+    <v-layout v-if="isLoading" row wrap>
+      <v-flex mt-2 mb-2 text-xs-center>
+        <v-progress-circular indeterminate :size=40 color="primary">
+        </v-progress-circular>
+      </v-flex>
+    </v-layout>
     <div class="text-xs-center">
-      <v-alert :value="getProjectsStaffCount === 0" icon="info" color="info" outline>
+      <v-alert :value="getProjectsStaffCount === 0 && !isLoading" icon="info" color="info" outline>
         No people could be suggested. Try to select project(s) first or use the search function.
       </v-alert>
-      <v-pagination v-model="page" :length="paginationLength">
+      <v-pagination v-if="getProjectsStaffCount > 0" v-model="page" :length="paginationLength">
       </v-pagination>
     </div>
     <div class="search-div">
@@ -40,6 +46,10 @@ import { mapGetters } from 'vuex'
 import DMStaffHeaderCard from '@/components/DMStaffHeaderCard'
 import PersonSelected from '@/components/PersonSelected'
 import DMStaffDetailsCard from '@/components/DMStaffDetailsCard'
+
+function clearProjectsStaff () {
+  store.dispatch('project/clearProjectsStaff')
+}
 
 function getProjectStaffForAllSelectedProjects () {
   store.dispatch('project/fetchProjectStaffForAllSelectedProjects')
@@ -71,6 +81,7 @@ export default {
   computed: {
     ...mapGetters('project', ['getProjectsStaffCount', 'getProjectsStaffPerPage']),
     ...mapGetters('people', ['getDataManagementStaffMembersCount', 'getDataManagementStaff']),
+    ...mapGetters('loading', ['isLoading']),
     projectsStaff () {
       return this.getProjectsStaffPerPage(this.page, this.perPage)
     },
@@ -82,6 +93,7 @@ export default {
     // called when step is opened
     this.$parent.$parent.$parent.$on('input', step => {
       if (step === this.step) {
+        clearProjectsStaff()
         getProjectStaffForAllSelectedProjects()
       }
     })

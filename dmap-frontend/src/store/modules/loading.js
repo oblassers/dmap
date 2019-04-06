@@ -21,3 +21,9 @@ export const actions = {
     commit('FINISH_LOADING')
   }
 }
+
+export const getters = {
+  isLoading: state => {
+    return state.loading !== 0
+  }
+}

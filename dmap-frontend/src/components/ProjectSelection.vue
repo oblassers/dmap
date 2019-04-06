@@ -13,11 +13,17 @@
         <ProjectDetailsCard :project-id="project.projectId"></ProjectDetailsCard>
       </v-expansion-panel-content>
     </v-expansion-panel>
+    <v-layout v-if="getProjectSuggestionsTotal === 0 && isLoading" row wrap>
+      <v-flex mt-2 mb-2 text-xs-center>
+        <v-progress-circular indeterminate :size=40 color="primary">
+        </v-progress-circular>
+      </v-flex>
+    </v-layout>
     <div class="text-xs-center">
-      <v-alert :value="getProjectSuggestionsTotal === 0" icon="info" color="info" outline>
+      <v-alert :value="getProjectSuggestionsTotal === 0 && !isLoading" icon="info" color="info" outline>
         No projects could be suggested. Try to use the search function.
       </v-alert>
-      <v-pagination v-model="page" :length="paginationLength">
+      <v-pagination v-if="getProjectSuggestionsTotal > 0" v-model="page" :length="paginationLength">
       </v-pagination>
     </div>
     <div class="search-div">
@@ -41,6 +47,10 @@ import store from '@/store/store'
 import { mapState, mapGetters } from 'vuex'
 import ProjectSelected from '@/components/ProjectSelected'
 
+function clearProjects () {
+  store.dispatch('project/clearProjects')
+}
+
 function getProjectSuggestions () {
   store.dispatch('project/fetchProjectSuggestions')
 }
@@ -57,6 +67,7 @@ export default {
   computed: {
     ...mapState(['project']),
     ...mapGetters('project', ['getProjectSuggestionsPerPage', 'getProjectSuggestionsTotal', 'getSelectedProjectsCount']),
+    ...mapGetters('loading', ['isLoading']),
     projectSuggestions () {
       return this.getProjectSuggestionsPerPage(this.page, this.perPage)
     },
@@ -82,6 +93,7 @@ export default {
     // called when step is opened
     this.$parent.$parent.$parent.$on('input', step => {
       if (step === this.step) {
+        clearProjects()
         getProjectSuggestions()
       }
     })
