@@ -2,6 +2,7 @@ package at.ac.tuwien.dmap.dmapbackend.re3data.rest;
 
 import at.ac.tuwien.dmap.dmapbackend.re3data.dto.Repository;
 import at.ac.tuwien.dmap.dmapbackend.re3data.dto.RepositoryDetails;
+import at.ac.tuwien.dmap.dmapbackend.re3data.dto.generated.Re3Data;
 import at.ac.tuwien.dmap.dmapbackend.re3data.service.RepositoryRegistryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,5 +37,11 @@ public class RepositoryRegistryController {
     public ResponseEntity<RepositoryDetails> getRepositoryDetails(@PathVariable("id") String repositoryId) {
         log.info(String.format("Get repository details for ID=%s", repositoryId));
         return ResponseEntity.ok(repositoryRegistryService.getRepositoryDetailsById(repositoryId));
+    }
+
+    @RequestMapping(value = "/re3data_repository/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Re3Data.Repository> getRe3DataRepositoryDetails(@PathVariable("id") String repositoryId) {
+        log.info(String.format("Get repository details for ID=%s", repositoryId));
+        return ResponseEntity.ok(repositoryRegistryService.getRe3DataRepositoryDetailsById(repositoryId));
     }
 }
