@@ -38,6 +38,17 @@ export const actions = {
         console.log('There was a problem fetching repositories: ' + error.message)
       })
   },
+  fetchRepositoryDetails ({ commit, getters }, repositoryId) {
+    var repositoryDetails = getters.getRepositoryDetailsById(repositoryId)
+    if (repositoryDetails) {
+      return repositoryDetails
+    } else {
+      return BackendService.getRepositoryDetails(repositoryId).then(response => {
+        commit('ADD_REPOSITORY_DETAILS', response.data)
+        return response.data
+      })
+    }
+  },
   selectRepository ({ commit }, repository) {
     if (repository) {
       commit('ADD_REPOSITORY_TO_SELECTION', repository)
@@ -56,7 +67,7 @@ export const actions = {
 
 export const getters = {
   getRepositoryDetailsById: state => repositoryId => {
-    return state.repositoriesDetails.find(repositoryDetails => repositoryDetails.id === repositoryId)
+    return state.repositoriesDetails.find(repositoryDetails => repositoryDetails.repositoryId === repositoryId)
   },
   getRepositorySuggestionsTotal: state => {
     return state.repositories.length

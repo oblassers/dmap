@@ -1,10 +1,58 @@
 <template>
-  <div>
-
+  <div v-if="repositoryDetails">
+    <v-layout row wrap mx-4>
+      <v-flex xs12 mb-3>
+        {{ repositoryDetails.description }}
+      </v-flex>
+      <v-flex xs12 mb-2>
+        Repository URL: <a :href="repositoryDetails.repositoryUrl">{{ repositoryDetails.repositoryUrl }}</a>
+      </v-flex>
+      <v-flex xs12>
+        Certificates:
+        <v-chip v-if="!repositoryDetails.certificates" small>none</v-chip>
+        <v-chip v-for="(certificate, index) in repositoryDetails.certificates" :key="index" small>
+          {{ certificate }}
+        </v-chip>
+      </v-flex>
+      <v-flex xs12>
+        PID systems:
+        <v-chip v-if="!repositoryDetails.pidSystems" small>none</v-chip>
+        <v-chip v-for="(pidSystem, index) in repositoryDetails.pidSystems" :key="index" small>
+        {{ pidSystem }}
+        </v-chip>
+      </v-flex>
+      <v-flex xs12>
+        Repository access:
+        <v-chip small>
+          {{ repositoryDetails.databaseAccess.databaseAccessType }}
+          <span v-if="repositoryDetails.databaseAccess.databaseAccessRestrictions">
+            (<span v-for="(restriction, index) in repositoryDetails.databaseAccess.databaseAccessRestrictions" :key="index"> {{ restriction }} </span>)
+          </span>
+        </v-chip>
+      </v-flex>
+      <v-flex xs12>
+        Data access:
+        <v-chip v-for="(dataAccess, index) in repositoryDetails.dataAccesses" :key="index" small>
+          {{ dataAccess.dataAccessType }}
+          <span v-if="dataAccess.dataAccessRestrictions">
+            (<span v-for="(restriction, index) in dataAccess.dataAccessRestrictions" :key="index"> {{ restriction }} </span>)
+          </span>
+        </v-chip>
+      </v-flex>
+      <v-flex xs12>
+        Content types:
+        <span v-if="!repositoryDetails.contentTypes">unknown</span>
+        <v-chip v-for="(contentType, index) in repositoryDetails.contentTypes" :key="index" small>
+          {{ contentType }}
+        </v-chip>
+      </v-flex>
+    </v-layout>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   name: 'RepositoryDetailsCard',
   props: {
@@ -12,6 +60,22 @@ export default {
       type: String,
       required: true
     }
+  },
+  methods: {
+    ...mapActions('repository', ['fetchRepositoryDetails'])
+  },
+  computed: {
+    ...mapGetters('repository', ['getRepositoryDetailsById']),
+    repositoryDetails () {
+      return this.getRepositoryDetailsById(this.repositoryId)
+    }
+  },
+  created: function () {
+    this.$parent.$on('input', expanded => {
+      if (expanded) {
+        this.fetchRepositoryDetails(this.repositoryId)
+      }
+    })
   }
 }
 </script>

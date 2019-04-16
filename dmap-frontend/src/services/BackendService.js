@@ -2,13 +2,13 @@ import axios from 'axios'
 import store from '@/store/store'
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:3000/api/',
+  baseURL: 'http://localhost:3000/api',
   withCredentials: false,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json'
   },
-  timeout: 15000
+  timeout: 25000
 })
 
 apiClient.interceptors.request.use(config => {
@@ -38,9 +38,12 @@ export default {
     return apiClient.get('/pdb/project/' + projectId)
   },
   getProjectStaff (projectId) {
-    return apiClient.get('pdb/project/' + projectId + '/staff')
+    return apiClient.get('/pdb/project/' + projectId + '/staff')
   },
   getRepositorySuggestions () {
-    return apiClient.get('repository_registry/search')
+    return apiClient.get('/repository_registry/search')
+  },
+  getRepositoryDetails (repositoryId) {
+    return apiClient.get('/repository_registry/repository/' + repositoryId)
   }
 }

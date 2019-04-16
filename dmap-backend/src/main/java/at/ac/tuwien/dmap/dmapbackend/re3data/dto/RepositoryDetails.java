@@ -48,6 +48,10 @@ public class RepositoryDetails {
     @JacksonXmlProperty(namespace = "r3d", localName = "dataAccess")
     private List<DataAccess> dataAccesses;
 
+    @JacksonXmlElementWrapper(useWrapping = false)
+    @JacksonXmlProperty(namespace = "r3d", localName = "pidSystem")
+    private List<PidSystems> pidSystems;
+
     public RepositoryDetails() {
     }
 
@@ -154,6 +158,19 @@ public class RepositoryDetails {
         }
         else {
             this.dataAccesses = dataAccesses;
+        }
+    }
+
+    public List<PidSystems> getPidSystems() {
+        return pidSystems;
+    }
+
+    public void setPidSystems(List<PidSystems> pidSystems) {
+        if(null != this.pidSystems) {
+            this.pidSystems.addAll(pidSystems);
+        }
+        else {
+            this.pidSystems = pidSystems;
         }
     }
 }

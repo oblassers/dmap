@@ -34,7 +34,7 @@
         >
         </v-select>
       </v-flex>
-      <v-flex x12 text-xs-right>
+      <v-flex xs12 text-xs-right>
         <v-btn @click="addItem(editedDataEstimation)" small>
           <v-icon small>add_circle</v-icon><span class="add-btn">Add</span>
         </v-btn>

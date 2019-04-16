@@ -23,8 +23,11 @@
       <v-alert :value="getRepositorySuggestionsTotal === 0 && !isLoading" icon="info" color="info" outline>
         Sorry, no repositories could be suggested.
       </v-alert>
-      <v-pagination v-if="getRepositorySuggestionsTotal > 0" v-model="page" :length="paginationLength">
-      </v-pagination>
+      <div v-if="getRepositorySuggestionsTotal > 0">
+        <v-pagination  v-model="page" :length="paginationLength">
+        </v-pagination>
+        <p>{{ getRepositorySuggestionsTotal }} repositories found</p>
+      </div>
     </div>
   </div>
 </template>
