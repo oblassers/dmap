@@ -8,19 +8,19 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
  * Conforms to http://schema.re3data.org/2-2/re3dataV2-2.xsd
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DatabaseAccess {
+public class DataAccess {
 
-    @JacksonXmlProperty(namespace = "r3d", localName = "databaseAccessType")
-    private AccessTypes databaseAccessType;
+    @JacksonXmlProperty(namespace = "r3d", localName = "dataAccessType")
+    private DataAccessTypes dataAccessType;
 
-    public DatabaseAccess() {
+    public DataAccess() {
     }
 
-    public AccessTypes getDatabaseAccessType() {
-        return databaseAccessType;
+    public DataAccessTypes getDataAccessType() {
+        return dataAccessType;
     }
 
-    public void setDatabaseAccessType(AccessTypes databaseAccessType) {
-        this.databaseAccessType = databaseAccessType;
+    public void setDataAccessType(DataAccessTypes dataAccessType) {
+        this.dataAccessType = dataAccessType;
     }
 }

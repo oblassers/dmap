@@ -44,6 +44,10 @@ public class RepositoryDetails {
     @JacksonXmlProperty(namespace = "r3d", localName = "databaseAccess")
     private DatabaseAccess databaseAccess;
 
+    @JacksonXmlElementWrapper(useWrapping = false)
+    @JacksonXmlProperty(namespace = "r3d", localName = "dataAccess")
+    private List<DataAccess> dataAccesses;
+
     public RepositoryDetails() {
     }
 
@@ -138,5 +142,18 @@ public class RepositoryDetails {
 
     public void setDatabaseAccess(DatabaseAccess databaseAccess) {
         this.databaseAccess = databaseAccess;
+    }
+
+    public List<DataAccess> getDataAccesses() {
+        return dataAccesses;
+    }
+
+    public void setDataAccesses(List<DataAccess> dataAccesses) {
+        if(null != this.dataAccesses) {
+            this.dataAccesses.addAll(dataAccesses);
+        }
+        else {
+            this.dataAccesses = dataAccesses;
+        }
     }
 }

@@ -39,5 +39,8 @@ export default {
   },
   getProjectStaff (projectId) {
     return apiClient.get('pdb/project/' + projectId + '/staff')
+  },
+  getRepositorySuggestions () {
+    return apiClient.get('repository_registry/search')
   }
 }

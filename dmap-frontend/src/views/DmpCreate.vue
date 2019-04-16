@@ -52,7 +52,7 @@
       </v-stepper-step>
       <v-stepper-content step="6">
         <BaseStepContent previous-step="5" @gotoStep="gotoStep">
-          <SpecifyRepositories></SpecifyRepositories>
+          <SpecifyRepositories step="6"></SpecifyRepositories>
         </BaseStepContent>
       </v-stepper-content>
     </v-stepper>
@@ -67,12 +67,10 @@ import SpecifyResearchData from '@/components/SpecifyResearchData'
 import DescribeResearchData from '@/components/DescribeResearchData'
 import LegalAndEthicalAspects from '@/components/LegalAndEthicalAspects'
 import SpecifyRepositories from '@/components/SpecifyRepositories'
-import BaseStepContent from '../components/BaseStepContent'
 
 export default {
   name: 'DmpCreate',
   components: {
-    BaseStepContent,
     SpecifyRepositories,
     LegalAndEthicalAspects,
     DescribeResearchData,
@@ -94,6 +92,7 @@ export default {
     ...mapGetters('people', ['getDataManagementStaffMembersCount']),
     ...mapGetters('data', ['getFurtherDataDescription', 'getDataEstimationsCount']),
     ...mapGetters('legal', ['getLegalAndEthicalInfoProvided']),
+    ...mapGetters('repository', ['getSelectedRepositoriesCount']),
     projectSelected () {
       return this.getSelectedProjectsCount > 0
     },
@@ -107,7 +106,7 @@ export default {
       return this.getFurtherDataDescription !== ''
     },
     repositoriesSpecified () {
-      return false
+      return this.getSelectedRepositoriesCount > 0
     }
   }
 }
