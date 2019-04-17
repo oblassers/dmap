@@ -8,10 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,9 +26,10 @@ public class RepositoryRegistryController {
 
     //TODO: implement filter parameters
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public ResponseEntity<List<Repository>> getMatchingRepositories() {
-        log.info("Get repositories from registry");
-        return ResponseEntity.ok(repositoryRegistryService.searchForRepositories());
+    public ResponseEntity<List<Repository>> getMatchingRepositories(
+            @RequestParam MultiValueMap<String, String> allParameters) {
+        log.info("Get repositories from registry matching search query: " + allParameters.entrySet());
+        return ResponseEntity.ok(repositoryRegistryService.searchForRepositories(allParameters));
     }
 
     @RequestMapping(value = "/repository/{id}", method = RequestMethod.GET)

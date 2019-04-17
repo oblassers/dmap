@@ -8,7 +8,7 @@ const apiClient = axios.create({
     Accept: 'application/json',
     'Content-Type': 'application/json'
   },
-  timeout: 25000
+  timeout: 30000
 })
 
 apiClient.interceptors.request.use(config => {
@@ -40,8 +40,13 @@ export default {
   getProjectStaff (projectId) {
     return apiClient.get('/pdb/project/' + projectId + '/staff')
   },
-  getRepositorySuggestions () {
-    return apiClient.get('/repository_registry/search')
+  getRepositorySuggestions (query) {
+    return apiClient.get('/repository_registry/search', {
+      // TODO: refactor method to pass whole params object including various filters
+      params: {
+        query: query
+      }
+    })
   },
   getRepositoryDetails (repositoryId) {
     return apiClient.get('/repository_registry/repository/' + repositoryId)

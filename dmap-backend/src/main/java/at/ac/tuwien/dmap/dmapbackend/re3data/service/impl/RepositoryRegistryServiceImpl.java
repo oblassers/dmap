@@ -16,6 +16,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -50,10 +51,10 @@ public class RepositoryRegistryServiceImpl implements RepositoryRegistryService 
         });
     }
 
-    //TODO: implement filter criteria
     @Override
-    public List<Repository> searchForRepositories() {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString("/beta/repositories");
+    public List<Repository> searchForRepositories(MultiValueMap<String, String> queryParameters) {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString("/beta/repositories")
+                .queryParams(queryParameters);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_XML));
@@ -61,7 +62,7 @@ public class RepositoryRegistryServiceImpl implements RepositoryRegistryService 
         HttpEntity requestEntity = new HttpEntity<>("parameters", headers);
 
         ResponseEntity<RepositoryList> response = restTemplate.exchange(
-                builder.toUriString(),
+                builder.build().toUriString(),
                 HttpMethod.GET,
                 requestEntity,
                 RepositoryList.class);

@@ -29,6 +29,18 @@
         <p>{{ getRepositorySuggestionsTotal }} repositories found</p>
       </div>
     </div>
+    <div class="search-div">
+      <p>No suitable repository found? Try to use the search function.
+        <span><v-text-field
+          append-icon="search"
+          label="Search repositories..."
+          single-line
+          hide-details
+          @change="searchRepositories"
+          :loading="isLoading"
+        ></v-text-field></span>
+      </p>
+    </div>
   </div>
 </template>
 
@@ -43,8 +55,8 @@ function clearRepositories () {
   store.dispatch('repository/clearRepositories')
 }
 
-function getRepositorySuggestions () {
-  store.dispatch('repository/fetchRepositorySuggestions')
+function getRepositorySuggestions (query) {
+  store.dispatch('repository/fetchRepositorySuggestions', query)
 }
 
 export default {
@@ -69,10 +81,14 @@ export default {
   },
   data () {
     return {
-      repositorySearchTerm: '',
       page: 1,
       perPage: 5,
       panels: []
+    }
+  },
+  methods: {
+    searchRepositories (query) {
+      getRepositorySuggestions(query)
     }
   },
   watch: {
@@ -94,5 +110,8 @@ export default {
 </script>
 
 <style scoped>
-
+.search-div{
+  padding-top: 20px;
+  float: left;
+}
 </style>

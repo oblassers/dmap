@@ -29,8 +29,8 @@ export const mutations = {
 }
 
 export const actions = {
-  fetchRepositorySuggestions ({ commit }) {
-    return BackendService.getRepositorySuggestions()
+  fetchRepositorySuggestions ({ commit }, query) {
+    return BackendService.getRepositorySuggestions(query)
       .then(response => {
         commit('SET_REPOSITORIES', response.data)
       })
