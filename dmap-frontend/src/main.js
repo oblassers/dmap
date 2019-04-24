@@ -9,6 +9,8 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import 'nprogress/nprogress.css'
 import filters from './filters/filters'
+import Treeselect from '@riophae/vue-treeselect'
+import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 
 Vue.use(Vuetify)
 
@@ -31,6 +33,8 @@ requireComponent.keys().forEach(fileName => {
 
   Vue.component(componentName, componentConfig.default || componentConfig)
 })
+
+Vue.component('treeselect', Treeselect)
 
 Vue.config.productionTip = false
 
