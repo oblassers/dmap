@@ -13,6 +13,7 @@
           label="Search DMPs..."
           single-line
           hide-details
+          outline
         ></v-text-field>
       </v-card-title>
       <v-data-table

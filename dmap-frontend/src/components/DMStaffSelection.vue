@@ -34,6 +34,7 @@
           label="Search for person..."
           single-line
           hide-details
+          outline
         ></v-text-field></span>
       </p>
     </div>

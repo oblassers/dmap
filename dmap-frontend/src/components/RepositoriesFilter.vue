@@ -6,7 +6,8 @@
     <v-flex mb-1>
       <span class="filter-title">Subjects</span>
       <treeselect
-        v-model="selectedSubjects"
+        :value="getFilterSubjects"
+        @input="setFilterSubjects"
         :multiple="true"
         :options="subjects"
         placeholder="Select subjects..."
@@ -15,7 +16,8 @@
     <v-flex mb-1>
       <span class="filter-title">Content types</span>
       <treeselect
-        v-model="selectedContentTypes"
+        :value="getFilterContentTypes"
+        @input="setFilterContentTypes"
         :multiple="true"
         :options="contentTypes"
         placeholder="Select content types..."
@@ -24,7 +26,8 @@
     <v-flex mb-1>
       <span class="filter-title">Countries</span>
       <treeselect
-        v-model="selectedCountry"
+        :value="getFilterCountries"
+        @input="setFilterCountries"
         :multiple="true"
         :options="countries"
         placeholder="Select countries..."
@@ -33,7 +36,8 @@
     <v-flex mb-1>
       <span class="filter-title">Certificates</span>
       <treeselect
-        v-model="selectedCertificates"
+        :value="getFilterCertificates"
+        @input="setFilterCertificates"
         :multiple="true"
         :options="certificates"
         placeholder="Select certificates..."
@@ -42,7 +46,8 @@
     <v-flex mb-1>
       <span class="filter-title">PID systems</span>
       <treeselect
-        v-model="selectedPidSystems"
+        :value="getFilterPidSystems"
+        @input="setFilterPidSystems"
         :multiple="true"
         :options="pidSystems"
         placeholder="Select PID systems..."
@@ -51,7 +56,8 @@
     <v-flex mb-1>
       <span class="filter-title">AID systems</span>
       <treeselect
-        v-model="selectedAidSystems"
+        :value="getFilterAidSystems"
+        @input="setFilterAidSystems"
         :multiple="true"
         :options="aidSystems"
         placeholder="Select AID systems..."
@@ -60,7 +66,8 @@
     <v-flex mb-1>
       <span class="filter-title">Repository access</span>
       <treeselect
-        v-model="selectedRepositoryAccess"
+        :value="getFilterRepositoryAccess"
+        @input="setFilterRepositoryAccess"
         :multiple="true"
         :options="accessTypes"
         placeholder="Select repository access..."
@@ -69,7 +76,8 @@
     <v-flex mb-1>
       <span class="filter-title">Data access</span>
       <treeselect
-        v-model="selectedDataAccess"
+        :value="getFilterDataAccess"
+        @input="setFilterDataAccess"
         :multiple="true"
         :options="dataAccessTypes"
         placeholder="Select data access..."
@@ -78,7 +86,8 @@
     <v-flex mb-1>
       <span class="filter-title">Versioning</span>
       <treeselect
-        v-model="selectedVersioning"
+        :value="getFilterVersioning"
+        @input="setFilterVersioning"
         :multiple="true"
         :options="versioning"
         placeholder="Select versioning..."
@@ -88,23 +97,42 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   name: 'RepositoriesFilter',
+  computed: {
+    ...mapGetters('repository', [
+      'getFilterSubjects',
+      'getFilterContentTypes',
+      'getFilterCountries',
+      'getFilterCertificates',
+      'getFilterPidSystems',
+      'getFilterAidSystems',
+      'getFilterRepositoryAccess',
+      'getFilterDataAccess',
+      'getFilterVersioning'
+    ])
+  },
+  methods: {
+    ...mapActions('repository', [
+      'setFilterSubjects',
+      'setFilterContentTypes',
+      'setFilterCountries',
+      'setFilterCertificates',
+      'setFilterPidSystems',
+      'setFilterAidSystems',
+      'setFilterRepositoryAccess',
+      'setFilterDataAccess',
+      'setFilterVersioning'
+    ])
+  },
   /*
   The filter options are based on the re3data XML schema v2.2
   available at http://doi.org/10.2312/re3.007
   */
   data () {
     return {
-      selectedContentTypes: null,
-      selectedCountry: null,
-      selectedSubjects: null,
-      selectedCertificates: null,
-      selectedPidSystems: null,
-      selectedAidSystems: null,
-      selectedRepositoryAccess: null,
-      selectedDataAccess: null,
-      selectedVersioning: null,
       dataAccessTypes: [
         {
           id: 'open',

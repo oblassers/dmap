@@ -1,4 +1,5 @@
 import axios from 'axios'
+import qs from 'qs'
 import store from '@/store/store'
 
 const apiClient = axios.create({
@@ -40,11 +41,11 @@ export default {
   getProjectStaff (projectId) {
     return apiClient.get('/pdb/project/' + projectId + '/staff')
   },
-  getRepositorySuggestions (query) {
+  getRepositorySuggestions (params) {
     return apiClient.get('/repository_registry/search', {
-      // TODO: refactor method to pass whole params object including various filters
-      params: {
-        query: query
+      params,
+      paramsSerializer: function (params) {
+        return qs.stringify(params, { arrayFormat: 'brackets' })
       }
     })
   },
