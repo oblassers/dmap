@@ -52,6 +52,21 @@ public class RepositoryDetails {
     @JacksonXmlProperty(namespace = "r3d", localName = "pidSystem")
     private List<PidSystems> pidSystems;
 
+    @JacksonXmlElementWrapper(useWrapping = false)
+    @JacksonXmlProperty(namespace = "r3d", localName = "aidSystem")
+    private List<AidSystems> aidSystems;
+
+    @JacksonXmlProperty(namespace = "r3d", localName = "versioning")
+    private YesNo versioning;
+
+    @JacksonXmlElementWrapper(useWrapping = false)
+    @JacksonXmlProperty(namespace = "r3d", localName = "metadataStandard")
+    private List<MetadataStandard> metadataStandards;
+
+    @JacksonXmlElementWrapper(useWrapping = false)
+    @JacksonXmlProperty(namespace = "r3d", localName = "subject")
+    private List<Subject> subjects;
+
     public RepositoryDetails() {
     }
 
@@ -171,6 +186,53 @@ public class RepositoryDetails {
         }
         else {
             this.pidSystems = pidSystems;
+        }
+    }
+
+    public List<AidSystems> getAidSystems() {
+        return aidSystems;
+    }
+
+    public void setAidSystems(List<AidSystems> aidSystems) {
+        if(null != this.aidSystems) {
+            this.aidSystems.addAll(aidSystems);
+        }
+        else {
+            this.aidSystems = aidSystems;
+        }
+    }
+
+    public YesNo getVersioning() {
+        return versioning;
+    }
+
+    public void setVersioning(YesNo versioning) {
+        this.versioning = versioning;
+    }
+
+    public List<MetadataStandard> getMetadataStandards() {
+        return metadataStandards;
+    }
+
+    public void setMetadataStandards(List<MetadataStandard> metadataStandards) {
+        if(null != this.metadataStandards) {
+            this.metadataStandards.addAll(metadataStandards);
+        }
+        else {
+            this.metadataStandards = metadataStandards;
+        }
+    }
+
+    public List<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(List<Subject> subjects) {
+        if(null != this.subjects) {
+            this.subjects.addAll(subjects);
+        }
+        else {
+            this.subjects = subjects;
         }
     }
 }

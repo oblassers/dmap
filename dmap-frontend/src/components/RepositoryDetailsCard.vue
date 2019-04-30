@@ -22,6 +22,18 @@
         </v-chip>
       </v-flex>
       <v-flex xs12>
+        AID systems:
+        <v-chip v-if="!repositoryDetails.aidSystems" small>none</v-chip>
+        <v-chip v-for="(aidSystem, index) in repositoryDetails.aidSystems" :key="index" small>
+          {{ aidSystem }}
+        </v-chip>
+      </v-flex>
+      <v-flex xs12>
+        Versioning:
+        <v-chip v-if="!repositoryDetails.versioning" small>unknown</v-chip>
+        <v-chip v-else small>{{ repositoryDetails.versioning }}</v-chip>
+      </v-flex>
+      <v-flex xs12>
         Repository access:
         <v-chip small>
           {{ repositoryDetails.databaseAccess.databaseAccessType }}
@@ -40,10 +52,24 @@
         </v-chip>
       </v-flex>
       <v-flex xs12>
+        Metadata standards:
+        <v-chip v-if="!repositoryDetails.metadataStandards" small>none</v-chip>
+        <v-chip v-for="(metadataStandard, index) in repositoryDetails.metadataStandards" :key="index" small>
+          {{ metadataStandard.metadataStandardName.name }}
+        </v-chip>
+      </v-flex>
+      <v-flex xs12>
         Content types:
-        <span v-if="!repositoryDetails.contentTypes">unknown</span>
+        <v-chip v-if="!repositoryDetails.contentTypes" small>unknown</v-chip>
         <v-chip v-for="(contentType, index) in repositoryDetails.contentTypes" :key="index" small>
           {{ contentType }}
+        </v-chip>
+      </v-flex>
+      <v-flex xs12>
+        Subjects:
+        <v-chip v-if="!repositoryDetails.subjects" small>unknown</v-chip>
+        <v-chip v-for="(subject, index) in repositoryDetails.subjects" :key="index" small>
+          {{ subject.name | formatSubject }}
         </v-chip>
       </v-flex>
     </v-layout>

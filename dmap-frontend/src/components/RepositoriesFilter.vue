@@ -93,6 +93,16 @@
         placeholder="Select versioning..."
       ></treeselect>
     </v-flex>
+    <v-flex mb-1>
+      <span class="filter-title">Metadata standards</span>
+      <treeselect
+        :value="getFilterMetadataStandards"
+        @input="setFilterMetadataStandards"
+        :multiple="true"
+        :options="metadataStandards"
+        placeholder="Select metadata standards..."
+      ></treeselect>
+    </v-flex>
   </v-layout>
 </template>
 
@@ -111,7 +121,8 @@ export default {
       'getFilterAidSystems',
       'getFilterRepositoryAccess',
       'getFilterDataAccess',
-      'getFilterVersioning'
+      'getFilterVersioning',
+      'getFilterMetadataStandards'
     ])
   },
   methods: {
@@ -124,7 +135,8 @@ export default {
       'setFilterAidSystems',
       'setFilterRepositoryAccess',
       'setFilterDataAccess',
-      'setFilterVersioning'
+      'setFilterVersioning',
+      'setFilterMetadataStandards'
     ])
   },
   /*
@@ -2558,7 +2570,145 @@ export default {
             ]
           }
         ]
-      }]
+      }],
+      metadataStandards: [
+        {
+          id: 'ABCD - Access to Biological Collection Data',
+          label: 'ABCD - Access to Biological Collection Data'
+        },
+        {
+          id: 'AgMES - Agricultural Metadata Element Set',
+          label: 'AgMES - Agricultural Metadata Element Set'
+        },
+        {
+          id: 'AVM - Astronomy Visualization Metadata',
+          label: 'AVM - Astronomy Visualization Metadata'
+        },
+        {
+          id: 'CF (Climate and Forecast) Metadata Conventions',
+          label: 'CF (Climate and Forecast) Metadata Conventions'
+        },
+        {
+          id: 'CIF - Crystallographic Information Framework',
+          label: 'CIF - Crystallographic Information Framework'
+        },
+        {
+          id: 'CIM - Common Information Model',
+          label: 'CIM - Common Information Model'
+        },
+        {
+          id: 'CSMD-CCLRC Core Scientific Metadata Model',
+          label: 'CSMD-CCLRC Core Scientific Metadata Model'
+        },
+        {
+          id: 'Darwin Core',
+          label: 'Darwin Core'
+        },
+        {
+          id: 'DataCite Metadata Schema',
+          label: 'DataCite Metadata Schema'
+        },
+        {
+          id: 'DCAT - Data Catalog Vocabulary',
+          label: 'DCAT - Data Catalog Vocabulary'
+        },
+        {
+          id: 'DDI - Data Documentation Initiative',
+          label: 'DDI - Data Documentation Initiative'
+        },
+        {
+          id: 'DIF - Directory Interchange Format',
+          label: 'DIF - Directory Interchange Format'
+        },
+        {
+          id: 'Dublin Core',
+          label: 'Dublin Core'
+        },
+        {
+          id: 'EML - Ecological Metadata Language',
+          label: 'EML - Ecological Metadata Language'
+        },
+        {
+          id: 'FGDC/CSDGM - Federal Geographic Data Committee Content Standard for Digital Geospatial Metadata',
+          label: 'FGDC/CSDGM - Federal Geographic Data Committee Content Standard for Digital Geospatial Metadata'
+        },
+        {
+          id: 'FITS - Flexible Image Transport System',
+          label: 'FITS - Flexible Image Transport System'
+        },
+        {
+          id: 'Genome Metadata',
+          label: 'Genome Metadata'
+        },
+        {
+          id: 'International Virtual Observatory Alliance Technical Specifications',
+          label: 'International Virtual Observatory Alliance Technical Specifications'
+        },
+        {
+          id: 'ISA-Tab',
+          label: 'ISA-Tab'
+        },
+        {
+          id: 'ISO 19115',
+          label: 'ISO 19115'
+        },
+        {
+          id: 'MIBBI - Minimum Information for Biological and Biomedical Investigations',
+          label: 'MIBBI - Minimum Information for Biological and Biomedical Investigations'
+        },
+        {
+          id: 'MIDAS-Heritage',
+          label: 'MIDAS-Heritage'
+        },
+        {
+          id: 'OAI-ORE - Open Archives Initiative Object Reuse and Exchange',
+          label: 'OAI-ORE - Open Archives Initiative Object Reuse and Exchange'
+        },
+        {
+          id: 'Observ-OM',
+          label: 'Observ-OM'
+        },
+        {
+          id: 'Observations and Measurements',
+          label: 'Observations and Measurements'
+        },
+        {
+          id: 'OME-XML - Open Microscopy Environment XML',
+          label: 'OME-XML - Open Microscopy Environment XML'
+        },
+        {
+          id: 'Protocol Data Element Definitions',
+          label: 'Protocol Data Element Definitions'
+        },
+        {
+          id: 'PROV',
+          label: 'PROV'
+        },
+        {
+          id: 'QuDEx - Qualitative Data Exchange Format',
+          label: 'QuDEx - Qualitative Data Exchange Format'
+        },
+        {
+          id: 'RDF Data Cube Vocabulary',
+          label: 'RDF Data Cube Vocabulary'
+        },
+        {
+          id: 'Repository-Developed Metadata Schemas',
+          label: 'Repository-Developed Metadata Schemas'
+        },
+        {
+          id: 'SDMX - Statistical Data and Metadata Exchange',
+          label: 'SDMX - Statistical Data and Metadata Exchange'
+        },
+        {
+          id: 'SPASE Data Model',
+          label: 'SPASE Data Model'
+        },
+        {
+          id: 'other',
+          label: 'other'
+        }
+      ]
     }
   }
 }

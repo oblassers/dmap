@@ -61,6 +61,9 @@ export const mutations = {
   },
   SET_FILTER_VERSIONING (state, versioning) {
     Vue.set(state.params, 'versioning', versioning)
+  },
+  SET_FILTER_METADATA_STANDARDS (state, metadataStandards) {
+    Vue.set(state.params, 'metadataStandards', metadataStandards)
   }
 }
 
@@ -128,6 +131,9 @@ export const actions = {
   },
   setFilterVersioning ({ commit }, versioning) {
     commit('SET_FILTER_VERSIONING', versioning)
+  },
+  setFilterMetadataStandards ({ commit }, metadataStandards) {
+    commit('SET_FILTER_METADATA_STANDARDS', metadataStandards)
   }
 }
 
@@ -183,5 +189,8 @@ export const getters = {
   },
   getFilterVersioning: state => {
     return state.params.versioning
+  },
+  getFilterMetadataStandards: state => {
+    return state.params.metadataStandards
   }
 }

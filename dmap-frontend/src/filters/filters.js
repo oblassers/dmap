@@ -10,5 +10,10 @@ export default {
     if (!value) return ''
     value = value.toString()
     return moment(value).format('DD.MM.YYYY')
+  },
+  formatSubject: (value) => {
+    if (!value) return ''
+    value = value.toString()
+    return value.replace(/\d+|^\s+|\s+$/g, '')
   }
 }
