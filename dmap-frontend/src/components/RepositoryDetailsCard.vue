@@ -52,6 +52,15 @@
         </v-chip>
       </v-flex>
       <v-flex xs12>
+        Data upload:
+        <v-chip v-for="(dataUpload, index) in repositoryDetails.dataUpload" :key="index" small>
+          {{ dataUpload.dataUploadType }}
+          <span v-if="dataUpload.dataUploadRestrictions">
+            (<span v-for="(restriction, index) in dataUpload.dataUploadRestrictions" :key="index"> {{ restriction }} </span>)
+          </span>
+        </v-chip>
+      </v-flex>
+      <v-flex xs12>
         Metadata standards:
         <v-chip v-if="!repositoryDetails.metadataStandards" small>none</v-chip>
         <v-chip v-for="(metadataStandard, index) in repositoryDetails.metadataStandards" :key="index" small>
