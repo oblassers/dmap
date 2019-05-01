@@ -2,6 +2,15 @@
   <v-layout row wrap>
     <v-flex class="text-xs-center">
       <h4>Filter</h4>
+      <v-chip
+        :value="hasFilters"
+        @input="clearFilters"
+        close
+        color="#039BE5"
+        label
+        outline
+        small
+      >Clear all</v-chip>
     </v-flex>
     <v-flex mb-1>
       <span class="filter-title">Subjects</span>
@@ -113,6 +122,7 @@ export default {
   name: 'RepositoriesFilter',
   computed: {
     ...mapGetters('repository', [
+      'hasFilters',
       'getFilterSubjects',
       'getFilterContentTypes',
       'getFilterCountries',
@@ -127,6 +137,7 @@ export default {
   },
   methods: {
     ...mapActions('repository', [
+      'clearFilters',
       'setFilterSubjects',
       'setFilterContentTypes',
       'setFilterCountries',

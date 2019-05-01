@@ -14,14 +14,16 @@
       <v-layout row wrap>
         <v-flex xs12 mb-3>
           <v-text-field
+            :value="getFilterSearchQuery"
             append-icon="search"
             label="Search repositories..."
             single-line
             hide-details
+            clearable
             @change="setFilterSearchQuery"
+            @click:clear="setFilterSearchQuery('')"
             :loading="isLoading"
             outline
-            clearable
           ></v-text-field>
         </v-flex>
         <v-flex xs12>
@@ -84,7 +86,8 @@ export default {
       'getRepositorySuggestionsPerPage',
       'getRepositorySuggestionsTotal',
       'getSelectedRepositoriesCount',
-      'getFilterParams']),
+      'getFilterParams',
+      'getFilterSearchQuery']),
     ...mapGetters('loading', ['isLoading']),
     repositorySuggestions () {
       return this.getRepositorySuggestionsPerPage(this.page, this.perPage)

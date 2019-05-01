@@ -32,6 +32,9 @@ export const mutations = {
   /*
   Using Vue.set to allow reactivity on nested objects
    */
+  SET_FILTER (state, filter) {
+    state.params = filter
+  },
   SET_FILTER_SEARCH_QUERY (state, query) {
     Vue.set(state.params, 'query', query)
   },
@@ -102,6 +105,9 @@ export const actions = {
     commit('SET_REPOSITORIES', [])
     commit('SET_REPOSITORIES_DETAILS', [])
   },
+  clearFilters ({ commit }) {
+    commit('SET_FILTER', {})
+  },
   setFilterSearchQuery ({ commit }, query) {
     commit('SET_FILTER_SEARCH_QUERY', query)
   },
@@ -159,6 +165,11 @@ export const getters = {
   },
   getFilterParams: state => {
     return state.params
+  },
+  hasFilters: state => {
+    return Object.keys(state.params).some(paramKey => {
+      return state.params[paramKey].length !== 0
+    })
   },
   getFilterSearchQuery: state => {
     return state.params.query
