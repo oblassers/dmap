@@ -168,7 +168,7 @@ export const getters = {
   },
   hasFilters: state => {
     return Object.keys(state.params).some(paramKey => {
-      return state.params[paramKey].length !== 0
+      return state.params[paramKey] && state.params[paramKey].length !== 0
     })
   },
   getFilterSearchQuery: state => {

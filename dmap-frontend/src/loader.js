@@ -8,5 +8,6 @@ store.watch(
   (newVal, oldVal) => {
     if (newVal === 0) return NProgress.done()
     if (oldVal === 0) return NProgress.start()
+    NProgress.set(1.8 / Math.max(oldVal, newVal))
   }
 )

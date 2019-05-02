@@ -15,11 +15,17 @@ const apiClient = axios.create({
 apiClient.interceptors.request.use(config => {
   store.dispatch('loading/startLoading')
   return config
+}, error => {
+  store.dispatch('loading/finishLoading')
+  return Promise.reject(error)
 })
 
 apiClient.interceptors.response.use(response => {
   store.dispatch('loading/finishLoading')
   return response
+}, error => {
+  store.dispatch('loading/finishLoading')
+  return Promise.reject(error)
 })
 
 export default {
