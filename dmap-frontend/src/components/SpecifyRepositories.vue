@@ -41,7 +41,7 @@
           </v-layout>
           <div class="text-xs-center">
             <v-alert :value="getRepositorySuggestionsTotal === 0 && !isLoading" icon="info" color="info" outline>
-              Sorry, no repositories could be suggested.
+              Sorry, no matching repositories could be suggested.
             </v-alert>
             <div v-if="getRepositorySuggestionsTotal > 0">
               <v-pagination  v-model="page" :length="paginationLength">

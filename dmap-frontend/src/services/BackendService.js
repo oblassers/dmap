@@ -28,6 +28,20 @@ apiClient.interceptors.response.use(response => {
   return Promise.reject(error)
 })
 
+const cancellableGetFactory = () => {
+  let call
+  return (url, config) => {
+    if (call) {
+      call.cancel('One request only allowed at a time.')
+    }
+    call = axios.CancelToken.source()
+    config.cancelToken = call.token
+    return apiClient.get(url, config)
+  }
+}
+
+const repositorySuggestionCall = cancellableGetFactory()
+
 export default {
   getDmps () {
     return apiClient.get('/dmps')
@@ -48,10 +62,16 @@ export default {
     return apiClient.get('/pdb/project/' + projectId + '/staff')
   },
   getRepositorySuggestions (params) {
-    return apiClient.get('/repository_registry/search', {
+    return repositorySuggestionCall('/repository_registry/search', {
       params,
       paramsSerializer: function (params) {
         return qs.stringify(params, { arrayFormat: 'brackets' })
+      }
+    }).catch(error => {
+      if (axios.isCancel(error)) {
+        console.log('Previous repository suggestion request cancelled: ' + error.message)
+      } else {
+        throw error
       }
     })
   },

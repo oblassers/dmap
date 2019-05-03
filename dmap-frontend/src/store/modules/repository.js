@@ -74,10 +74,12 @@ export const actions = {
   fetchRepositorySuggestions ({ commit, getters }) {
     return BackendService.getRepositorySuggestions(getters.getFilterParams)
       .then(response => {
-        commit('SET_REPOSITORIES', response.data)
+        if(response) {
+          commit('SET_REPOSITORIES', response.data)
+        }
       })
       .catch(error => {
-        console.log('There was a problem fetching repositories: ' + error.message)
+        console.log('There was a problem fetching repository suggestions: ' + error.message)
       })
   },
   fetchRepositoryDetails ({ commit, getters }, repositoryId) {
@@ -109,6 +111,9 @@ export const actions = {
     commit('SET_FILTER', {})
   },
   setFilterSearchQuery ({ commit }, query) {
+    if (query === undefined || query === null) {
+      query = ''
+    }
     commit('SET_FILTER_SEARCH_QUERY', query)
   },
   setFilterSubjects ({ commit }, subjects) {
