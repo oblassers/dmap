@@ -1,11 +1,23 @@
 <template>
   <div v-if="repositoryDetails">
     <v-layout row wrap mx-4>
+      <v-flex xs12 mb-3 v-if="repositoryDetails.additionalNames">
+        <h5>
+          {{ repositoryDetails.additionalNames[0].name }}
+        </h5>
+      </v-flex>
       <v-flex xs12 mb-3>
         {{ repositoryDetails.description }}
       </v-flex>
       <v-flex xs12 mb-2>
         Repository URL: <a :href="repositoryDetails.repositoryUrl">{{ repositoryDetails.repositoryUrl }}</a>
+      </v-flex>
+      <v-flex xs12>
+        Repository types:
+        <v-chip v-if="!repositoryDetails.repositoryTypes" small>unknown</v-chip>
+        <v-chip v-for="(repositoryType, index) in repositoryDetails.repositoryTypes" :key="index" small>
+          {{ repositoryType }}
+        </v-chip>
       </v-flex>
       <v-flex xs12>
         Certificates:
@@ -61,10 +73,16 @@
         </v-chip>
       </v-flex>
       <v-flex xs12>
+        Data licenses:
+        <v-chip v-for="(dataLicense, index) in repositoryDetails.dataLicenses" :key="index" small>
+          <a :href="dataLicense.dataLicenseUrl">{{ dataLicense.dataLicenseName }}</a>
+        </v-chip>
+      </v-flex>
+      <v-flex xs12>
         Metadata standards:
         <v-chip v-if="!repositoryDetails.metadataStandards" small>none</v-chip>
         <v-chip v-for="(metadataStandard, index) in repositoryDetails.metadataStandards" :key="index" small>
-          {{ metadataStandard.metadataStandardName.name }}
+          <a :href="metadataStandard.metadataStandardUrl">{{ metadataStandard.metadataStandardName.name }}</a>
         </v-chip>
       </v-flex>
       <v-flex xs12>

@@ -62,6 +62,18 @@ export const mutations = {
   SET_FILTER_DATA_ACCESS (state, dataAccess) {
     Vue.set(state.params, 'dataAccess', dataAccess)
   },
+  SET_FILTER_DATA_UPLOADS (state, dataUploads) {
+    Vue.set(state.params, 'dataUploads', dataUploads)
+  },
+  SET_FILTER_DATA_LICENSES (state, dataLicenses) {
+    Vue.set(state.params, 'dataLicenses', dataLicenses)
+  },
+  SET_FILTER_REPOSITORY_TYPES (state, repositoryTypes) {
+    Vue.set(state.params, 'types', repositoryTypes)
+  },
+  SET_FILTER_INSTITUTION_TYPES (state, institutionTypes) {
+    Vue.set(state.params, 'institutionType', institutionTypes)
+  },
   SET_FILTER_VERSIONING (state, versioning) {
     Vue.set(state.params, 'versioning', versioning)
   },
@@ -74,7 +86,7 @@ export const actions = {
   fetchRepositorySuggestions ({ commit, getters }) {
     return BackendService.getRepositorySuggestions(getters.getFilterParams)
       .then(response => {
-        if(response) {
+        if (response) {
           commit('SET_REPOSITORIES', response.data)
         }
       })
@@ -140,6 +152,18 @@ export const actions = {
   setFilterDataAccess ({ commit }, dataAccess) {
     commit('SET_FILTER_DATA_ACCESS', dataAccess)
   },
+  setFilterDataUploads ({ commit }, dataUploads) {
+    commit('SET_FILTER_DATA_UPLOADS', dataUploads)
+  },
+  setFilterDataLicenses ({ commit }, dataLicenses) {
+    commit('SET_FILTER_DATA_LICENSES', dataLicenses)
+  },
+  setFilterRepositoryTypes ({ commit }, repositoryTypes) {
+    commit('SET_FILTER_REPOSITORY_TYPES', repositoryTypes)
+  },
+  setFilterInstitutionTypes ({ commit }, institutionTypes) {
+    commit('SET_FILTER_INSTITUTION_TYPES', institutionTypes)
+  },
   setFilterVersioning ({ commit }, versioning) {
     commit('SET_FILTER_VERSIONING', versioning)
   },
@@ -202,6 +226,18 @@ export const getters = {
   },
   getFilterDataAccess: state => {
     return state.params.dataAccess
+  },
+  getFilterDataUploads: state => {
+    return state.params.dataUploads
+  },
+  getFilterDataLicenses: state => {
+    return state.params.dataLicenses
+  },
+  getFilterRepositoryTypes: state => {
+    return state.params.types
+  },
+  getFilterInstitutionTypes: state => {
+    return state.params.institutionType
   },
   getFilterVersioning: state => {
     return state.params.versioning

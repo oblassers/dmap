@@ -93,6 +93,46 @@
       ></treeselect>
     </v-flex>
     <v-flex mb-1>
+      <span class="filter-title">Data upload</span>
+      <treeselect
+        :value="getFilterDataUploads"
+        @input="setFilterDataUploads"
+        :multiple="true"
+        :options="accessTypes"
+        placeholder="Select data upload..."
+      ></treeselect>
+    </v-flex>
+    <v-flex mb-1>
+      <span class="filter-title">Data licenses</span>
+      <treeselect
+        :value="getFilterDataLicenses"
+        @input="setFilterDataLicenses"
+        :multiple="true"
+        :options="dataLicenses"
+        placeholder="Select data licenses..."
+      ></treeselect>
+    </v-flex>
+    <v-flex mb-1>
+      <span class="filter-title">Repository types</span>
+      <treeselect
+        :value="getFilterRepositoryTypes"
+        @input="setFilterRepositoryTypes"
+        :multiple="true"
+        :options="repositoryTypes"
+        placeholder="Select repository types..."
+      ></treeselect>
+    </v-flex>
+    <v-flex mb-1>
+      <span class="filter-title">Institution types</span>
+      <treeselect
+        :value="getFilterInstitutionTypes"
+        @input="setFilterInstitutionTypes"
+        :multiple="true"
+        :options="institutionTypes"
+        placeholder="Select institution types..."
+      ></treeselect>
+    </v-flex>
+    <v-flex mb-1>
       <span class="filter-title">Versioning</span>
       <treeselect
         :value="getFilterVersioning"
@@ -131,6 +171,10 @@ export default {
       'getFilterAidSystems',
       'getFilterRepositoryAccess',
       'getFilterDataAccess',
+      'getFilterDataUploads',
+      'getFilterDataLicenses',
+      'getFilterRepositoryTypes',
+      'getFilterInstitutionTypes',
       'getFilterVersioning',
       'getFilterMetadataStandards'
     ])
@@ -146,6 +190,10 @@ export default {
       'setFilterAidSystems',
       'setFilterRepositoryAccess',
       'setFilterDataAccess',
+      'setFilterDataUploads',
+      'setFilterDataLicenses',
+      'setFilterRepositoryTypes',
+      'setFilterInstitutionTypes',
       'setFilterVersioning',
       'setFilterMetadataStandards'
     ])
@@ -188,6 +236,56 @@ export default {
           label: 'closed'
         }
       ],
+      dataLicenses: [
+        {
+          id: 'Apache License 2.0',
+          label: 'Apache License 2.0'
+        },
+        {
+          id: 'BSD',
+          label: 'BSD'
+        },
+        {
+          id: 'CC',
+          label: 'CC'
+        },
+        {
+          id: 'CC0',
+          label: 'CC0'
+        },
+        {
+          id: 'Copyrights',
+          label: 'Copyrights'
+        },
+        {
+          id: 'ODC',
+          label: 'ODC'
+        },
+        {
+          id: 'OGL',
+          label: 'OGL'
+        },
+        {
+          id: 'OGLC',
+          label: 'OGLC'
+        },
+        {
+          id: 'Public Domain',
+          label: 'Public Domain'
+        },
+        {
+          id: 'RL',
+          label: 'RL'
+        },
+        {
+          id: 'other',
+          label: 'other'
+        },
+        {
+          id: 'none',
+          label: 'none'
+        }
+      ],
       versioning: [
         {
           id: 'no',
@@ -196,6 +294,30 @@ export default {
         {
           id: 'yes',
           label: 'yes'
+        }
+      ],
+      repositoryTypes: [
+        {
+          id: 'disciplinary',
+          label: 'disciplinary'
+        },
+        {
+          id: 'institutional',
+          label: 'institutional'
+        },
+        {
+          id: 'other',
+          label: 'other'
+        }
+      ],
+      institutionTypes: [
+        {
+          id: 'commercial',
+          label: 'commercial'
+        },
+        {
+          id: 'non-profit',
+          label: 'non-profit'
         }
       ],
       contentTypes: [
