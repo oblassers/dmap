@@ -53,7 +53,7 @@ export default {
     return apiClient.post('/dmps', dmp)
   },
   getProjectSuggestions (user) {
-    return apiClient.post('/pdb/suggest_projects', user)
+    return apiClient.post('/pdb/suggest-projects', user)
   },
   getProjectDetails (projectId) {
     return apiClient.get('/pdb/project/' + projectId)
@@ -62,7 +62,7 @@ export default {
     return apiClient.get('/pdb/project/' + projectId + '/staff')
   },
   getRepositorySuggestions (params) {
-    return repositorySuggestionCall('/repository_registry/search', {
+    return repositorySuggestionCall('/repository-registry/search', {
       params,
       paramsSerializer: function (params) {
         return qs.stringify(params, { arrayFormat: 'brackets' })
@@ -76,6 +76,6 @@ export default {
     })
   },
   getRepositoryDetails (repositoryId) {
-    return apiClient.get('/repository_registry/repository/' + repositoryId)
+    return apiClient.get('/repository-registry/repository/' + repositoryId)
   }
 }

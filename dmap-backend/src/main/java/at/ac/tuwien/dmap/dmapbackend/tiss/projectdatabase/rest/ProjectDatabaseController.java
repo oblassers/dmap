@@ -25,7 +25,7 @@ public class ProjectDatabaseController {
         this.projectDatabaseService = projectDatabaseService;
     }
 
-    @RequestMapping(value = "/search_projects", method = RequestMethod.GET)
+    @RequestMapping(value = "/search-projects", method = RequestMethod.GET)
     public ResponseEntity<List<ProjectOverview>> getProjectsByOrgCriteria(
             @RequestParam(value = "instituteOid") String instituteOid,
             @RequestParam(value = "projectleaderOid", required = false) String projectLeadOid
@@ -34,7 +34,7 @@ public class ProjectDatabaseController {
         return ResponseEntity.ok(projectDatabaseService.getProjectsByOrgCriteria(instituteOid, projectLeadOid));
     }
 
-    @RequestMapping(value = "/suggest_projects", method = RequestMethod.POST)
+    @RequestMapping(value = "/suggest-projects", method = RequestMethod.POST)
     public ResponseEntity<List<ProjectOverview>> getProjectSuggestionsForPerson(@RequestBody Person person) {
         log.info(String.format("Get project suggestions for person: %s", person));
         return ResponseEntity.ok(projectDatabaseService.getProjectSuggestionsForPerson(person));

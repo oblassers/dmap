@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/repository_registry")
+@RequestMapping(path = "api/repository-registry")
 public class RepositoryRegistryController {
     private static final Logger log = LoggerFactory.getLogger(RepositoryRegistryController.class);
     private RepositoryRegistryService repositoryRegistryService;
@@ -24,7 +24,6 @@ public class RepositoryRegistryController {
         this.repositoryRegistryService = repositoryRegistryService;
     }
 
-    //TODO: implement filter parameters
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public ResponseEntity<List<Repository>> getMatchingRepositories(
             @RequestParam MultiValueMap<String, String> allParameters) {
@@ -36,11 +35,5 @@ public class RepositoryRegistryController {
     public ResponseEntity<RepositoryDetails> getRepositoryDetails(@PathVariable("id") String repositoryId) {
         log.info(String.format("Get repository details for ID=%s", repositoryId));
         return ResponseEntity.ok(repositoryRegistryService.getRepositoryDetailsById(repositoryId));
-    }
-
-    @RequestMapping(value = "/re3data_repository/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Re3Data.Repository> getRe3DataRepositoryDetails(@PathVariable("id") String repositoryId) {
-        log.info(String.format("Get repository details for ID=%s", repositoryId));
-        return ResponseEntity.ok(repositoryRegistryService.getRe3DataRepositoryDetailsById(repositoryId));
     }
 }

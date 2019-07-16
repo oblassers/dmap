@@ -12,6 +12,4 @@ public interface RepositoryRegistryService {
     List<Repository> searchForRepositories(MultiValueMap<String, String> queryParameters);
 
     RepositoryDetails getRepositoryDetailsById(String repositoryId);
-
-    Re3Data.Repository getRe3DataRepositoryDetailsById(String repositoryId);
 }

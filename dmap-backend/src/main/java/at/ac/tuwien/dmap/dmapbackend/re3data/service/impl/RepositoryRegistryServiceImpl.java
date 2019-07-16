@@ -99,34 +99,4 @@ public class RepositoryRegistryServiceImpl implements RepositoryRegistryService 
 
         return repositoryDetails;
     }
-
-    @Override
-    public Re3Data.Repository getRe3DataRepositoryDetailsById(String repositoryId) {
-        Map<String, Object> variables = new HashMap<String, Object>() {{
-            put("repositoryId", repositoryId);
-        }};
-
-        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString("/beta/repository/{repositoryId}")
-                .uriVariables(variables);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_XML));
-
-        HttpEntity requestEntity = new HttpEntity<>("parameters", headers);
-
-        ResponseEntity<Re3Data> response = restTemplate.exchange(
-                builder.toUriString(),
-                HttpMethod.GET,
-                requestEntity,
-                Re3Data.class);
-
-        Re3Data.Repository repositoryDetails = response.getBody().getRepository().get(0);
-
-        if(null == repositoryDetails) {
-            throw new RepositoryDetailsNotFoundException(
-                    String.format("Repository details for repository ID %s not found.", repositoryId));
-        }
-
-        return repositoryDetails;
-    }
 }
