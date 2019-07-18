@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-combobox v-model="researchDataTags"
-                label="Create tags to logically group your research data into datasets"
+                label="Create tags to logically group your research data into datasets, e.g. Source code for client application"
                 multiple chips deletable-chips clearable
     >
     </v-combobox>
@@ -40,6 +40,19 @@
         </v-btn>
       </v-flex>
     </v-layout>
+    <p>or by uploading sample data, similar to the data you will create.</p>
+    <vue-dropzone
+      ref="myDropzone"
+      id="dropzone"
+      :options="dropzoneOptions"
+      :useCustomSlot="true"
+      @vdropzone-success="processFileAnalysisResult"
+    >
+      <div class="dropzone-custom-content">
+        <v-icon large>backup</v-icon>
+        <div class="dropzone-custom-title">Drop files here to analyze</div>
+      </div>
+    </vue-dropzone>
     <v-data-table
       :headers="headers"
       :items="getDataEstimations"
@@ -71,9 +84,14 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import vueDropzone from 'vue2-dropzone'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
 export default {
   name: 'ResearchDataEstimator',
+  components: {
+    vueDropzone
+  },
   data () {
     return {
       researchDataTags: [],
@@ -81,6 +99,14 @@ export default {
         estimatedType: '',
         estimatedSize: '',
         selectedTag: ''
+      },
+      dropzoneOptions: {
+        /* TODO: Change this to use vuex and axios instead of url here */
+        url: 'http://localhost:3000/api/file-analysis/examine',
+        timeout: 120000,
+        createImageThumbnails: false,
+        maxFilesize: 2000, // MB
+        addRemoveLinks: true
       },
       researchDataTypeItems: [
         'Text documents (doc, odf, pdf, txt, etc.)',
@@ -137,6 +163,14 @@ export default {
       estimationItem.estimatedType = ''
       estimationItem.estimatedSize = ''
       estimationItem.selectedTag = ''
+    },
+    async processFileAnalysisResult (file, response) {
+      console.log('success')
+      await this.sleep(1000)
+      this.$refs.myDropzone.removeFile(file)
+    },
+    sleep (ms) {
+      return new Promise(resolve => setTimeout(resolve, ms))
     }
   }
 }
@@ -145,5 +179,8 @@ export default {
 <style scoped>
 .add-btn{
   margin-left: 6px;
+}
+.vue-dropzone {
+  border: 2px dashed #e5e5e5;
 }
 </style>

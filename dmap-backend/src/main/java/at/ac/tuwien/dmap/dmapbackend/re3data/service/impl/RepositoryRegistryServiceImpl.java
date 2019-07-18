@@ -4,13 +4,10 @@ import at.ac.tuwien.dmap.dmapbackend.re3data.dto.Repository;
 import at.ac.tuwien.dmap.dmapbackend.re3data.dto.RepositoryDetails;
 import at.ac.tuwien.dmap.dmapbackend.re3data.dto.RepositoryDetailsWrapper;
 import at.ac.tuwien.dmap.dmapbackend.re3data.dto.RepositoryList;
-import at.ac.tuwien.dmap.dmapbackend.re3data.dto.generated.Re3Data;
 import at.ac.tuwien.dmap.dmapbackend.re3data.rest.exceptions.RepositoryDetailsNotFoundException;
 import at.ac.tuwien.dmap.dmapbackend.re3data.service.Re3dataResponseErrorHandler;
 import at.ac.tuwien.dmap.dmapbackend.re3data.service.RepositoryRegistryService;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
@@ -30,7 +27,6 @@ import java.util.Map;
  */
 @Service
 public class RepositoryRegistryServiceImpl implements RepositoryRegistryService {
-    private static final Logger log = LoggerFactory.getLogger(RepositoryRegistryService.class);
     private final RestTemplate restTemplate;
     private final String repositoryRegistryBaseUrl = "https://www.re3data.org/api";
 
