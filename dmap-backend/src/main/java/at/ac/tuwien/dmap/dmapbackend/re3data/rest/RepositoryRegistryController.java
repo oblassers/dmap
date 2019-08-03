@@ -2,7 +2,6 @@ package at.ac.tuwien.dmap.dmapbackend.re3data.rest;
 
 import at.ac.tuwien.dmap.dmapbackend.re3data.dto.Repository;
 import at.ac.tuwien.dmap.dmapbackend.re3data.dto.RepositoryDetails;
-import at.ac.tuwien.dmap.dmapbackend.re3data.dto.generated.Re3Data;
 import at.ac.tuwien.dmap.dmapbackend.re3data.service.RepositoryRegistryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

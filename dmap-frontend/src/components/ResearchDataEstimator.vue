@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-combobox v-model="researchDataTags"
-                label="Create tags to logically group your research data into datasets, e.g. Source code for client application"
+                label="Create tags to logically group your research data into datasets"
                 multiple chips deletable-chips clearable
     >
     </v-combobox>

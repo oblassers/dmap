@@ -1,6 +1,6 @@
 package at.ac.tuwien.dmap.dmapbackend.fits.rest;
 
-import at.ac.tuwien.dmap.dmapbackend.fits.dto.generated.Fits;
+import at.ac.tuwien.dmap.dmapbackend.fits.dto.AnalysisResult;
 import at.ac.tuwien.dmap.dmapbackend.fits.service.FileAnalysisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.xml.bind.JAXBException;
 import java.io.IOException;
 
 @RestController
@@ -26,9 +27,9 @@ public class FileAnalysisController {
     }
 
     @RequestMapping(value = "/examine", method = RequestMethod.POST)
-    public ResponseEntity<Fits> examineFile(
+    public ResponseEntity<AnalysisResult> examineFile(
             @RequestParam(value = "file", required = true) MultipartFile file
-    ) throws IOException {
+    ) throws IOException, JAXBException {
         log.info(String.format("Examine file %s (%d bytes), type: %s",
                 file.getOriginalFilename(), file.getSize(), file.getContentType()));
         return ResponseEntity.ok(fileAnalysisService.analyzeFile(file));

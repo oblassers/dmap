@@ -138,7 +138,6 @@ public class IdentificationType {
         "version",
         "externalIdentifier"
     })
-    @XmlRootElement(name = "identity", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
     public static class Identity {
 
         @XmlElement(namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
