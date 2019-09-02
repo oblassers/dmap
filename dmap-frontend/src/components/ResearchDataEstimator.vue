@@ -27,6 +27,13 @@
         </v-tab-item>
       </v-tabs-items>
     </v-tabs>
+    <v-container fluid grid-list-lg>
+      <v-layout row wrap>
+        <v-flex v-for="dataset in getDatasetSummaries" :key="dataset.datasetName" xs12 sm6 md6 lg4>
+          <DatasetSummary :dataset="dataset"></DatasetSummary>
+        </v-flex>
+      </v-layout>
+    </v-container>
   </div>
 </template>
 
@@ -34,10 +41,12 @@
 import { mapGetters, mapActions } from 'vuex'
 import ManualDataEstimator from '@/components/ManualDataEstimator'
 import FileAnalysis from '@/components/FileAnalysis'
+import DatasetSummary from '@/components/DatasetSummary'
 
 export default {
   name: 'ResearchDataEstimator',
   components: {
+    DatasetSummary,
     ManualDataEstimator,
     FileAnalysis
   },
@@ -47,7 +56,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('data', ['getDatasetNames']),
+    ...mapGetters('data', ['getDatasetNames', 'getDatasetSummaries']),
     datasetNames: {
       set (names) {
         this.setDatasetNames(names)

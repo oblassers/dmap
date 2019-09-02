@@ -15,6 +15,7 @@
           </v-card-title>
 
           <v-card-text>
+            <v-form ref="form" v-model="formValid" lazy-validation>
             <v-container grid-list-md>
               <v-layout wrap>
                 <v-flex xs12 sm12 md12>
@@ -24,6 +25,8 @@
                     item-text="label"
                     return-object
                     label="Estimated type"
+                    :rules="estimatedTypeRules"
+                    required
                     class="px-0"
                   >
                     <template slot="selection" slot-scope="data">
@@ -47,6 +50,8 @@
                     item-text="label"
                     return-object
                     label="Estimated size"
+                    :rules="estimatedSizeRules"
+                    required
                     class="px-0"
                   >
                   </v-select>
@@ -69,12 +74,13 @@
                 </v-flex>
               </v-layout>
             </v-container>
+            </v-form>
           </v-card-text>
 
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-            <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
+            <v-btn color="blue darken-1" flat @click="save" :disabled="!formValid">Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -118,6 +124,13 @@ export default {
   data () {
     return {
       showDialog: false,
+      formValid: false,
+      estimatedTypeRules: [
+        v => !this.isEmpty(v) || 'Estimated type is required'
+      ],
+      estimatedSizeRules: [
+        v => !this.isEmpty(v) || 'Estimated size is required'
+      ],
       // TODO: load types from backend
       researchDataTypes: [
         {
@@ -240,14 +253,24 @@ export default {
           max: 100000000000000
         },
         {
-          label: '> 100 TB',
+          label: '100 - 500 TB',
           min: 100000000000000,
+          max: 500000000000000
+        },
+        {
+          label: '500 - 1000 TB',
+          min: 500000000000000,
+          max: 1000000000000000
+        },
+        {
+          label: '> 1 PB',
+          min: 1000000000000000,
           max: undefined
         },
         {
           label: 'Don\'t know',
-          min: undefined,
-          max: undefined
+          min: 0,
+          max: 0
         }
       ],
       headers: [
@@ -288,11 +311,22 @@ export default {
       this.showDialog = false
       setTimeout(() => {
         this.resetEditedDataEstimationItem()
+        this.$refs.form.resetValidation()
       }, 300)
     },
     save () {
-      this.saveDataEstimation()
-      this.close()
+      if (this.$refs.form.validate()) {
+        this.saveDataEstimation()
+        this.close()
+      }
+    },
+    isEmpty (obj) {
+      for (var key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          return false
+        }
+      }
+      return true
     }
   }
 }

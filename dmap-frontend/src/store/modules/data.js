@@ -1,3 +1,5 @@
+import uuid from '@/utils/uuid'
+
 export const namespaced = true
 
 export const state = {
@@ -21,7 +23,11 @@ export const mutations = {
     if (state.editedDataEstimationIndex > -1) {
       Object.assign(state.dataEstimations[state.editedDataEstimationIndex], state.editedDataEstimationItem)
     } else {
-      state.dataEstimations.push(state.editedDataEstimationItem)
+      state.dataEstimations.push(
+        Object.assign({}, {
+          id: uuid.uuidv4(),
+          ...state.editedDataEstimationItem })
+      )
     }
   },
   REMOVE_DATA_ESTIMATION (state, estimation) {
@@ -80,6 +86,27 @@ export const getters = {
   },
   getDataEstimationsCount: state => {
     return state.dataEstimations.length
+  },
+  getDatasetSummaries: state => {
+    let datasetSummaries = []
+    state.datasetNames.forEach(name => {
+      let estimationsPerName = state.dataEstimations.filter(estimation => estimation.selectedDataset === name)
+      if (estimationsPerName.length > 0) {
+        let sizeMin = 0
+        let sizeMax = 0
+        estimationsPerName.forEach(est => {
+          sizeMin += est.estimatedSize.min
+          sizeMax += est.estimatedSize.max
+        })
+        datasetSummaries.push(Object.assign({}, {
+          datasetName: name,
+          totalSizeMin: sizeMin,
+          totalSizeMax: sizeMax,
+          dataEstimations: estimationsPerName
+        }))
+      }
+    })
+    return datasetSummaries
   },
   getFurtherDataDescription: state => {
     return state.furtherDataDescription
