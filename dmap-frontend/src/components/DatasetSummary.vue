@@ -1,5 +1,5 @@
 <template>
-  <v-card class="card">
+  <v-card color="#f5f5f5">
     <v-card-title>
       <v-container fluid class="pa-0">
         <v-layout row justify-space-between>
@@ -32,9 +32,9 @@
     </v-card-actions>
     <v-slide-y-transition>
       <v-card-text v-show="show">
-        <v-list two-line class="list">
+        <v-list two-line>
           <template v-for="(estimation, index) in dataset.dataEstimations">
-            <v-list-tile :key="estimation.id" class="tile">
+            <v-list-tile :key="estimation.id">
               <v-list-tile-content>
                 <v-list-tile-title>{{ estimation.estimatedType.label }}</v-list-tile-title>
                 <v-list-tile-sub-title>{{ estimation.comment }}</v-list-tile-sub-title>
@@ -72,13 +72,7 @@ export default {
 </script>
 
 <style scoped>
-.tile {
-  background: #f5f5f5;
-}
-.list {
-  background: #f5f5f5;
-}
-.card {
+.v-list.v-list--two-line {
   background: #f5f5f5;
 }
 </style>

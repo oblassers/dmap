@@ -1,9 +1,23 @@
 import uuid from '@/utils/uuid'
 
+function calculateTotalSize (estimations) {
+  let sizeMin = 0
+  let sizeMax = 0
+  estimations.forEach(est => {
+    sizeMin += est.estimatedSize.min
+    sizeMax += est.estimatedSize.max
+  })
+  return Object.assign({}, {
+    totalSizeMin: sizeMin,
+    totalSizeMax: sizeMax,
+    dataEstimations: estimations
+  })
+}
+
 export const namespaced = true
 
 export const state = {
-  datasetNames: ['Default'],
+  datasetNames: [],
   dataEstimations: [],
   editedDataEstimationIndex: -1,
   editedDataEstimationItem: {
@@ -18,6 +32,13 @@ export const state = {
 export const mutations = {
   SET_DATASET_NAMES (state, names) {
     state.datasetNames = names
+  },
+  UPDATE_DATASET_NAMES_ON_DATA_ESTIMATIONS (state) {
+    state.dataEstimations.forEach(est => {
+      if (!state.datasetNames.includes(est.selectedDataset)) {
+        est.selectedDataset = ''
+      }
+    })
   },
   SAVE_DATA_ESTIMATION (state) {
     if (state.editedDataEstimationIndex > -1) {
@@ -48,6 +69,7 @@ export const mutations = {
 export const actions = {
   setDatasetNames ({ commit }, names) {
     commit('SET_DATASET_NAMES', names)
+    commit('UPDATE_DATASET_NAMES_ON_DATA_ESTIMATIONS')
   },
   saveDataEstimation ({ commit }) {
     commit('SAVE_DATA_ESTIMATION')
@@ -92,21 +114,20 @@ export const getters = {
     state.datasetNames.forEach(name => {
       let estimationsPerName = state.dataEstimations.filter(estimation => estimation.selectedDataset === name)
       if (estimationsPerName.length > 0) {
-        let sizeMin = 0
-        let sizeMax = 0
-        estimationsPerName.forEach(est => {
-          sizeMin += est.estimatedSize.min
-          sizeMax += est.estimatedSize.max
-        })
         datasetSummaries.push(Object.assign({}, {
           datasetName: name,
-          totalSizeMin: sizeMin,
-          totalSizeMax: sizeMax,
-          dataEstimations: estimationsPerName
+          ...calculateTotalSize(estimationsPerName)
         }))
       }
     })
     return datasetSummaries
+  },
+  getUnassignedDatasetSummary: state => {
+    return Object.assign({}, {
+      datasetName: 'Unassigned data',
+      ...calculateTotalSize(state.dataEstimations.filter(
+        estimation => !state.datasetNames.includes(estimation.selectedDataset)))
+    })
   },
   getFurtherDataDescription: state => {
     return state.furtherDataDescription

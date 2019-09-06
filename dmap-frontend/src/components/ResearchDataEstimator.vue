@@ -1,10 +1,33 @@
 <template>
   <div>
-    <v-combobox v-model="datasetNames"
-                label="Create names for your datasets"
-                multiple chips deletable-chips clearable
-    >
-    </v-combobox>
+    <div v-if="getDatasetSummaries.length > 0 || getUnassignedDatasetSummary.dataEstimations.length > 0">
+      <span>You specified {{ getDatasetSummaries.length }} dataset(s) </span>
+      <span v-show="getUnassignedDatasetSummary.dataEstimations.length > 0">and have unassigned data:</span>
+      <v-container fluid grid-list-lg>
+        <v-layout row wrap>
+          <v-flex v-for="dataset in getDatasetSummaries" :key="dataset.datasetName" xs12 sm6 md6 lg4>
+            <DatasetSummary :dataset="dataset"></DatasetSummary>
+          </v-flex>
+          <v-flex v-if="getUnassignedDatasetSummary.dataEstimations.length > 0" xs12 sm6 md6 lg4>
+            <DatasetSummary :dataset="getUnassignedDatasetSummary"></DatasetSummary>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </div>
+    <p v-else>
+      Currently you have no research data specified.
+    </p>
+    <v-tooltip top>
+      <template v-slot:activator="{ on }">
+        <v-combobox v-model="datasetNames"
+                    label="Create names for your datasets"
+                    multiple chips deletable-chips clearable
+                    v-on="on"
+        >
+        </v-combobox>
+      </template>
+      <span>Datasets specied here will be used in later steps, e.g. to choose a suitable repository</span>
+    </v-tooltip>
     <p>Estimate the type, format and volume of your research data manually and / or by uploading
       sample data and group them into datasets.
     </p>
@@ -27,13 +50,6 @@
         </v-tab-item>
       </v-tabs-items>
     </v-tabs>
-    <v-container fluid grid-list-lg>
-      <v-layout row wrap>
-        <v-flex v-for="dataset in getDatasetSummaries" :key="dataset.datasetName" xs12 sm6 md6 lg4>
-          <DatasetSummary :dataset="dataset"></DatasetSummary>
-        </v-flex>
-      </v-layout>
-    </v-container>
   </div>
 </template>
 
@@ -56,7 +72,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('data', ['getDatasetNames', 'getDatasetSummaries']),
+    ...mapGetters('data', ['getDatasetNames', 'getDatasetSummaries', 'getUnassignedDatasetSummary']),
     datasetNames: {
       set (names) {
         this.setDatasetNames(names)

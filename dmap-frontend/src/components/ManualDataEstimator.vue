@@ -60,6 +60,7 @@
                   <v-select
                     v-model="editedItem.selectedDataset"
                     :items="getDatasetNames"
+                    :disabled="getDatasetNames.length === 0"
                     label="Belongs to dataset"
                     class="px-0"
                   >
