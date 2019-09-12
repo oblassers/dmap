@@ -18,11 +18,24 @@ export const namespaced = true
 
 export const state = {
   datasetNames: [],
+  // manual data estimations
   dataEstimations: [],
   editedDataEstimationIndex: -1,
   editedDataEstimationItem: {
     estimatedType: {},
     estimatedSize: {},
+    selectedDataset: '',
+    comment: ''
+  },
+  // sample data estimations from file upload
+  sampleDataEstimations: [],
+  editedSampleDataEstimationIndex: -1,
+  editedSampleDataEstimationItem: {
+    format: '',
+    mimeType: '',
+    formatIdentifier: {},
+    size: 0,
+    amount: 1,
     selectedDataset: '',
     comment: ''
   },
@@ -35,6 +48,11 @@ export const mutations = {
   },
   UPDATE_DATASET_NAMES_ON_DATA_ESTIMATIONS (state) {
     state.dataEstimations.forEach(est => {
+      if (!state.datasetNames.includes(est.selectedDataset)) {
+        est.selectedDataset = ''
+      }
+    })
+    state.sampleDataEstimations.forEach(est => {
       if (!state.datasetNames.includes(est.selectedDataset)) {
         est.selectedDataset = ''
       }
@@ -61,6 +79,33 @@ export const mutations = {
     state.editedDataEstimationIndex = state.dataEstimations.indexOf(estimation)
     state.editedDataEstimationItem = Object.assign({}, estimation)
   },
+  ADD_SAMPLE_DATA_ESTIMATION (state, estimation) {
+    state.sampleDataEstimations.push(
+      Object.assign({}, {
+        id: uuid.uuidv4(),
+        amount: 1,
+        selectedDataset: '',
+        comment: '',
+        ...estimation
+      })
+    )
+  },
+  SAVE_EDITED_SAMPLE_DATA_ESTIMATION (state) {
+    if (state.editedSampleDataEstimationIndex > -1) {
+      Object.assign(state.sampleDataEstimations[state.editedSampleDataEstimationIndex],
+        state.editedSampleDataEstimationItem)
+    }
+  },
+  REMOVE_SAMPLE_DATA_ESTIMATION (state, estimation) {
+    const index = state.sampleDataEstimations.indexOf(estimation)
+    if (index > -1) {
+      state.sampleDataEstimations.splice(index, 1)
+    }
+  },
+  SET_EDITED_SAMPLE_DATA_ESTIMATION_ITEM (state, estimation) {
+    state.editedSampleDataEstimationIndex = state.sampleDataEstimations.indexOf(estimation)
+    state.editedSampleDataEstimationItem = Object.assign({}, estimation)
+  },
   SET_FURTHER_DATA_DESCRIPTION (state, description) {
     state.furtherDataDescription = description
   }
@@ -84,6 +129,29 @@ export const actions = {
     commit('SET_EDITED_DATA_ESTIMATION_ITEM', {
       estimatedType: {},
       estimatedSize: {},
+      selectedDataset: '',
+      comment: ''
+    })
+  },
+  addSampleDataEstimation ({ commit }, estimation) {
+    commit('ADD_SAMPLE_DATA_ESTIMATION', estimation)
+  },
+  saveEditedSampleDataEstimation ({ commit }) {
+    commit('SAVE_EDITED_SAMPLE_DATA_ESTIMATION')
+  },
+  removeSampleDataEstimation ({ commit }, estimation) {
+    commit('REMOVE_SAMPLE_DATA_ESTIMATION', estimation)
+  },
+  setEditedSampleDataEstimationItem ({ commit }, estimation) {
+    commit('SET_EDITED_SAMPLE_DATA_ESTIMATION_ITEM', estimation)
+  },
+  resetEditedSampleDataEstimationItem ({ commit }) {
+    commit('SET_EDITED_SAMPLE_DATA_ESTIMATION_ITEM', {
+      format: '',
+      mimeType: '',
+      formatIdentifier: {},
+      size: 0,
+      amount: 1,
       selectedDataset: '',
       comment: ''
     })
@@ -128,6 +196,12 @@ export const getters = {
       ...calculateTotalSize(state.dataEstimations.filter(
         estimation => !state.datasetNames.includes(estimation.selectedDataset)))
     })
+  },
+  getSampleDataEstimations: state => {
+    return state.sampleDataEstimations
+  },
+  getEditedSampleDataEstimationItem: state => {
+    return state.editedSampleDataEstimationItem
   },
   getFurtherDataDescription: state => {
     return state.furtherDataDescription

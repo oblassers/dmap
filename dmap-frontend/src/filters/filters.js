@@ -17,7 +17,7 @@ export default {
     return value.replace(/\d+|^\s+|\s+$/g, '')
   },
   formatStorageSize: (value) => {
-    if (!value) return ''
+    if (typeof value !== 'number') return ''
     if (value >= 1000000000000000000000000) {
       return Math.round(value / 1000000000000000000000000).toString() + 'YB'
     } else if (value >= 1000000000000000000000) {

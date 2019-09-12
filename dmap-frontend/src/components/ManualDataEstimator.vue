@@ -287,7 +287,7 @@ export default {
     ...mapGetters('data', ['getDatasetNames', 'getDataEstimations',
       'getEditedDataEstimationItem', 'beingEdited']),
     formTitle () {
-      return this.beingEdited ? 'Edit Data' : 'New Data'
+      return this.beingEdited ? 'Edit Data Estimation' : 'New Data Estimation'
     },
     editedItem: {
       set (item) {
