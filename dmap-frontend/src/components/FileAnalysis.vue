@@ -63,6 +63,7 @@
                     :value="editedItemTotalSize | formatStorageSize"
                     label="Total size"
                     readonly
+                    class="mt-0"
                   >
                   </v-text-field>
                 </v-flex>

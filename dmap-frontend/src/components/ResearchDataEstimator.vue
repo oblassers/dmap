@@ -26,7 +26,7 @@
         >
         </v-combobox>
       </template>
-      <span>Datasets specied here will be used in later steps, e.g. to choose a suitable repository</span>
+      <span>Datasets specified here will be used in later steps, e.g. to choose a suitable repository</span>
     </v-tooltip>
     <p>Estimate the type, format and volume of your research data manually and / or by uploading
       sample data and group them into datasets.

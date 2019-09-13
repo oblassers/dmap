@@ -22,12 +22,15 @@
       <span v-else-if="dataset.totalSizeMin === 0" class="title font-weight-light">
         &lt; {{ dataset.totalSizeMax | formatStorageSize }}
       </span>
+      <span v-else-if="dataset.totalSizeMin === dataset.totalSizeMax" class="title font-weight-light">
+        {{ dataset.totalSizeMin | formatStorageSize }}
+      </span>
       <span v-else class="title font-weight-light">
         {{ dataset.totalSizeMin | formatStorageSize }} - {{ dataset.totalSizeMax | formatStorageSize }}
       </span>
       <v-spacer></v-spacer>
       <v-btn icon @click="show = !show">
-        <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+        <v-icon>{{ show ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
       </v-btn>
     </v-card-actions>
     <v-slide-y-transition>

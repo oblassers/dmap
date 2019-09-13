@@ -1,4 +1,5 @@
 import uuid from '@/utils/uuid'
+import filters from '@/filters/filters'
 
 function calculateTotalSize (estimations) {
   let sizeMin = 0
@@ -11,6 +12,24 @@ function calculateTotalSize (estimations) {
     totalSizeMin: sizeMin,
     totalSizeMax: sizeMax,
     dataEstimations: estimations
+  })
+}
+
+function mapSampleDataEstimation (estimation) {
+  let totalSize = estimation.size * estimation.amount
+  return Object.assign({}, {
+    id: estimation.id,
+    selectedDataset: estimation.selectedDataset,
+    comment: estimation.comment,
+    estimatedType: {
+      label: estimation.format,
+      description: estimation.formatIdentifier.id
+    },
+    estimatedSize: {
+      label: filters.formatStorageSize(totalSize),
+      max: totalSize,
+      min: totalSize
+    }
   })
 }
 
@@ -181,6 +200,13 @@ export const getters = {
     let datasetSummaries = []
     state.datasetNames.forEach(name => {
       let estimationsPerName = state.dataEstimations.filter(estimation => estimation.selectedDataset === name)
+      let sampleEstimationsPerName = state.sampleDataEstimations.filter(estimation => estimation.selectedDataset === name)
+      let mappedSampleEstimationsPerName = []
+      sampleEstimationsPerName.forEach(estimation => {
+        mappedSampleEstimationsPerName.push(mapSampleDataEstimation(estimation))
+      })
+      Array.prototype.push.apply(estimationsPerName, mappedSampleEstimationsPerName)
+
       if (estimationsPerName.length > 0) {
         datasetSummaries.push(Object.assign({}, {
           datasetName: name,
@@ -191,10 +217,19 @@ export const getters = {
     return datasetSummaries
   },
   getUnassignedDatasetSummary: state => {
+    let unassignedEstimations = state.dataEstimations.filter(
+      estimation => !state.datasetNames.includes(estimation.selectedDataset))
+    let unassignedSampleDataEstimations = state.sampleDataEstimations.filter(
+      estimation => !state.datasetNames.includes(estimation.selectedDataset))
+    let mappedUnassignedSampleDataEstimations = []
+    unassignedSampleDataEstimations.forEach(estimation => {
+      mappedUnassignedSampleDataEstimations.push(mapSampleDataEstimation(estimation))
+    })
+    Array.prototype.push.apply(unassignedEstimations, mappedUnassignedSampleDataEstimations)
+
     return Object.assign({}, {
       datasetName: 'Unassigned data',
-      ...calculateTotalSize(state.dataEstimations.filter(
-        estimation => !state.datasetNames.includes(estimation.selectedDataset)))
+      ...calculateTotalSize(unassignedEstimations)
     })
   },
   getSampleDataEstimations: state => {
