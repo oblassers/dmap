@@ -57,8 +57,7 @@ export const state = {
     amount: 1,
     selectedDataset: '',
     comment: ''
-  },
-  furtherDataDescription: ''
+  }
 }
 
 export const mutations = {
@@ -124,9 +123,6 @@ export const mutations = {
   SET_EDITED_SAMPLE_DATA_ESTIMATION_ITEM (state, estimation) {
     state.editedSampleDataEstimationIndex = state.sampleDataEstimations.indexOf(estimation)
     state.editedSampleDataEstimationItem = Object.assign({}, estimation)
-  },
-  SET_FURTHER_DATA_DESCRIPTION (state, description) {
-    state.furtherDataDescription = description
   }
 }
 
@@ -174,9 +170,6 @@ export const actions = {
       selectedDataset: '',
       comment: ''
     })
-  },
-  setFurtherDataDescription ({ commit }, description) {
-    commit('SET_FURTHER_DATA_DESCRIPTION', description)
   }
 }
 
@@ -235,10 +228,10 @@ export const getters = {
   getSampleDataEstimations: state => {
     return state.sampleDataEstimations
   },
+  getSampleDataEstimationsCount: state => {
+    return state.sampleDataEstimations.length
+  },
   getEditedSampleDataEstimationItem: state => {
     return state.editedSampleDataEstimationItem
-  },
-  getFurtherDataDescription: state => {
-    return state.furtherDataDescription
   }
 }

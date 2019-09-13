@@ -29,12 +29,12 @@
         </BaseStepContent>
       </v-stepper-content>
 
-      <v-stepper-step :complete="researchDataFurtherDescribed" editable step="4">
-        Further describe your research data
+      <v-stepper-step :complete="documentationAndDataQualityDescribed" editable step="4">
+        Documentation and data quality
       </v-stepper-step>
       <v-stepper-content step="4">
         <BaseStepContent previous-step="3" next-step="5" @gotoStep="gotoStep">
-          <DescribeResearchData></DescribeResearchData>
+          <Documentation></Documentation>
         </BaseStepContent>
       </v-stepper-content>
 
@@ -64,7 +64,7 @@ import { mapGetters } from 'vuex'
 import ProjectSelection from '@/components/ProjectSelection'
 import DMStaffSelection from '@/components/DMStaffSelection'
 import SpecifyResearchData from '@/components/SpecifyResearchData'
-import DescribeResearchData from '@/components/DescribeResearchData'
+import Documentation from '@/components/Documentation'
 import LegalAndEthicalAspects from '@/components/LegalAndEthicalAspects'
 import SpecifyRepositories from '@/components/SpecifyRepositories'
 
@@ -73,7 +73,7 @@ export default {
   components: {
     SpecifyRepositories,
     LegalAndEthicalAspects,
-    DescribeResearchData,
+    Documentation,
     SpecifyResearchData,
     DMStaffSelection,
     ProjectSelection },
@@ -90,7 +90,9 @@ export default {
   computed: {
     ...mapGetters('project', ['getSelectedProjectsCount']),
     ...mapGetters('people', ['getDataManagementStaffMembersCount']),
-    ...mapGetters('data', ['getFurtherDataDescription', 'getDataEstimationsCount']),
+    ...mapGetters('data', ['getDataEstimationsCount', 'getSampleDataEstimationsCount']),
+    ...mapGetters('documentation', ['getMetadata', 'getDataGeneration',
+      'getStructureAndVersioning', 'getTargetAudience']),
     ...mapGetters('legal', ['getLegalAndEthicalInfoProvided']),
     ...mapGetters('repository', ['getSelectedRepositoriesCount']),
     projectSelected () {
@@ -100,10 +102,11 @@ export default {
       return this.getDataManagementStaffMembersCount > 0
     },
     researchDataSpecified () {
-      return this.getDataEstimationsCount > 0
+      return this.getDataEstimationsCount > 0 || this.getSampleDataEstimationsCount > 0
     },
-    researchDataFurtherDescribed () {
-      return this.getFurtherDataDescription !== ''
+    documentationAndDataQualityDescribed () {
+      return this.getMetadata !== '' || this.getDataGeneration !== '' ||
+        this.getStructureAndVersioning !== '' || this.getTargetAudience !== ''
     },
     repositoriesSpecified () {
       return this.getSelectedRepositoriesCount > 0
