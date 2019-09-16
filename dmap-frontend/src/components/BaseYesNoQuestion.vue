@@ -4,7 +4,17 @@
     <v-radio-group v-model="radios" @change="answerSelected" :mandatory="false">
       <v-radio label="Yes" :value="true"></v-radio>
       <v-radio label="No" :value="false"></v-radio>
+      <v-chip
+        :value="radios !== undefined"
+        @input="clearAnswer"
+        close
+        color="#039BE5"
+        label
+        outline
+        small
+      >Clear answer</v-chip>
     </v-radio-group>
+
     <v-textarea
       v-if="showTextArea"
       name="input-7-1"
@@ -40,6 +50,10 @@ export default {
     },
     textChanged (text) {
       this.$emit('textchange', text)
+    },
+    clearAnswer () {
+      this.answerSelected(undefined)
+      this.radios = undefined
     }
   },
   computed: {

@@ -80,6 +80,36 @@ export const actions = {
 }
 
 export const getters = {
+  isDataSensitive: state => {
+    return state.isDataSensitive
+  },
+  getDataSensitiveDescription: state => {
+    return state.isDataSensitiveDescription
+  },
+  containsPersonalInformation: state => {
+    return state.containsPersonalInformation
+  },
+  getContainsPersonalInformationDescription: state => {
+    return state.containsPersonalInformationDescription
+  },
+  hasLegalIssues: state => {
+    return state.hasLegalIssues
+  },
+  getLegalIssuesDescription: state => {
+    return state.hasLegalIssuesDescription
+  },
+  hasEthicalIssues: state => {
+    return state.hasEthicalIssues
+  },
+  getApprovedByEthicalBoard: state => {
+    return state.approvedByEthicalBoard
+  },
+  getLinkToEthicsReport: state => {
+    return state.linkToEthicsReport
+  },
+  GetEthicalComplianceStatement: state => {
+    return state.ethicalComplianceStatement
+  },
   getLegalAndEthicalInfoProvided: state => {
     return state.isDataSensitive !== undefined || state.isDataSensitiveDescription !== '' ||
       state.containsPersonalInformation !== undefined || state.containsPersonalInformationDescription !== '' ||

@@ -3,19 +3,19 @@
     <p>{{ introductoryText }}</p>
     <v-container fluid>
       <BaseYesNoQuestion
-        question="Is your data sensitive?" with-text on-yes
-        @selection="setIsDataSensitive"
-        @textchange="setIsDataSensitiveDescription"
-      >
-      </BaseYesNoQuestion>
-      <BaseYesNoQuestion
         question="Does your data contain personal information?" with-text on-yes
         @selection="setContainsPersonalInformation"
         @textchange="setContainsPersonalInformationDescription"
       >
       </BaseYesNoQuestion>
       <BaseYesNoQuestion
-        question="Are there any other legal issues on how data is processed or shared?" with-text on-yes
+        question="Is your data sensitive?" with-text on-yes
+        @selection="setIsDataSensitive"
+        @textchange="setIsDataSensitiveDescription"
+      >
+      </BaseYesNoQuestion>
+      <BaseYesNoQuestion
+        question="Are there any other legal restrictions on how data is processed or shared?" with-text on-yes
         @selection="setHasLegalIssues"
         @textchange="setHasLegalIssuesDescription"
       >
@@ -26,7 +26,7 @@
       >
       </BaseYesNoQuestion>
       <BaseYesNoQuestion
-        question="Was your plan approved by the ethical board?"
+        question="If so, was your plan to deal with these ethical issues approved by the ethics committee?"
         @selection="setApprovedByEthicalBoard"
       >
       </BaseYesNoQuestion>
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'LegalAndEthicalAspects',
@@ -55,6 +55,9 @@ export default {
     return {
       introductoryText: 'Did you consider issues like personal data, intellectual property rights and ownership?'
     }
+  },
+  computed: {
+    ...mapGetters('legal', ['hasEthicalIssues'])
   },
   methods: {
     ...mapActions('legal', ['setIsDataSensitive', 'setIsDataSensitiveDescription',
