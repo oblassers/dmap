@@ -1,21 +1,21 @@
 <template>
   <div>
     <p>What kinds of research data will you create?</p>
-    <v-radio-group v-model="radios" :mandatory="false">
+    <v-radio-group v-model="dataCreation" :mandatory="false">
       <v-radio label="Don't know yet" value="unknown"></v-radio>
       <v-radio label="No data will be created or analysed" value="nodata"></v-radio>
       <v-radio label="Specify with assistance" value="specify"></v-radio>
     </v-radio-group>
     <v-textarea
-      v-show="radios === 'nodata'"
+      v-show="dataCreation === 'nodata'"
       name="input-7-1"
       box
       label="Please explain why you won't create or analyse any research data."
       auto-grow
-      v-model="description"
+      v-model="noDataExplanation"
     ></v-textarea>
     <ResearchDataEstimator
-      v-show="radios === 'specify'"
+      v-show="dataCreation === 'specify'"
     >
     </ResearchDataEstimator>
   </div>
@@ -23,15 +23,32 @@
 
 <script>
 import ResearchDataEstimator from '@/components/ResearchDataEstimator'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'SpecifyResearchData',
   components: { ResearchDataEstimator },
-  data () {
-    return {
-      radios: undefined,
-      description: ''
+  computed: {
+    ...mapGetters('data', ['getNoDataExplanation', 'getDataCreation']),
+    dataCreation: {
+      set (text) {
+        this.setDataCreation(text)
+      },
+      get () {
+        return this.getDataCreation
+      }
+    },
+    noDataExplanation: {
+      set (text) {
+        this.setNoDataExplanation(text)
+      },
+      get () {
+        return this.getNoDataExplanation
+      }
     }
+  },
+  methods: {
+    ...mapActions('data', ['setNoDataExplanation', 'setDataCreation'])
   }
 }
 </script>

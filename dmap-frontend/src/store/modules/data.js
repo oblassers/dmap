@@ -36,6 +36,8 @@ function mapSampleDataEstimation (estimation) {
 export const namespaced = true
 
 export const state = {
+  dataCreation: undefined,
+  noDataExplanation: '',
   datasetNames: [],
   // manual data estimations
   dataEstimations: [],
@@ -61,6 +63,12 @@ export const state = {
 }
 
 export const mutations = {
+  SET_DATA_CREATION (state, text) {
+    state.dataCreation = text
+  },
+  SET_NO_DATA_EXPLANATION (state, text) {
+    state.noDataExplanation = text
+  },
   SET_DATASET_NAMES (state, names) {
     state.datasetNames = names
   },
@@ -127,6 +135,12 @@ export const mutations = {
 }
 
 export const actions = {
+  setDataCreation ({ commit }, text) {
+    commit('SET_DATA_CREATION', text)
+  },
+  setNoDataExplanation ({ commit }, text) {
+    commit('SET_NO_DATA_EXPLANATION', text)
+  },
   setDatasetNames ({ commit }, names) {
     commit('SET_DATASET_NAMES', names)
     commit('UPDATE_DATASET_NAMES_ON_DATA_ESTIMATIONS')
@@ -174,6 +188,12 @@ export const actions = {
 }
 
 export const getters = {
+  getDataCreation: state => {
+    return state.dataCreation
+  },
+  getNoDataExplanation: state => {
+    return state.noDataExplanation
+  },
   getDatasetNames: state => {
     return state.datasetNames
   },
