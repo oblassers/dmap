@@ -1,5 +1,20 @@
+const webpack = require('webpack')
+
 // vue.config.js
 module.exports = {
+  configureWebpack: {
+    plugins: [
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+        jquery: 'jquery',
+        'window.jQuery': 'jquery',
+        jQuery: 'jquery'
+      }),
+      new webpack.ProvidePlugin({
+        _: 'lodash'
+      })
+    ]
+  },
   // proxy all webpack dev-server requests starting with /api
   // to our Spring Boot backend (localhost:8088) using http-proxy-middleware
   // see https://cli.vuejs.org/config/#devserver-proxy

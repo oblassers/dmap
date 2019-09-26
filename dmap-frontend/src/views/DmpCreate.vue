@@ -47,12 +47,21 @@
         </BaseStepContent>
       </v-stepper-content>
 
-      <v-stepper-step :complete="repositoriesSpecified" editable step="6">
-        Specify repository/repositories
+      <v-stepper-step :complete="licensingSpecified" editable step="6">
+        Specify license(s)
       </v-stepper-step>
       <v-stepper-content step="6">
-        <BaseStepContent previous-step="5" @gotoStep="gotoStep">
-          <SpecifyRepositories step="6"></SpecifyRepositories>
+        <BaseStepContent previous-step="5" next-step="7" @gotoStep="gotoStep">
+          <Licensing></Licensing>
+        </BaseStepContent>
+      </v-stepper-content>
+
+      <v-stepper-step :complete="repositoriesSpecified" editable step="7">
+        Specify repository/repositories
+      </v-stepper-step>
+      <v-stepper-content step="7">
+        <BaseStepContent previous-step="6" @gotoStep="gotoStep">
+          <SpecifyRepositories step="7"></SpecifyRepositories>
         </BaseStepContent>
       </v-stepper-content>
     </v-stepper>
@@ -67,16 +76,20 @@ import SpecifyResearchData from '@/components/SpecifyResearchData'
 import Documentation from '@/components/Documentation'
 import LegalAndEthicalAspects from '@/components/LegalAndEthicalAspects'
 import SpecifyRepositories from '@/components/SpecifyRepositories'
+import Licensing from '@/components/Licensing'
+import BaseStepContent from '@/components/BaseStepContent'
 
 export default {
   name: 'DmpCreate',
   components: {
+    Licensing,
     SpecifyRepositories,
     LegalAndEthicalAspects,
     Documentation,
     SpecifyResearchData,
     DMStaffSelection,
-    ProjectSelection },
+    ProjectSelection,
+    BaseStepContent },
   data () {
     return {
       currentStep: '1'
@@ -107,6 +120,9 @@ export default {
     documentationAndDataQualityDescribed () {
       return this.getMetadata !== '' || this.getDataGeneration !== '' ||
         this.getStructureAndVersioning !== '' || this.getTargetAudience !== ''
+    },
+    licensingSpecified () {
+      return false
     },
     repositoriesSpecified () {
       return this.getSelectedRepositoriesCount > 0

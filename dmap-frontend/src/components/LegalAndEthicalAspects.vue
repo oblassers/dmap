@@ -48,9 +48,11 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import BaseYesNoQuestion from '@/components/BaseYesNoQuestion'
 
 export default {
   name: 'LegalAndEthicalAspects',
+  components: { BaseYesNoQuestion },
   data () {
     return {
       introductoryText: 'Did you consider issues like personal data, intellectual property rights and ownership?'

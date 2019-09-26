@@ -11,14 +11,17 @@
   },
   "dependencies": {
     "@riophae/vue-treeselect": "0.0.38",
+    "LicenseSelector": "https://github.com/ufal/public-license-selector.git#releases",
     "axios": "^0.18.1",
+    "jquery": "^2.1.1",
+    "lodash": "^2.4.1",
     "moment": "^2.24.0",
     "nprogress": "^0.2.0",
     "qs": "^6.8.0",
     "vue": "^2.6.10",
-    "vue-router": "^3.1.2",
+    "vue-router": "^3.1.3",
     "vue2-dropzone": "^3.6.0",
-    "vuetify": "^1.5.17",
+    "vuetify": "^1.5.18",
     "vuex": "^3.1.1"
   },
   "devDependencies": {
@@ -30,7 +33,7 @@
     "@vue/eslint-config-standard": "^4.0.0",
     "@vue/test-utils": "^1.0.0-beta.29",
     "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "^10.0.2",
+    "babel-eslint": "^10.0.3",
     "babel-jest": "^23.6.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.2.3",

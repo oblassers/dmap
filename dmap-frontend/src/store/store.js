@@ -7,6 +7,7 @@ import * as people from '@/store/modules/people.js'
 import * as data from '@/store/modules/data.js'
 import * as documentation from '@/store/modules/documentation.js'
 import * as legal from '@/store/modules/legal.js'
+import * as license from '@/store/modules/license.js'
 import * as user from '@/store/modules/user.js'
 import * as repository from '@/store/modules/repository.js'
 
@@ -21,6 +22,7 @@ export default new Vuex.Store({
     data,
     documentation,
     legal,
+    license,
     user,
     repository
   }
