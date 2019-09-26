@@ -156,10 +156,15 @@
 </template>
 
 <script>
+import Treeselect from '@riophae/vue-treeselect'
+import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'RepositoriesFilter',
+  components: {
+    Treeselect
+  },
   computed: {
     ...mapGetters('repository', [
       'hasFilters',

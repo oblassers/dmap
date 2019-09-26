@@ -7,16 +7,12 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import 'nprogress/nprogress.css'
 import filters from './filters/filters'
-import Treeselect from '@riophae/vue-treeselect'
-import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 
 Vue.use(Vuetify)
 
 for (let name in filters) {
   Vue.filter(name, filters[name])
 }
-
-Vue.component('treeselect', Treeselect)
 
 Vue.config.productionTip = false
 
