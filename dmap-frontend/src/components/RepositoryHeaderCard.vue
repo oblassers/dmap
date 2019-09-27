@@ -3,7 +3,7 @@
     <div class="repository-overview">
       <h4>{{ repository.name }}</h4>
     </div>
-    <div class="select-btn" @click.stop="selectRepository(repository)">
+    <div class="select-btn" @click.stop="selectRepositoryAndFetchDetails(repository)">
       <v-btn :disabled="isSelectedRepository(repository.id)" small>Select</v-btn>
     </div>
   </div>
@@ -21,7 +21,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions('repository', ['selectRepository'])
+    ...mapActions('repository', ['selectRepository', 'fetchRepositoryDetails']),
+    selectRepositoryAndFetchDetails (repository) {
+      this.fetchRepositoryDetails(repository.id)
+      this.selectRepository(repository)
+    }
   },
   computed: {
     ...mapGetters('repository', ['isSelectedRepository'])

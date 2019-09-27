@@ -119,5 +119,14 @@ export const getters = {
   getProjectsStaffPerPage: state => (page, perPage) => {
     var index = (page - 1) * perPage
     return state.projectsStaff.slice(index, index + perPage)
+  },
+  getLatestSelectedProjectEndDate: state => {
+    var latestEndDate = new Date().toISOString().substr(0, 10)
+    state.selectedProjects.forEach(p => {
+      if (Date.parse(p.end) > Date.parse(latestEndDate)) {
+        latestEndDate = p.end
+      }
+    })
+    return latestEndDate
   }
 }

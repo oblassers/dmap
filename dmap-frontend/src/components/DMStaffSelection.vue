@@ -4,8 +4,12 @@
     <div>
       <p v-if="getDataManagementStaffMembersCount === 0">Currently you have no people selected.</p>
       <p v-else>You selected {{ getDataManagementStaffMembersCount }} person(s):</p>
-      <PersonSelected v-for="(person, index) in getDataManagementStaff" :key="index"
-                       :person="person"></PersonSelected>
+      <PersonSelected
+        v-for="(person, index) in getDataManagementStaff" :key="index"
+        :person="person"
+        class="mb-3"
+      >
+      </PersonSelected>
     </div>
     <v-expansion-panel v-model="panels" expand>
       <v-expansion-panel-content v-for="(person, index) in projectsStaff" :key="index">

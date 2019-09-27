@@ -4,8 +4,12 @@
     <div>
       <p v-if="getSelectedProjectsCount === 0">Currently you have no projects selected.</p>
       <p v-else>You selected {{ getSelectedProjectsCount }} project(s):</p>
-      <ProjectSelected v-for="(selectedProject, index) in project.selectedProjects" :key="index"
-                       :project="selectedProject"></ProjectSelected>
+      <ProjectSelected
+        v-for="(selectedProject, index) in project.selectedProjects" :key="index"
+        :project="selectedProject"
+        class="mb-3"
+      >
+      </ProjectSelected>
     </div>
     <v-expansion-panel v-model="panels" expand>
       <v-expansion-panel-content v-for="(project, index) in projectSuggestions" :key="index">

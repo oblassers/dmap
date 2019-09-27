@@ -4,8 +4,12 @@
       <p>Please select the repository/repositories where you plan to deposit your data.</p>
       <p v-if="getSelectedRepositoriesCount === 0">Currently you have no repositories selected.</p>
       <p v-else>You selected {{ getSelectedRepositoriesCount }} repository/repositories:</p>
-      <RepositorySelected v-for="(selectedRepository, index) in repository.selectedRepositories" :key="index"
-                          :repository="selectedRepository"></RepositorySelected>
+      <RepositorySelected
+        v-for="(selectedRepository, index) in repository.selectedRepositories" :key="index"
+        :repository="selectedRepository"
+        class="mb-3"
+      >
+      </RepositorySelected>
     </v-flex>
     <v-flex xs4 pr-4>
       <RepositoriesFilter></RepositoriesFilter>

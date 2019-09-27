@@ -71,6 +71,7 @@
 
 <script>
 import LicenseSelector from '@/components/LicenseSelectorWrapper'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'DatasetLicense',
@@ -84,7 +85,7 @@ export default {
   data () {
     return {
       publish: false,
-      date: new Date().toISOString().substr(0, 10),
+      date: undefined,
       showDatePicker: false,
       otherLicenseDescription: '',
       selectedLicense: undefined,
@@ -98,6 +99,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('project', ['getLatestSelectedProjectEndDate']),
     licenseHint: function () {
       if (this.selectedLicense) {
         return this.selectedLicense.url !== '' ? ' See also ' + this.selectedLicense.url : ''
@@ -124,6 +126,10 @@ export default {
         })
       }
     }
+  },
+  mounted: function () {
+    // by default set the license active date to project end date
+    this.date = this.getLatestSelectedProjectEndDate
   }
 }
 </script>
