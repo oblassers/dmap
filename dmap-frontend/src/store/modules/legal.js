@@ -2,8 +2,10 @@ export const namespaced = true
 
 export const state = {
   isDataSensitive: undefined,
+  sensitiveDatasets: [],
   isDataSensitiveDescription: '',
   containsPersonalInformation: undefined,
+  datasetsWithPersonalInformation: [],
   containsPersonalInformationDescription: '',
   hasLegalIssues: undefined,
   hasLegalIssuesDescription: '',
@@ -17,11 +19,17 @@ export const mutations = {
   SET_IS_DATA_SENSITIVE (state, isSensitive) {
     state.isDataSensitive = isSensitive
   },
+  SET_SENSITIVE_DATASETS (state, datasets) {
+    state.sensitiveDatasets = datasets
+  },
   SET_IS_DATA_SENSITIVE_DESCRIPTION (state, description) {
     state.isDataSensitiveDescription = description
   },
   SET_CONTAINS_PERSONAL_INFORMATION (state, containsPersonalInfo) {
     state.containsPersonalInformation = containsPersonalInfo
+  },
+  SET_DATASETS_WITH_PERSONAL_INFORMATION (state, datasets) {
+    state.datasetsWithPersonalInformation = datasets
   },
   SET_CONTAINS_PERSONAL_INFORMATION_DESCRIPTION (state, description) {
     state.containsPersonalInformationDescription = description
@@ -50,11 +58,17 @@ export const actions = {
   setIsDataSensitive ({ commit }, isSensitive) {
     commit('SET_IS_DATA_SENSITIVE', isSensitive)
   },
+  setSensitiveDatasets ({ commit }, datasets) {
+    commit('SET_SENSITIVE_DATASETS', datasets)
+  },
   setIsDataSensitiveDescription ({ commit }, description) {
     commit('SET_IS_DATA_SENSITIVE_DESCRIPTION', description)
   },
   setContainsPersonalInformation ({ commit }, containsPersonalInfo) {
     commit('SET_CONTAINS_PERSONAL_INFORMATION', containsPersonalInfo)
+  },
+  setDatasetsWithPersonalInformation ({ commit }, datasets) {
+    commit('SET_DATASETS_WITH_PERSONAL_INFORMATION', datasets)
   },
   setContainsPersonalInformationDescription ({ commit }, description) {
     commit('SET_CONTAINS_PERSONAL_INFORMATION_DESCRIPTION', description)
@@ -83,11 +97,17 @@ export const getters = {
   isDataSensitive: state => {
     return state.isDataSensitive
   },
+  getSensitiveDatasets: state => {
+    return state.sensitiveDatasets
+  },
   getDataSensitiveDescription: state => {
     return state.isDataSensitiveDescription
   },
   containsPersonalInformation: state => {
     return state.containsPersonalInformation
+  },
+  getDatasetsWithPersonalInformation: state => {
+    return state.datasetsWithPersonalInformation
   },
   getContainsPersonalInformationDescription: state => {
     return state.containsPersonalInformationDescription

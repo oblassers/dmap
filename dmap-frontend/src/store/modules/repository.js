@@ -23,11 +23,27 @@ export const mutations = {
   },
   ADD_REPOSITORY_TO_SELECTION (state, repository) {
     state.selectedRepositories.findIndex(r => r.id === repository.id) === -1
-      ? state.selectedRepositories.push(repository) : console.log('Repository already selected')
+      ? state.selectedRepositories.push(
+        Object.assign({}, {
+          ...repository,
+          datasets: [],
+          availableUntil: undefined
+        })) : console.log('Repository already selected')
   },
   REMOVE_REPOSITORY_FROM_SELECTION (state, repository) {
-    var index = state.selectedRepositories.findIndex(r => r.id === repository.id)
-    index !== -1 ? state.selectedRepositories.splice(index, 1) : console.log('Repository not contained in selected repositories')
+    let index = state.selectedRepositories.findIndex(r => r.id === repository.id)
+    index !== -1 ? state.selectedRepositories.splice(index, 1)
+      : console.log('Repository not contained in selected repositories')
+  },
+  SET_DATASETS_FOR_DEPOSIT (state, { repositoryId, datasetNames }) {
+    let index = state.selectedRepositories.findIndex(r => r.id === repositoryId)
+    index !== -1 ? state.selectedRepositories[index].datasets = datasetNames
+      : console.log('Repository not contained in selected repositories')
+  },
+  SET_AVAILABLE_UNTIL_DATE (state, { repositoryId, availableUntil }) {
+    let index = state.selectedRepositories.findIndex(r => r.id === repositoryId)
+    index !== -1 ? state.selectedRepositories[index].availableUntil = availableUntil
+      : console.log('Repository not contained in selected repositories')
   },
   /*
   Using Vue.set to allow reactivity on nested objects
@@ -119,6 +135,12 @@ export const actions = {
     commit('SET_REPOSITORIES', [])
     commit('SET_REPOSITORIES_DETAILS', [])
   },
+  setDatasetsForDeposit ({ commit }, payload) {
+    commit('SET_DATASETS_FOR_DEPOSIT', payload)
+  },
+  setAvailableUntilDate ({ commit }, payload) {
+    commit('SET_AVAILABLE_UNTIL_DATE', payload)
+  },
   clearFilters ({ commit }) {
     commit('SET_FILTER', {})
   },
@@ -180,7 +202,7 @@ export const getters = {
     return state.repositories.length
   },
   getRepositorySuggestionsPerPage: state => (page, perPage) => {
-    var index = (page - 1) * perPage
+    let index = (page - 1) * perPage
     return state.repositories.slice(index, index + perPage)
   },
   getSelectedRepositoriesCount: state => {
@@ -191,6 +213,20 @@ export const getters = {
   },
   isSelectedRepository: state => repositoryId => {
     return state.selectedRepositories.findIndex(r => r.id === repositoryId) !== -1
+  },
+  getDatasetsForDeposit: state => repositoryId => {
+    let index = state.selectedRepositories.findIndex(r => r.id === repositoryId)
+    if (index > -1) {
+      return state.selectedRepositories[index].datasets
+    }
+    return []
+  },
+  getAvailableUntilDate: state => repositoryId => {
+    let index = state.selectedRepositories.findIndex(r => r.id === repositoryId)
+    if (index > -1) {
+      return state.selectedRepositories[index].availableUntil
+    }
+    return undefined
   },
   getFilterParams: state => {
     return state.params

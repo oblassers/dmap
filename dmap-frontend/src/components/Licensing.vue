@@ -6,7 +6,7 @@
     </p>
     <div class="text-xs-center">
       <v-alert
-        :value="getDatasetSummaries.length === 0 && getUnassignedDatasetSummary.dataEstimations.length === 0"
+        :value="getDatasets.length === 0"
         icon="info"
         color="info"
         outline
@@ -16,11 +16,8 @@
     </div>
     <v-container fluid grid-list-lg>
       <v-layout row wrap>
-        <v-flex v-for="dataset in getDatasetSummaries" :key="dataset.datasetName" xs12 sm12 md12 lg12>
+        <v-flex v-for="dataset in getDatasets" :key="dataset.datasetName" xs12 sm12 md12 lg12>
           <DatasetLicense :dataset="dataset"></DatasetLicense>
-        </v-flex>
-        <v-flex v-if="getUnassignedDatasetSummary.dataEstimations.length > 0" xs12 sm12 md12 lg12>
-          <DatasetLicense :dataset="getUnassignedDatasetSummary"></DatasetLicense>
         </v-flex>
       </v-layout>
     </v-container>
@@ -35,7 +32,7 @@ export default {
   name: 'Licensing',
   components: { DatasetLicense },
   computed: {
-    ...mapGetters('data', ['getDatasetSummaries', 'getUnassignedDatasetSummary'])
+    ...mapGetters('data', ['getDatasets'])
   }
 }
 </script>

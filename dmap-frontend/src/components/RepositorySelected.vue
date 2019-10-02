@@ -16,12 +16,13 @@
       </v-btn>
     </v-card-title>
     <v-card-actions
-      v-show="datasets.length > 0"
+      v-show="getDatasets.length > 0"
       class="px-3 py-0"
     >
       <v-select
-        :items="datasets"
-        return-object
+        v-model="datasetsForDeposit"
+        :items="getDatasets"
+        item-value="datasetName"
         item-text="datasetName"
         label="Dataset(s) for deposit"
         multiple chips
@@ -39,7 +40,7 @@
       >
         <template v-slot:activator="{ on }">
           <v-text-field
-            v-model="date"
+            v-model="availableUntilDate"
             label="Available until"
             append-outer-icon="event"
             readonly
@@ -47,7 +48,7 @@
             class="mt-2 mr-1"
           ></v-text-field>
         </template>
-        <v-date-picker v-model="date" @input="showDatePicker = false"></v-date-picker>
+        <v-date-picker v-model="availableUntilDate" @input="showDatePicker = false"></v-date-picker>
       </v-menu>
     </v-card-actions>
   </v-card>
@@ -66,21 +67,38 @@ export default {
   },
   data () {
     return {
-      date: new Date().toISOString().substr(0, 10),
       showDatePicker: false
     }
   },
   computed: {
-    ...mapGetters('data', ['getDatasetSummaries', 'getUnassignedDatasetSummary']),
-    datasets () {
-      if (this.getUnassignedDatasetSummary.dataEstimations.length > 0) {
-        return this.getDatasetSummaries.concat(this.getUnassignedDatasetSummary)
+    ...mapGetters('data', ['getDatasetSummaries', 'getUnassignedDatasetSummary', 'getDatasets']),
+    ...mapGetters('project', ['getLatestSelectedProjectEndDate']),
+    ...mapGetters('repository', ['getDatasetsForDeposit', 'getAvailableUntilDate']),
+    datasetsForDeposit: {
+      set (datasetNames) {
+        this.setDatasetsForDeposit({ repositoryId: this.repository.id, datasetNames: datasetNames })
+      },
+      get () {
+        return this.getDatasetsForDeposit(this.repository.id)
       }
-      return this.getDatasetSummaries
+    },
+    availableUntilDate: {
+      set (date) {
+        this.setAvailableUntilDate({ repositoryId: this.repository.id, availableUntil: date })
+      },
+      get () {
+        return this.getAvailableUntilDate(this.repository.id)
+      }
     }
   },
   methods: {
-    ...mapActions('repository', ['removeRepositoryFromSelection'])
+    ...mapActions('repository', ['removeRepositoryFromSelection', 'setDatasetsForDeposit', 'setAvailableUntilDate'])
+  },
+  mounted: function () {
+    // by default set the available until date to project end date + 10 years
+    let d = new Date(this.getLatestSelectedProjectEndDate)
+    d.setFullYear(d.getFullYear() + 10)
+    this.availableUntilDate = d.toISOString().substr(0, 10)
   }
 }
 </script>

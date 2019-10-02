@@ -245,6 +245,12 @@ export const getters = {
       ...calculateTotalSize(unassignedEstimations)
     })
   },
+  getDatasets: (state, getters) => {
+    if (getters.getUnassignedDatasetSummary.dataEstimations.length > 0) {
+      return getters.getDatasetSummaries.concat(getters.getUnassignedDatasetSummary)
+    }
+    return getters.getDatasetSummaries
+  },
   getSampleDataEstimations: state => {
     return state.sampleDataEstimations
   },

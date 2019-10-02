@@ -15,6 +15,8 @@
       >Clear answer</v-chip>
     </v-radio-group>
 
+    <slot></slot>
+
     <v-textarea
       v-if="showTextArea"
       name="input-7-1"
