@@ -16,8 +16,8 @@
     </div>
     <v-container fluid grid-list-lg>
       <v-layout row wrap>
-        <v-flex v-for="dataset in getDatasets" :key="dataset.datasetName" xs12 sm12 md12 lg12>
-          <DatasetLicense :dataset="dataset"></DatasetLicense>
+        <v-flex v-for="distribution in getDistributions" :key="distribution.datasetName" xs12 sm12 md12 lg12>
+          <DatasetLicense :distribution="distribution"></DatasetLicense>
         </v-flex>
       </v-layout>
     </v-container>
@@ -26,13 +26,22 @@
 
 <script>
 import DatasetLicense from '@/components/DatasetLicense'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'Licensing',
   components: { DatasetLicense },
   computed: {
-    ...mapGetters('data', ['getDatasets'])
+    ...mapGetters('data', ['getDatasets']),
+    ...mapGetters('license', ['getDistributions'])
+  },
+  methods: {
+    ...mapActions('license', ['updateDistributions'])
+  },
+  watch: {
+    getDatasets: function (datasets) {
+      this.updateDistributions(datasets.map(d => d.datasetName))
+    }
   }
 }
 </script>

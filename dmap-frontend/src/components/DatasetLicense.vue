@@ -4,18 +4,18 @@
       <v-container fluid class="pa-0">
         <v-layout row>
           <v-flex xs6 sm8 md9 lg10 class="pb-0">
-            <h4>{{ dataset.datasetName }}</h4>
+            <h4>{{ distribution.datasetName }}</h4>
           </v-flex>
           <v-flex xs6 sm4 md3 lg2 class="pb-0">
-            <v-switch v-model="publish" color="primary" class="pa-0 ma-0"
-                      :label="publish ? 'publish' : 'keep closed'"
+            <v-switch v-model="dataAccess" color="primary" class="pa-0 ma-0"
+                      :label="dataAccess ? 'publish' : 'keep closed'"
             ></v-switch>
           </v-flex>
         </v-layout>
       </v-container>
     </v-card-title>
 
-    <v-card-text v-show="publish" class="py-0">
+    <v-card-text v-show="dataAccess" class="py-0">
       <v-textarea
         v-if="licenseName === 'Other'"
         name="input-7-1"
@@ -28,7 +28,7 @@
       <p v-else>{{ licenseDescription }}</p>
     </v-card-text>
 
-    <v-card-actions class="px-3" v-show="publish">
+    <v-card-actions class="px-3" v-show="dataAccess">
       <v-select
         v-model="selectedLicense"
         :items="licenses"
@@ -39,7 +39,7 @@
         persistent-hint
       ></v-select>
       <LicenseSelector
-        @input="setLicense"
+        @input="selectLicense"
         @license-definitions="setLicenseDefinitions"
         class="mr-2"
         v-once
@@ -56,14 +56,14 @@
       >
         <template v-slot:activator="{ on }">
           <v-text-field
-            v-model="date"
+            v-model="licenseActiveDate"
             label="Planned to be active from"
             append-outer-icon="event"
             readonly
             v-on="on"
           ></v-text-field>
         </template>
-        <v-date-picker v-model="date" @input="showDatePicker = false"></v-date-picker>
+        <v-date-picker v-model="licenseActiveDate" @input="showDatePicker = false"></v-date-picker>
       </v-menu>
     </v-card-actions>
   </v-card>
@@ -71,24 +71,20 @@
 
 <script>
 import LicenseSelector from '@/components/LicenseSelectorWrapper'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'DatasetLicense',
   components: { LicenseSelector },
   props: {
-    dataset: {
+    distribution: {
       type: Object,
       required: true
     }
   },
   data () {
     return {
-      publish: false,
-      date: undefined,
       showDatePicker: false,
-      otherLicenseDescription: '',
-      selectedLicense: undefined,
       licenses: [
         {
           name: 'Other',
@@ -100,6 +96,43 @@ export default {
   },
   computed: {
     ...mapGetters('project', ['getLatestSelectedProjectEndDate']),
+    ...mapGetters('license', ['getDataAccess', 'getLicense', 'getLicenseActiveDate', 'getOtherLicenseDescription']),
+    dataAccess: {
+      set (access) {
+        this.setDataAccess({ datasetName: this.distribution.datasetName, access: access })
+      },
+      get () {
+        return this.getDataAccess(this.distribution.datasetName)
+      }
+    },
+    selectedLicense: {
+      set (license) {
+        this.setLicense({ datasetName: this.distribution.datasetName, license: license })
+      },
+      get () {
+        return this.getLicense(this.distribution.datasetName)
+      }
+    },
+    licenseActiveDate: {
+      set (activeDate) {
+        this.setLicenseActiveDate({ datasetName: this.distribution.datasetName, activeDate: activeDate })
+      },
+      get () {
+        return this.getLicenseActiveDate(this.distribution.datasetName)
+      }
+    },
+    otherLicenseDescription: {
+      set (licenseDescription) {
+        this.setOtherLicenseDescription(
+          {
+            datasetName: this.distribution.datasetName,
+            licenseDescription: licenseDescription
+          })
+      },
+      get () {
+        return this.getOtherLicenseDescription(this.distribution.datasetName)
+      }
+    },
     licenseHint: function () {
       if (this.selectedLicense) {
         return this.selectedLicense.url !== '' ? ' See also ' + this.selectedLicense.url : ''
@@ -114,7 +147,8 @@ export default {
     }
   },
   methods: {
-    setLicense (license) {
+    ...mapActions('license', ['setDataAccess', 'setLicense', 'setLicenseActiveDate', 'setOtherLicenseDescription']),
+    selectLicense (license) {
       this.selectedLicense = license
     },
     setLicenseDefinitions (licenses) {
@@ -129,7 +163,7 @@ export default {
   },
   mounted: function () {
     // by default set the license active date to project end date
-    this.date = this.getLatestSelectedProjectEndDate
+    this.licenseActiveDate = this.getLatestSelectedProjectEndDate
   }
 }
 </script>
