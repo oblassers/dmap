@@ -93,6 +93,7 @@ export default {
       'getFilterParams',
       'getFilterSearchQuery']),
     ...mapGetters('loading', ['isLoading']),
+    ...mapGetters('data', ['getDatasets']),
     repositorySuggestions () {
       return this.getRepositorySuggestionsPerPage(this.page, this.perPage)
     },
@@ -108,7 +109,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('repository', ['setFilterSearchQuery'])
+    ...mapActions('repository', ['setFilterSearchQuery', 'updateDatasetsForDeposit'])
   },
   watch: {
     // when page changes, reset the expand states of the panels
@@ -121,6 +122,10 @@ export default {
         getRepositorySuggestions()
       },
       deep: true
+    },
+    // update dataset selections when datasets change
+    getDatasets: function (datasets) {
+      this.updateDatasetsForDeposit(datasets.map(d => d.datasetName))
     }
   },
   created: function () {

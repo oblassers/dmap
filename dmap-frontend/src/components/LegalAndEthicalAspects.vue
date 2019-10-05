@@ -3,8 +3,11 @@
     <p>This step helps you to consider issues like personal data, intellectual property rights and ownership.</p>
     <v-container fluid>
       <BaseYesNoQuestion
-        question="Does your data contain personal information?" with-text on-yes
+        question="Does your data contain personal information?"
+        :answer="containsPersonalInformation"
         @selection="setContainsPersonalInformation"
+        with-text on-yes
+        :text="getContainsPersonalInformationDescription"
         @textchange="setContainsPersonalInformationDescription"
       >
         <v-select
@@ -20,9 +23,12 @@
       </BaseYesNoQuestion>
 
       <BaseYesNoQuestion
-        question="Is your data sensitive?" with-text on-yes
+        question="Is your data sensitive?"
+        :answer="isDataSensitive"
         @selection="setIsDataSensitive"
-        @textchange="setIsDataSensitiveDescription"
+        with-text on-yes
+        :text="getDataSensitiveDescription"
+        @textchange="setDataSensitiveDescription"
       >
         <v-select
           v-if="isDataSensitive && getDatasets.length > 0"
@@ -37,35 +43,42 @@
       </BaseYesNoQuestion>
 
       <BaseYesNoQuestion
-        question="Are there any other legal restrictions on how data is processed or shared?" with-text on-yes
+        question="Are there any other legal restrictions on how data is processed or shared?"
+        :answer="hasLegalIssues"
         @selection="setHasLegalIssues"
-        @textchange="setHasLegalIssuesDescription"
+        with-text on-yes
+        :text="getLegalIssuesDescription"
+        @textchange="setLegalIssuesDescription"
       >
       </BaseYesNoQuestion>
 
       <BaseYesNoQuestion
         question="Are there any ethical issues associated with your research data?"
+        :answer="hasEthicalIssues"
         @selection="setHasEthicalIssues"
       >
       </BaseYesNoQuestion>
 
       <BaseYesNoQuestion
         question="If so, was your plan to deal with these ethical issues approved by the ethics committee?"
+        :answer="getApprovedByEthicalBoard"
         @selection="setApprovedByEthicalBoard"
       >
       </BaseYesNoQuestion>
 
       <v-text-field
+        :value="getLinkToEthicsReport"
+        @change="setLinkToEthicsReport"
         label="Link to ethics report or related document:"
         box
-        @change="setLinkToEthicsReport"
       ></v-text-field>
       <v-textarea
+        :value="getEthicalComplianceStatement"
+        @change="setEthicalComplianceStatement"
         name="input-7-1"
         box
         label="Other statement regarding ethical compliance (optional):"
         auto-grow
-        @change="setEthicalComplianceStatement"
       ></v-textarea>
     </v-container>
   </div>
@@ -79,8 +92,11 @@ export default {
   name: 'LegalAndEthicalAspects',
   components: { BaseYesNoQuestion },
   computed: {
-    ...mapGetters('legal', ['hasEthicalIssues', 'containsPersonalInformation', 'getDatasetsWithPersonalInformation',
-      'isDataSensitive', 'getSensitiveDatasets']),
+    ...mapGetters('legal', ['containsPersonalInformation', 'getDatasetsWithPersonalInformation',
+      'getContainsPersonalInformationDescription', 'isDataSensitive', 'getSensitiveDatasets',
+      'getDataSensitiveDescription', 'hasLegalIssues', 'getLegalIssuesDescription', 'hasEthicalIssues',
+      'getApprovedByEthicalBoard', 'getLinkToEthicsReport', 'getEthicalComplianceStatement'
+    ]),
     ...mapGetters('data', ['getDatasets']),
     datasetsWithPersonalInformation: {
       set (datasetNames) {
@@ -100,12 +116,17 @@ export default {
     }
   },
   methods: {
-    ...mapActions('legal', ['setIsDataSensitive', 'setSensitiveDatasets', 'setIsDataSensitiveDescription',
-      'setContainsPersonalInformation', 'setDatasetsWithPersonalInformation',
-      'setContainsPersonalInformationDescription',
-      'setHasLegalIssues', 'setHasLegalIssuesDescription',
-      'setHasEthicalIssues', 'setApprovedByEthicalBoard',
+    ...mapActions('legal', ['setContainsPersonalInformation', 'setDatasetsWithPersonalInformation',
+      'updateDatasetsWithPersonalInformation', 'setContainsPersonalInformationDescription', 'setIsDataSensitive',
+      'setSensitiveDatasets', 'updateSensitiveDatasets', 'setDataSensitiveDescription',
+      'setHasLegalIssues', 'setLegalIssuesDescription', 'setHasEthicalIssues', 'setApprovedByEthicalBoard',
       'setLinkToEthicsReport', 'setEthicalComplianceStatement'])
+  },
+  watch: {
+    getDatasets: function (datasets) {
+      this.updateSensitiveDatasets(datasets.map(d => d.datasetName))
+      this.updateDatasetsWithPersonalInformation(datasets.map(d => d.datasetName))
+    }
   }
 }
 </script>

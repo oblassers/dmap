@@ -60,8 +60,15 @@
         Specify repository/repositories
       </v-stepper-step>
       <v-stepper-content step="7">
-        <BaseStepContent previous-step="6" @gotoStep="gotoStep">
+        <BaseStepContent previous-step="6" next-step="8" @gotoStep="gotoStep">
           <SpecifyRepositories step="7"></SpecifyRepositories>
+        </BaseStepContent>
+      </v-stepper-content>
+
+      <v-stepper-step editable step="8">End</v-stepper-step>
+      <v-stepper-content step="8">
+        <BaseStepContent previous-step="7" @gotoStep="gotoStep">
+          <End></End>
         </BaseStepContent>
       </v-stepper-content>
     </v-stepper>
@@ -70,26 +77,29 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import BaseStepContent from '@/components/BaseStepContent'
 import ProjectSelection from '@/components/ProjectSelection'
 import DMStaffSelection from '@/components/DMStaffSelection'
 import SpecifyResearchData from '@/components/SpecifyResearchData'
 import Documentation from '@/components/Documentation'
 import LegalAndEthicalAspects from '@/components/LegalAndEthicalAspects'
-import SpecifyRepositories from '@/components/SpecifyRepositories'
 import Licensing from '@/components/Licensing'
-import BaseStepContent from '@/components/BaseStepContent'
+import SpecifyRepositories from '@/components/SpecifyRepositories'
+import End from '@/components/End'
 
 export default {
   name: 'DmpCreate',
   components: {
+    BaseStepContent,
+    ProjectSelection,
+    DMStaffSelection,
+    SpecifyResearchData,
+    Documentation,
+    LegalAndEthicalAspects,
     Licensing,
     SpecifyRepositories,
-    LegalAndEthicalAspects,
-    Documentation,
-    SpecifyResearchData,
-    DMStaffSelection,
-    ProjectSelection,
-    BaseStepContent },
+    End
+  },
   data () {
     return {
       currentStep: '1'
@@ -108,6 +118,7 @@ export default {
       'getStructureAndVersioning', 'getTargetAudience']),
     ...mapGetters('legal', ['getLegalAndEthicalInfoProvided']),
     ...mapGetters('repository', ['getSelectedRepositoriesCount']),
+    ...mapGetters('license', ['getDistributionsCount']),
     projectSelected () {
       return this.getSelectedProjectsCount > 0
     },
@@ -122,7 +133,7 @@ export default {
         this.getStructureAndVersioning !== '' || this.getTargetAudience !== ''
     },
     licensingSpecified () {
-      return false
+      return this.getDistributionsCount > 0
     },
     repositoriesSpecified () {
       return this.getSelectedRepositoriesCount > 0

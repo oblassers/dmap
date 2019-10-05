@@ -90,6 +90,9 @@ export const getters = {
   getDistributions: state => {
     return state.distributions
   },
+  getDistributionsCount: state => {
+    return state.distributions.length
+  },
   getDistribution: state => datasetName => {
     let index = state.distributions.findIndex(d => d.datasetName === datasetName)
     if (index > -1) {

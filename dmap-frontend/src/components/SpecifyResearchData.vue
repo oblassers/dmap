@@ -8,11 +8,12 @@
     </v-radio-group>
     <v-textarea
       v-show="dataCreation === 'nodata'"
+      :value="getNoDataExplanation"
+      @change="setNoDataExplanation"
       name="input-7-1"
       box
       label="Please explain why you won't create or analyse any research data."
       auto-grow
-      v-model="noDataExplanation"
     ></v-textarea>
     <ResearchDataEstimator
       v-show="dataCreation === 'specify'"
@@ -36,14 +37,6 @@ export default {
       },
       get () {
         return this.getDataCreation
-      }
-    },
-    noDataExplanation: {
-      set (text) {
-        this.setNoDataExplanation(text)
-      },
-      get () {
-        return this.getNoDataExplanation
       }
     }
   },

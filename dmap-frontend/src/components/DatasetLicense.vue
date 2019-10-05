@@ -18,12 +18,13 @@
     <v-card-text v-show="dataAccess" class="py-0">
       <v-textarea
         v-if="licenseName === 'Other'"
+        :value="getOtherLicenseDescription(distribution.datasetName)"
+        @change="setOtherLicenseDescriptionWrapper"
         name="input-7-1"
         box
         label="Please describe your license"
         hint="You may want to include external links"
         auto-grow
-        v-model="otherLicenseDescription"
       ></v-textarea>
       <p v-else>{{ licenseDescription }}</p>
     </v-card-text>
@@ -121,18 +122,6 @@ export default {
         return this.getLicenseActiveDate(this.distribution.datasetName)
       }
     },
-    otherLicenseDescription: {
-      set (licenseDescription) {
-        this.setOtherLicenseDescription(
-          {
-            datasetName: this.distribution.datasetName,
-            licenseDescription: licenseDescription
-          })
-      },
-      get () {
-        return this.getOtherLicenseDescription(this.distribution.datasetName)
-      }
-    },
     licenseHint: function () {
       if (this.selectedLicense) {
         return this.selectedLicense.url !== '' ? ' See also ' + this.selectedLicense.url : ''
@@ -150,6 +139,13 @@ export default {
     ...mapActions('license', ['setDataAccess', 'setLicense', 'setLicenseActiveDate', 'setOtherLicenseDescription']),
     selectLicense (license) {
       this.selectedLicense = license
+    },
+    setOtherLicenseDescriptionWrapper (licenseDescription) {
+      this.setOtherLicenseDescription(
+        {
+          datasetName: this.distribution.datasetName,
+          licenseDescription: licenseDescription
+        })
     },
     setLicenseDefinitions (licenses) {
       this.licenses.unshift(...licenses)

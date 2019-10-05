@@ -3,12 +3,12 @@ export const namespaced = true
 export const state = {
   isDataSensitive: undefined,
   sensitiveDatasets: [],
-  isDataSensitiveDescription: '',
+  dataSensitiveDescription: '',
   containsPersonalInformation: undefined,
   datasetsWithPersonalInformation: [],
   containsPersonalInformationDescription: '',
   hasLegalIssues: undefined,
-  hasLegalIssuesDescription: '',
+  legalIssuesDescription: '',
   hasEthicalIssues: undefined,
   approvedByEthicalBoard: undefined,
   linkToEthicsReport: '',
@@ -22,8 +22,11 @@ export const mutations = {
   SET_SENSITIVE_DATASETS (state, datasets) {
     state.sensitiveDatasets = datasets
   },
-  SET_IS_DATA_SENSITIVE_DESCRIPTION (state, description) {
-    state.isDataSensitiveDescription = description
+  UPDATE_SENSITIVE_DATASETS (state, allDatasetNames) {
+    state.sensitiveDatasets = state.sensitiveDatasets.filter(d => allDatasetNames.includes(d))
+  },
+  SET_DATA_SENSITIVE_DESCRIPTION (state, description) {
+    state.dataSensitiveDescription = description
   },
   SET_CONTAINS_PERSONAL_INFORMATION (state, containsPersonalInfo) {
     state.containsPersonalInformation = containsPersonalInfo
@@ -31,14 +34,18 @@ export const mutations = {
   SET_DATASETS_WITH_PERSONAL_INFORMATION (state, datasets) {
     state.datasetsWithPersonalInformation = datasets
   },
+  UPDATE_DATASETS_WITH_PERSONAL_INFORMATION (state, allDatasetNames) {
+    state.datasetsWithPersonalInformation =
+      state.datasetsWithPersonalInformation.filter(d => allDatasetNames.includes(d))
+  },
   SET_CONTAINS_PERSONAL_INFORMATION_DESCRIPTION (state, description) {
     state.containsPersonalInformationDescription = description
   },
   SET_HAS_LEGAL_ISSUES (state, hasLegalIssues) {
     state.hasLegalIssues = hasLegalIssues
   },
-  SET_HAS_LEGAL_ISSUES_DESCRIPTION (state, description) {
-    state.hasLegalIssuesDescription = description
+  SET_LEGAL_ISSUES_DESCRIPTION (state, description) {
+    state.legalIssuesDescription = description
   },
   SET_HAS_ETHICAL_ISSUES (state, hasEthicalIssues) {
     state.hasEthicalIssues = hasEthicalIssues
@@ -61,8 +68,11 @@ export const actions = {
   setSensitiveDatasets ({ commit }, datasets) {
     commit('SET_SENSITIVE_DATASETS', datasets)
   },
-  setIsDataSensitiveDescription ({ commit }, description) {
-    commit('SET_IS_DATA_SENSITIVE_DESCRIPTION', description)
+  updateSensitiveDatasets ({ commit }, allDatasetNames) {
+    commit('UPDATE_SENSITIVE_DATASETS', allDatasetNames)
+  },
+  setDataSensitiveDescription ({ commit }, description) {
+    commit('SET_DATA_SENSITIVE_DESCRIPTION', description)
   },
   setContainsPersonalInformation ({ commit }, containsPersonalInfo) {
     commit('SET_CONTAINS_PERSONAL_INFORMATION', containsPersonalInfo)
@@ -70,14 +80,17 @@ export const actions = {
   setDatasetsWithPersonalInformation ({ commit }, datasets) {
     commit('SET_DATASETS_WITH_PERSONAL_INFORMATION', datasets)
   },
+  updateDatasetsWithPersonalInformation ({ commit }, allDatasetNames) {
+    commit('UPDATE_DATASETS_WITH_PERSONAL_INFORMATION', allDatasetNames)
+  },
   setContainsPersonalInformationDescription ({ commit }, description) {
     commit('SET_CONTAINS_PERSONAL_INFORMATION_DESCRIPTION', description)
   },
   setHasLegalIssues ({ commit }, hasLegalIssues) {
     commit('SET_HAS_LEGAL_ISSUES', hasLegalIssues)
   },
-  setHasLegalIssuesDescription ({ commit }, description) {
-    commit('SET_HAS_LEGAL_ISSUES_DESCRIPTION', description)
+  setLegalIssuesDescription ({ commit }, description) {
+    commit('SET_LEGAL_ISSUES_DESCRIPTION', description)
   },
   setHasEthicalIssues ({ commit }, hasEthicalIssues) {
     commit('SET_HAS_ETHICAL_ISSUES', hasEthicalIssues)
@@ -101,7 +114,7 @@ export const getters = {
     return state.sensitiveDatasets
   },
   getDataSensitiveDescription: state => {
-    return state.isDataSensitiveDescription
+    return state.dataSensitiveDescription
   },
   containsPersonalInformation: state => {
     return state.containsPersonalInformation
@@ -116,7 +129,7 @@ export const getters = {
     return state.hasLegalIssues
   },
   getLegalIssuesDescription: state => {
-    return state.hasLegalIssuesDescription
+    return state.legalIssuesDescription
   },
   hasEthicalIssues: state => {
     return state.hasEthicalIssues
@@ -127,13 +140,13 @@ export const getters = {
   getLinkToEthicsReport: state => {
     return state.linkToEthicsReport
   },
-  GetEthicalComplianceStatement: state => {
+  getEthicalComplianceStatement: state => {
     return state.ethicalComplianceStatement
   },
   getLegalAndEthicalInfoProvided: state => {
-    return state.isDataSensitive !== undefined || state.isDataSensitiveDescription !== '' ||
+    return state.isDataSensitive !== undefined || state.dataSensitiveDescription !== '' ||
       state.containsPersonalInformation !== undefined || state.containsPersonalInformationDescription !== '' ||
-      state.hasLegalIssues !== undefined || state.hasLegalIssuesDescription !== '' ||
+      state.hasLegalIssues !== undefined || state.legalIssuesDescription !== '' ||
       state.hasEthicalIssues !== undefined || state.approvedByEthicalBoard !== undefined ||
       state.linkToEthicsReport !== '' || state.ethicalComplianceStatement !== ''
   }

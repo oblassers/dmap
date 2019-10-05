@@ -1,11 +1,11 @@
 <template>
   <div>
     <p>{{ question }}</p>
-    <v-radio-group v-model="radios" @change="answerSelected" :mandatory="false">
+    <v-radio-group :value="answer" @change="answerSelected" :mandatory="false">
       <v-radio label="Yes" :value="true"></v-radio>
       <v-radio label="No" :value="false"></v-radio>
       <v-chip
-        :value="radios !== undefined"
+        :value="answer !== undefined"
         @input="clearAnswer"
         close
         color="#039BE5"
@@ -23,7 +23,7 @@
       box
       label="Please describe"
       auto-grow
-      v-model="description"
+      :value="text"
       @change="textChanged"
     ></v-textarea>
   </div>
@@ -37,14 +37,10 @@ export default {
       type: String,
       required: true
     },
+    answer: Boolean,
     withText: Boolean,
-    onYes: Boolean
-  },
-  data () {
-    return {
-      radios: undefined,
-      description: ''
-    }
+    onYes: Boolean,
+    text: String
   },
   methods: {
     answerSelected (answer) {
@@ -55,12 +51,11 @@ export default {
     },
     clearAnswer () {
       this.answerSelected(undefined)
-      this.radios = undefined
     }
   },
   computed: {
     showTextArea () {
-      return this.withText && ((this.onYes && this.radios) || (!this.onYes && this.radios === false))
+      return this.withText && ((this.onYes && this.answer) || (!this.onYes && this.answer === false))
     }
   }
 }

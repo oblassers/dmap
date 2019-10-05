@@ -40,6 +40,11 @@ export const mutations = {
     index !== -1 ? state.selectedRepositories[index].datasets = datasetNames
       : console.log('Repository not contained in selected repositories')
   },
+  UPDATE_DATASETS_FOR_DEPOSIT (state, allDatasetNames) {
+    state.selectedRepositories.forEach(r => {
+      r.datasets = r.datasets.filter(d => allDatasetNames.includes(d))
+    })
+  },
   SET_AVAILABLE_UNTIL_DATE (state, { repositoryId, availableUntil }) {
     let index = state.selectedRepositories.findIndex(r => r.id === repositoryId)
     index !== -1 ? state.selectedRepositories[index].availableUntil = availableUntil
@@ -137,6 +142,9 @@ export const actions = {
   },
   setDatasetsForDeposit ({ commit }, payload) {
     commit('SET_DATASETS_FOR_DEPOSIT', payload)
+  },
+  updateDatasetsForDeposit ({ commit }, allDatasetNames) {
+    commit('UPDATE_DATASETS_FOR_DEPOSIT', allDatasetNames)
   },
   setAvailableUntilDate ({ commit }, payload) {
     commit('SET_AVAILABLE_UNTIL_DATE', payload)
