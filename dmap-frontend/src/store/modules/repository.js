@@ -138,7 +138,6 @@ export const actions = {
   },
   clearRepositories ({ commit }) {
     commit('SET_REPOSITORIES', [])
-    commit('SET_REPOSITORIES_DETAILS', [])
   },
   setDatasetsForDeposit ({ commit }, payload) {
     commit('SET_DATASETS_FOR_DEPOSIT', payload)
@@ -218,6 +217,12 @@ export const getters = {
   },
   getSelectedRepositories: state => {
     return state.selectedRepositories
+  },
+  getSelectedRepositoryById: state => repositoryId => {
+    return state.selectedRepositories.find(r => r.id === repositoryId)
+  },
+  getSelectedRepositoriesByDatasetName: state => datasetName => {
+    return state.selectedRepositories.filter(r => r.datasets.includes(datasetName))
   },
   isSelectedRepository: state => repositoryId => {
     return state.selectedRepositories.findIndex(r => r.id === repositoryId) !== -1

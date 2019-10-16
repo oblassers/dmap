@@ -71,7 +71,6 @@ export const actions = {
   },
   clearProjects ({ commit }) {
     commit('SET_PROJECTS', [])
-    commit('SET_PROJECTS_DETAILS', [])
   },
   fetchProjectStaff ({ commit }, projectId) {
     return BackendService.getProjectStaff(projectId)

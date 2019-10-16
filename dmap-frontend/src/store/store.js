@@ -10,6 +10,7 @@ import * as legal from '@/store/modules/legal.js'
 import * as license from '@/store/modules/license.js'
 import * as user from '@/store/modules/user.js'
 import * as repository from '@/store/modules/repository.js'
+import * as rda from '@/store/modules/rda-common.js'
 
 Vue.use(Vuex)
 
@@ -24,6 +25,7 @@ export default new Vuex.Store({
     legal,
     license,
     user,
-    repository
+    repository,
+    rda
   }
 })
