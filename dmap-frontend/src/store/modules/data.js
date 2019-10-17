@@ -23,7 +23,8 @@ function mapSampleDataEstimation (estimation) {
     comment: estimation.comment,
     estimatedType: {
       label: estimation.format,
-      description: estimation.formatIdentifier.id
+      description: '',
+      mimeType: estimation.mimeType
     },
     estimatedSize: {
       label: filters.formatStorageSize(totalSize),

@@ -17,8 +17,8 @@
       <v-spacer></v-spacer>
       <v-select
         v-model="dataManagementRoles"
-        :items="items"
-        label="Assign data management roles"
+        :items="contributerTypes"
+        label="Specify contributer types"
         multiple chips
       >
       </v-select>
@@ -42,11 +42,27 @@ export default {
   },
   data () {
     return {
-      items: [
-        'PI',
-        'Co-PI',
-        'Data Manager',
-        'Main contact person for DMP',
+      contributerTypes: [
+        'ContactPerson',
+        'DataCollector',
+        'DataCurator',
+        'DataManager',
+        'Distributor',
+        'Editor',
+        'HostingInstitution',
+        'Producer',
+        'ProjectLeader',
+        'ProjectManager',
+        'ProjectMember',
+        'RegistrationAgency',
+        'RegistrationAuthority',
+        'RelatedPerson',
+        'Researcher',
+        'ResearchGroup',
+        'RightsHolder',
+        'Sponsor',
+        'Supervisor',
+        'WorkPackageLeader',
         'Other'
       ]
     }

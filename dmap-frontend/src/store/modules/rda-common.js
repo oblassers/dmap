@@ -33,7 +33,7 @@ export const actions = {
 
     let dataManagementStaff = rootGetters['people/getDataManagementStaff']
     let contact = dataManagementStaff.find(p => {
-      return p.dataManagementRoles.includes('Main contact person for DMP')
+      return p.dataManagementRoles.includes('ContactPerson')
     })
 
     if (contact) {
@@ -154,7 +154,7 @@ export const actions = {
         host.host_id_type = 'HTTP-RE3DATA'
         host.description = hostDetails.description
         host.supports_versioning = hostDetails.versioning ? hostDetails.versioning : booleanToString(undefined)
-        host.storage_type = hostDetails.repositoryTypes
+        host.storage_type = 'repository'
         if (hostDetails.certificates) {
           host.certified_with = hostDetails.certificates
         }
@@ -169,16 +169,12 @@ export const actions = {
       distribution.title = 'Planned distribution'
       distribution.format = []
       d.dataEstimations.forEach(est => {
-        distribution.format.push(est.estimatedType.description)
-      })
-      if (d.totalSizeMin === d.totalSizeMax) {
-        distribution.byte_size = d.totalSizeMin
-      } else {
-        distribution.byte_size_range = {
-          from: d.totalSizeMin,
-          to: d.totalSizeMax
+        if (est.estimatedType.mimeType) {
+          distribution.format.push(est.estimatedType.mimeType)
         }
-      }
+      })
+      // to be compliant with the standard only use upper bound
+      distribution.byte_size = d.totalSizeMax
 
       distribution.data_access = plannedDistribution.dataAccess ? 'open' : 'closed'
 
