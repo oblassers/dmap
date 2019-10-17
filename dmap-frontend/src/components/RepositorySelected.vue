@@ -25,7 +25,7 @@
         item-value="datasetName"
         item-text="datasetName"
         label="Dataset(s) for deposit"
-        multiple chips
+        multiple clearable chips deletable-chips
         class="mr-3"
       ></v-select>
       <v-menu

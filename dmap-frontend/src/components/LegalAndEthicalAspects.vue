@@ -17,7 +17,7 @@
           item-value="datasetName"
           item-text="datasetName"
           label="Please indicate which datasets contain personal information"
-          multiple chips
+          multiple clearable chips deletable-chips
           class="pt-0 mt-0"
         ></v-select>
       </BaseYesNoQuestion>
@@ -37,7 +37,7 @@
           item-value="datasetName"
           item-text="datasetName"
           label="Please indicate which datasets contain sensitive data"
-          multiple chips
+          multiple clearable chips deletable-chips
           class="pt-0 mt-0"
         ></v-select>
       </BaseYesNoQuestion>

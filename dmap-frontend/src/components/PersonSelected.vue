@@ -19,7 +19,7 @@
         v-model="dataManagementRoles"
         :items="contributerTypes"
         label="Specify contributer types"
-        multiple chips
+        multiple clearable chips deletable-chips
       >
       </v-select>
       <v-btn flat icon @click="removePersonFromDataManagementStaff(person)">
@@ -43,27 +43,90 @@ export default {
   data () {
     return {
       contributerTypes: [
-        'ContactPerson',
-        'DataCollector',
-        'DataCurator',
-        'DataManager',
-        'Distributor',
-        'Editor',
-        'HostingInstitution',
-        'Producer',
-        'ProjectLeader',
-        'ProjectManager',
-        'ProjectMember',
-        'RegistrationAgency',
-        'RegistrationAuthority',
-        'RelatedPerson',
-        'Researcher',
-        'ResearchGroup',
-        'RightsHolder',
-        'Sponsor',
-        'Supervisor',
-        'WorkPackageLeader',
-        'Other'
+        {
+          text: 'Contact Person',
+          value: 'ContactPerson'
+        },
+        {
+          text: 'Data Collector',
+          value: 'DataCollector'
+        },
+        {
+          text: 'Data Curator',
+          value: 'DataCurator'
+        },
+        {
+          text: 'Data Manager',
+          value: 'DataManager'
+        },
+        {
+          text: 'Distributor',
+          value: 'Distributor'
+        },
+        {
+          text: 'Editor',
+          value: 'Editor'
+        },
+        {
+          text: 'Hosting Institution',
+          value: 'HostingInstitution'
+        },
+        {
+          text: 'Producer',
+          value: 'Producer'
+        },
+        {
+          text: 'Project Leader',
+          value: 'ProjectLeader'
+        },
+        {
+          text: 'Project Manager',
+          value: 'ProjectManager'
+        },
+        {
+          text: 'Project Member',
+          value: 'ProjectMember'
+        },
+        {
+          text: 'Registration Agency',
+          value: 'RegistrationAgency'
+        },
+        {
+          text: 'Registration Authority',
+          value: 'RegistrationAuthority'
+        },
+        {
+          text: 'Related Person',
+          value: 'RelatedPerson'
+        },
+        {
+          text: 'Researcher',
+          value: 'Researcher'
+        },
+        {
+          text: 'Research Group',
+          value: 'ResearchGroup'
+        },
+        {
+          text: 'Rights Holder',
+          value: 'RightsHolder'
+        },
+        {
+          text: 'Sponsor',
+          value: 'Sponsor'
+        },
+        {
+          text: 'Supervisor',
+          value: 'Supervisor'
+        },
+        {
+          text: 'Work Package Leader',
+          value: 'WorkPackageLeader'
+        },
+        {
+          text: 'Other',
+          value: 'Other'
+        }
       ]
     }
   },
