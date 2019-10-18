@@ -18,7 +18,7 @@
       <v-select
         v-model="dataManagementRoles"
         :items="contributerTypes"
-        label="Specify contributer types"
+        label="Assign contribution roles"
         multiple clearable chips deletable-chips
       >
       </v-select>

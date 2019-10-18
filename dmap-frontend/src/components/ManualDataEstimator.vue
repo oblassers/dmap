@@ -191,7 +191,7 @@ export default {
           description: 'parameter settings, logs, library files'
         },
         {
-          label: 'Other',
+          label: 'other',
           description: ''
         }
       ],

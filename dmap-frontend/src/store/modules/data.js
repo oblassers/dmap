@@ -22,8 +22,8 @@ function mapSampleDataEstimation (estimation) {
     selectedDataset: estimation.selectedDataset,
     comment: estimation.comment,
     estimatedType: {
-      label: estimation.format,
-      description: '',
+      label: 'other',
+      description: estimation.format,
       mimeType: estimation.mimeType
     },
     estimatedSize: {

@@ -40,6 +40,11 @@
             <v-list-tile :key="estimation.id">
               <v-list-tile-content>
                 <v-list-tile-title>{{ estimation.estimatedType.label }}</v-list-tile-title>
+                <v-list-tile-sub-title
+                  v-if="estimation.estimatedType.description"
+                >
+                  ({{ estimation.estimatedType.description }})
+                </v-list-tile-sub-title>
                 <v-list-tile-sub-title>{{ estimation.comment }}</v-list-tile-sub-title>
               </v-list-tile-content>
               <v-list-tile-action>
