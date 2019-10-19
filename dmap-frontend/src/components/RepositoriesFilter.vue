@@ -159,6 +159,7 @@
 import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 import { mapGetters, mapActions } from 'vuex'
+import * as ct from '@/constants/content-types'
 
 export default {
   name: 'RepositoriesFilter',
@@ -327,64 +328,64 @@ export default {
       ],
       contentTypes: [
         {
-          id: 'Standard office documents',
-          label: 'Standard office documents'
+          id: ct.STANDARD_OFFICE_DOCUMENTS,
+          label: ct.STANDARD_OFFICE_DOCUMENTS
         },
         {
-          id: 'Networkbased data',
-          label: 'Networkbased data'
+          id: ct.NETWORKBASED_DATA,
+          label: ct.NETWORKBASED_DATA
         },
         {
-          id: 'Databases',
-          label: 'Databases'
+          id: ct.DATABASES,
+          label: ct.DATABASES
         },
         {
-          id: 'Images',
-          label: 'Images'
+          id: ct.IMAGES,
+          label: ct.IMAGES
         },
         {
-          id: 'Structured graphics',
-          label: 'Structured graphics'
+          id: ct.STRUCTURED_GRAPHICS,
+          label: ct.STRUCTURED_GRAPHICS
         },
         {
-          id: 'Audiovisual data',
-          label: 'Audiovisual data'
+          id: ct.AUDIOVISUAL_DATA,
+          label: ct.AUDIOVISUAL_DATA
         },
         {
-          id: 'Scientific and statistical data formats',
-          label: 'Scientific and statistical data formats'
+          id: ct.SCIENTIFIC_STATISTICAL_DATA,
+          label: ct.SCIENTIFIC_STATISTICAL_DATA
         },
         {
-          id: 'Raw data',
-          label: 'Raw data'
+          id: ct.RAW_DATA,
+          label: ct.RAW_DATA
         },
         {
-          id: 'Plain text',
-          label: 'Plain text'
+          id: ct.PLAIN_TEXT,
+          label: ct.PLAIN_TEXT
         },
         {
-          id: 'Structured text',
-          label: 'Structured text'
+          id: ct.STRUCTURED_TEXT,
+          label: ct.STRUCTURED_TEXT
         },
         {
-          id: 'Archived data',
-          label: 'Archived data'
+          id: ct.ARCHIVED_DATA,
+          label: ct.ARCHIVED_DATA
         },
         {
-          id: 'Software applications',
-          label: 'Software applications'
+          id: ct.SOFTWARE_APPLICATIONS,
+          label: ct.SOFTWARE_APPLICATIONS
         },
         {
-          id: 'Source code',
-          label: 'Source code'
+          id: ct.SOURCE_CODE,
+          label: ct.SOURCE_CODE
         },
         {
-          id: 'Configuration data',
-          label: 'Configuration data'
+          id: ct.CONFIGURATION_DATA,
+          label: ct.CONFIGURATION_DATA
         },
         {
-          id: 'other',
-          label: 'other'
+          id: ct.OTHER,
+          label: ct.OTHER
         }
       ],
       certificates: [

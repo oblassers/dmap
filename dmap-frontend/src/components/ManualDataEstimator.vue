@@ -119,6 +119,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import * as ct from '@/constants/content-types'
 
 export default {
   name: 'ManualDataEstimator',
@@ -132,66 +133,65 @@ export default {
       estimatedSizeRules: [
         v => !this.isEmpty(v) || 'Estimated size is required'
       ],
-      // TODO: load types from backend
       researchDataTypes: [
         {
-          label: 'Standard office documents',
+          label: ct.STANDARD_OFFICE_DOCUMENTS,
           description: 'text documents, spreadsheets, presentations'
         },
         {
-          label: 'Networkbased data',
+          label: ct.NETWORKBASED_DATA,
           description: 'websites, email, chat history, etc.'
         },
         {
-          label: 'Databases',
+          label: ct.DATABASES,
           description: 'DBASE, MS Access, Oracle, MySQL, etc.'
         },
         {
-          label: 'Images',
+          label: ct.IMAGES,
           description: 'JPEG, JPEG2000, GIF, TIF, PNG, SVG, etc.'
         },
         {
-          label: 'Structured graphics',
+          label: ct.STRUCTURED_GRAPHICS,
           description: 'CAD, CAM, 3D, VRML, etc.'
         },
         {
-          label: 'Audiovisual data',
+          label: ct.AUDIOVISUAL_DATA,
           description: 'WAVE, MP3, MP4, Flash, etc.'
         },
         {
-          label: 'Scientific and statistical data formats',
+          label: ct.SCIENTIFIC_STATISTICAL_DATA,
           description: 'SPSS, FITS, GIS, etc.'
         },
         {
-          label: 'Raw data',
+          label: ct.RAW_DATA,
           description: 'device specific output'
         },
         {
-          label: 'Plain text',
+          label: ct.PLAIN_TEXT,
           description: 'TXT in various encodings'
         },
         {
-          label: 'Structured text',
+          label: ct.STRUCTURED_TEXT,
           description: 'XML, SGML, etc.'
         },
         {
-          label: 'Archived data',
+          label: ct.ARCHIVED_DATA,
           description: 'ZIP, RAR, JAR, etc.'
         },
         {
-          label: 'Software applications',
+          label: ct.SOFTWARE_APPLICATIONS,
           description: 'modelling tools, editors, IDE, compilers, etc.'
         },
         {
-          label: 'Source code',
+          label: ct.SOURCE_CODE,
           description: 'scripting, Java, C, C++, Fortran, etc.'
         },
         {
-          label: 'Configuration data',
+          label: ct.CONFIGURATION_DATA,
           description: 'parameter settings, logs, library files'
         },
         {
-          label: 'other',
+          label: ct.OTHER,
           description: ''
         }
       ],
