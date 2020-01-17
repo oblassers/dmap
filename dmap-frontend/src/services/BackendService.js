@@ -44,13 +44,13 @@ const repositorySuggestionCall = cancellableGetFactory()
 
 export default {
   getDmps () {
-    return apiClient.get('/dmps')
+    return apiClient.get('/dmp')
   },
   getDmp (id) {
-    return apiClient.get('/dmps/' + id)
+    return apiClient.get('/dmp/' + id)
   },
   createNewDmp (dmp) {
-    return apiClient.post('/dmps', dmp)
+    return apiClient.post('/dmp', dmp)
   },
   getProjectSuggestions (user) {
     return apiClient.post('/pdb/suggest-projects', user)

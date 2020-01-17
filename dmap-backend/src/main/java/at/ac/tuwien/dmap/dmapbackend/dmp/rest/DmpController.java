@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/dmps")
+@RequestMapping(path = "api/dmp")
 public class DmpController {
     private static final Logger log = LoggerFactory.getLogger(DmpController.class);
     private DmpService dmpService;

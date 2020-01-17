@@ -33,7 +33,7 @@ public class DmpControllerTest {
     @Test
     public void saysHello() {
         when()
-                .get("/dmps/hello")
+                .get("/dmp/hello")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .assertThat()
