@@ -24,8 +24,12 @@ export const actions = {
     let dmpContainer = Object.assign({}, {
       dmp: {
         title: 'DMP for our new project',
+        dmp_id: {
+          identifier: '89bf3739-a352-4b70-9ef3-3322f2ce6b51',
+          type: 'other'
+        },
         description: 'This DMP is for our new project.',
-        language: 'en',
+        language: 'eng',
         created: new Date().toISOString(),
         modified: new Date().toISOString()
       }
@@ -41,8 +45,10 @@ export const actions = {
         contact: {
           name: contact.personDetails.first_name + ' ' + contact.personDetails.last_name,
           mbox: contact.personDetails.main_email,
-          contact_id: TISS_PERSON_URL + contact.personDetails.tiss_id,
-          contact_id_type: 'HTTP-TISS'
+          contact_id: {
+            identifier: TISS_PERSON_URL + contact.personDetails.tiss_id,
+            type: 'other'
+          }
         }
       })
     }
@@ -51,16 +57,18 @@ export const actions = {
       let person = {}
       person.name = p.personDetails.first_name + ' ' + p.personDetails.last_name
       person.mbox = p.personDetails.main_email
-      person.staff_id = TISS_PERSON_URL + p.personDetails.tiss_id
-      person.staff_id_type = 'HTTP-TISS'
-      person.contributer_type = p.dataManagementRoles
+      person.contributor_id = {
+        identifier: TISS_PERSON_URL + p.personDetails.tiss_id,
+        type: 'other'
+      }
+      person.role = p.dataManagementRoles
 
       return person
     })
 
     if (dmStaff && dmStaff.length > 0) {
       dmpContainer.dmp = Object.assign(dmpContainer.dmp, {
-        dm_staff: dmStaff
+        contributor: dmStaff
       })
     }
 
@@ -85,8 +93,10 @@ export const actions = {
     let projects = rootGetters['project/getSelectedProjects'].map(p => {
       let project = {}
       project.title = p.titleEn
-      project.project_id = TISS_PDB_URL + p.projectId
-      project.project_id_type = 'HTTP-PDB'
+      project.project_id = {
+        identifier: TISS_PDB_URL + p.projectId,
+        type: 'tiss-pdb'
+      }
       project.start = p.begin
       project.end = p.end
 
@@ -98,17 +108,21 @@ export const actions = {
       if (projectDetails.financiers) {
         let fundings = projectDetails.financiers.map(f => {
           let funding = {}
-          funding.funder_name = f.funderName.en
-          funding.funder_id = ''
-          funding.funder_id_type = ''
-          funding.grant_id = ''
-          funding.grant_id_type = ''
+
+          funding.funder_id = {
+            identifier: f.funderName.en,
+            type: 'other'
+          }
+          funding.grant_id = {
+            identifier: '',
+            type: ''
+          }
 
           if (f.program) {
             let index = f.program.findIndex(fp => fp.infoTypeCode === 'AUSSCHREIBUNGS_KENNUNG')
             if (index > -1) {
-              funding.grant_id = f.program[index].infoValue.en
-              funding.grant_id_type = f.program[index].infoTag.en
+              funding.grant_id.identifier = f.program[index].infoValue.en
+              funding.grant_id.type = 'other'
             }
           }
 
@@ -128,6 +142,10 @@ export const actions = {
     let datasets = rootGetters['data/getDatasets'].map(d => {
       let dataset = {}
       dataset.title = d.datasetName
+      dataset.dataset_id = {
+        identifier: '',
+        type: 'other'
+      }
       dataset.personal_data = booleanToString(
         rootGetters['legal/containsPersonalInformation'] &&
         rootGetters['legal/getDatasetsWithPersonalInformation'].includes(d.datasetName))
@@ -150,15 +168,18 @@ export const actions = {
         let host = {}
         let hostDetails = rootGetters['repository/getRepositoryDetailsById'](h.id)
         host.title = h.name
-        host.host_id = RE3DATA_URL + h.id
-        host.host_id_type = 'HTTP-RE3DATA'
+        host.host_id = {
+          identifier: RE3DATA_URL + h.id,
+          type: 're3data'
+        }
+        host.url = hostDetails.repositoryUrl
         host.description = hostDetails.description
-        host.supports_versioning = hostDetails.versioning ? hostDetails.versioning : booleanToString(undefined)
+        host.support_versioning = hostDetails.versioning ? hostDetails.versioning : booleanToString(undefined)
         host.storage_type = 'repository'
         if (hostDetails.certificates) {
           host.certified_with = hostDetails.certificates
         }
-        host.pid_system = hostDetails.pidSystems
+        host.pid_system = hostDetails.pidSystems.map(p => p.toLowerCase())
 
         return host
       })
@@ -181,7 +202,7 @@ export const actions = {
       if (plannedDistribution.dataAccess) {
         distribution.license = []
         distribution.license.push({
-          license_name: plannedDistribution.license.name,
+          name: plannedDistribution.license.name,
           license_ref: plannedDistribution.license.url,
           start_date: plannedDistribution.licenseActiveDate
         })
@@ -193,8 +214,9 @@ export const actions = {
         hosts.forEach(h => {
           let distributionPerHost = Object.assign({}, distribution)
           distributionPerHost.host = h
-          distributionPerHost.available_till =
-            rootGetters['repository/getSelectedRepositoryById'](h.host_id.substring(RE3DATA_URL.length)).availableUntil
+          distributionPerHost.available_until =
+            rootGetters['repository/getSelectedRepositoryById'](
+              h.host_id.identifier.substring(RE3DATA_URL.length)).availableUntil
           distributions.push(distributionPerHost)
         })
       }
