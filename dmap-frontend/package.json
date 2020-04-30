@@ -14,7 +14,7 @@
     "LicenseSelector": "https://github.com/ufal/public-license-selector.git#releases",
     "axios": "^0.18.1",
     "file-saver": "^2.0.2",
-    "jquery": "^2.1.1",
+    "jquery": "^3.5.0",
     "lodash": "^2.4.1",
     "moment": "^2.24.0",
     "nprogress": "^0.2.0",
